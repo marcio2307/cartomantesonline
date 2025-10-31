@@ -74,9 +74,11 @@ footer { text-align:center; margin-top:30px; color:#888; }
 
 <footer>© 2025 Cartomantes Online — Administração</footer>
 
-<!-- Firebase (compat + módulo) -->
+<!-- Firebase compat (para agendamentos) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<!-- Firebase módulo (para coletivo) -->
 <script type="module">
   import { initializeApp as initColetivo } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
   import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
@@ -91,10 +93,13 @@ footer { text-align:center; margin-top:30px; color:#888; }
     messagingSenderId: "740866367489",
     appId: "1:740866367489:web:963e3f5be80cb35a71e000"
   };
-  const appColetivo = initColetivo(firebaseConfigColetivo);
+
+  // Cria app nomeado para evitar conflito
+  const appColetivo = initColetivo(firebaseConfigColetivo, "coletivoApp");
   const db = getDatabase(appColetivo);
   const infoNode = ref(db, "coletivo_info");
 
+  // Botão de salvar
   document.getElementById("salvar").addEventListener("click", async () => {
     const data = {
       titulo: document.getElementById("titulo").value,
