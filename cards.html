@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consultores Espirituais Online</title>
+
+<style>
+    body {
+        background-color: #111;
+        color: #fff;
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: gold;
+        margin-bottom: 30px;
+    }
+
+    /* CONTAINER */
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        justify-content: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* CARD */
+    .card {
+        background-color: #222;
+        border: 2px solid #c7a008;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+    .card img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    /* BADGES */
+    .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #27ae60;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 5px;
+        text-transform: uppercase;
+    }
+
+    .badge.exclusivo {
+        left: auto;
+        right: 10px;
+        background: #b8b8b8;
+        color: #000;
+    }
+
+    /* CONTEÚDO */
+    .content {
+        padding: 15px;
+    }
+
+    .name {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .stars {
+        color: gold;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .desc {
+        font-size: 13px;
+        color: #ccc;
+        min-height: 60px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        display: block;
+        background-color: #27ae60;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-bottom: 15px;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #2ecc71;
+    }
+
+    /* INFOS */
+    .info-box {
+        display: flex;
+        justify-content: space-around;
+        background: #333;
+        padding: 10px 0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .info-box div {
+        text-align: center;
+    }
+
+    .info-title {
+        font-size: 12px;
+        color: gold;
+    }
+
+    .info-value {
+        font-weight: bold;
+    }
+
+    /* SERVIÇOS */
+    .services {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 5px 0 10px;
+        font-size: 12px;
+        color: #ddd;
+        text-align: center;
+    }
+
+    .services span {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .price {
+        color: gold;
+        font-weight: bold;
+        display: block;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 600px) {
+        .card img {
+            height: 250px;
+        }
+        .name {
+            font-size: 18px;
+        }
+        .desc {
+            font-size: 12px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Consultores Espirituais Online</h1>
+
+<div class="container">
+
+    <!-- CARD 1 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Alara+Vidente" alt="Alara Vidente">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Alara Vidente</div>
+            <div class="stars">★★★★★</div>
+            <div class="desc">Com profunda conexão espiritual e dons ancestrais, desvendo os mistérios da sua alma.</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">263</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">36</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$1,99</span></span>
+                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Andaluzia+Cigana" alt="Andaluzia Cigana">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Andaluzia Cigana</div>
+            <div class="stars">★★★★★</div>
+            <div class="desc">"O sangue cigano me guia, as cartas revelam o destino e eu te ajudo a encontrar o caminho."</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">4833</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">162</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$2,49</span></span>
+                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Baba+D'Vodoun" alt="Babá DVodoun">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Babá DVodoun</div>
+            <div class="stars">★★★★★</div>
+            <div class="desc">Onde a força dos Voduns reina, nenhum caminho fica sem resposta. Mestre de oráculos e energia ancestral.</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">5008</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">732</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$2,49</span></span>
+                <span>🎥 Vídeo<br><span class="price">R$2,99</span></span>
+                <span>🎧 Áudio<br><span class="price">R$2,75</span></span>
+                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Cigana+Kassandra" alt="Cigana Kassandra">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Cigana Kassandra</div>
+            <div class="stars">☆☆☆☆☆</div>
+            <div class="desc">Cigana no sangue e na alma, clarividente e sensitiva há mais de 20 anos guiada pela luz.</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">7</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">0</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$1,99</span></span>
+                <span>🎧 Áudio<br><span class="price">R$1,99</span></span>
+                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Iara+Tarologa" alt="Iara Taróloga">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Iara Taróloga</div>
+            <div class="stars">★★★★☆</div>
+            <div class="desc">Leitora intuitiva com mais de 15 anos de experiência em tarot e oráculos espirituais.</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">1250</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">220</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$2,10</span></span>
+                <span>🎧 Áudio<br><span class="price">R$2,60</span></span>
+                <span>📧 E-mail<br><span class="price">R$49,90</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card">
+        <img src="https://via.placeholder.com/260x300?text=Orun+Babalorixá" alt="Orun Babalorixá">
+        <span class="badge">Online</span>
+        <span class="badge exclusivo">Exclusivo</span>
+        <div class="content">
+            <div class="name">Orun Babalorixá</div>
+            <div class="stars">★★★★★</div>
+            <div class="desc">Sacerdote dos orixás, guia espiritual e conselheiro de caminhos e prosperidade.</div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+            <div class="info-box">
+                <div><div class="info-title">CONSULTAS</div><div class="info-value">3890</div></div>
+                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">510</div></div>
+            </div>
+            <div class="services">
+                <span>💬 Chat<br><span class="price">R$2,90</span></span>
+                <span>🎥 Vídeo<br><span class="price">R$3,50</span></span>
+                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
