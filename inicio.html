@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Agendamentos — Trabalhos e Consultas</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background:#000; font-family: 'Poppins', system-ui, -apple-system, Arial, sans-serif; }
+
+  /* ==== BANNER COM IMAGEM RESPONSIVA ==== */
+  .banner {
+    position: relative;
+    width: 100%;
+    height: 65vh; /* altura proporcional à tela */
+    min-height: 260px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.85)),
+      url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center center / cover no-repeat;
+    border-bottom: 2px solid #990000;
+  }
+
+  /* Ajuste de foco visual para diferentes tamanhos */
+  @media (max-width: 768px) {
+    .banner {
+      background-position: center top;
+      height: 55vh;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .banner {
+      background-position: center top;
+      height: 45vh;
+    }
+  }
+
+  /* Efeito de anéis dourados */
+  .glow-ring {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    border: 1px solid rgba(255,255,0,0.12);
+    border-radius: 50%;
+    filter: drop-shadow(0 0 20px rgba(255,255,0,0.25));
+    animation: rotate 18s linear infinite;
+  }
+  .glow-ring:nth-child(2) { width: 140%; height: 140%; animation-duration: 26s; opacity: .5; }
+  .glow-ring:nth-child(3) { width: 160%; height: 160%; animation-duration: 34s; opacity: .3; }
+
+  @keyframes rotate { to { transform: rotate(360deg); } }
+
+  /* Conteúdo do banner */
+  .content {
+    position: relative;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 16px;
+    z-index: 2;
+  }
+
+  .title {
+    font-size: clamp(22px, 4.5vw, 46px);
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: #FFD700;
+    text-shadow:
+      0 0 5px #000,
+      0 0 12px #FFD700,
+      0 0 25px #ffcc00,
+      0 0 45px #ff9900;
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(255,255,0,0.4)); }
+    50%      { filter: drop-shadow(0 0 18px rgba(255,255,0,0.8)); }
+  }
+
+  .subtitle {
+    margin-top: 12px;
+    font-size: clamp(13px, 2.4vw, 16px);
+    color: #f8f8b3;
+    opacity: .95;
+  }
+
+  /* ==== SEÇÃO DE SERVIÇOS ==== */
+  .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto;
+  }
+
+  .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+  }
+
+  a.service-card {
+      display: block;
+      text-decoration: none;
+      color: #FFD700;
+      background-color: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  a.service-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+  }
+
+  .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+  }
+
+  .service-card .content {
+      padding: 15px;
+  }
+
+  .service-card h3 {
+      margin-top: 0;
+      color: red;
+      text-shadow: 0 0 5px #ff0000;
+  }
+
+  .service-card p {
+      margin-bottom: 10px;
+  }
+
+  footer {
+      text-align: center;
+      padding: 15px 0;
+      background-color: #0cdfb9;
+      color: #fff;
+      margin-top: 30px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -3px 10px rgba(255, 215, 0, 0.3);
+  }
+
+  footer a {
+      color: #fff;
+      text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+      .service-card img {
+          height: 150px;
+      }
+  }
+</style>
+</head>
+<body>
+
+  <!-- BANNER RESPONSIVO COM IMAGEM E ANÉIS -->
+  <section class="banner">
+    <div class="glow-ring"></div>
+    <div class="glow-ring"></div>
+    <div class="glow-ring"></div>
+
+    <div class="content">
+      <h1 class="title">FAÇA AGORA SEU AGENDAMENTO DE TRABALHOS E CONSULTAS</h1>
+      <p class="subtitle">Sistema automático e seguro — confirme sua participação e garanta seu atendimento.</p>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO DE SERVIÇOS -->
+  <div class="container">
+      <div class="services">
+          <!-- Consulta de Tarot -->
+          <a href="https://cartomantesonline.site/agendamento" class="service-card" target="_blank">
+              <img src="https://acdn-us.mitiendanube.com/stores/002/264/401/products/tfm-extra-5624bef514fa7a6e4417322996590771-1024-1024.webp" alt="Consulta de Tarot">
+              <div class="content">
+                  <h3>Consulta de Tarot</h3>
+                  <p>Agende sua consulta e receba respostas diretas do Tarot com sabedoria espiritual.</p>
+                  <p><strong>Valores:</strong> R$60 - 3 perguntas | R$120 - 7 perguntas</p>
+              </div>
+          </a>
+
+          <!-- Trabalhos Espirituais -->
+          <a href="https://cartomantesonline.site/trabalhos" class="service-card" target="_blank">
+              <img src="https://i.pinimg.com/736x/72/96/30/729630cb04fdbbecee19559502b3d0e7.jpg" alt="Trabalhos Espirituais">
+              <div class="content">
+                  <h3>Trabalhos Espirituais</h3>
+                  <p>Rituais individuais para amor, proteção e prosperidade. Cada trabalho é único e sigiloso.</p>
+                  <p><strong>Valores:</strong> Consultar por serviço</p>
+              </div>
+          </a>
+
+          <!-- Trabalhos Coletivos -->
+          <a href="https://cartomantesonline.site/coletivos" class="service-card" target="_blank">
+              <img src="https://www.diegodeoxossi.com.br/site/views/00_projects/diegodeoxossi/content/image/home/1145d21a.jpg" alt="Trabalhos Coletivos">
+              <div class="content">
+                  <h3>Trabalhos Coletivos</h3>
+                  <p>Participe de rituais coletivos voltados à limpeza energética e prosperidade em grupo.</p>
+                  <p><strong>Valores:</strong> Consultar por evento</p>
+              </div>
+          </a>
+
+          <!-- Consultores Online -->
+          <a href="https://cartomantesonline.site/" class="service-card" target="_blank">
+              <img src="https://img.freepik.com/fotos-gratis/mulher-de-tiro-medio-lendo-taro-em-casa_23-2150273203.jpg?semt=ais_hybrid&w=740&q=80" alt="Consultores Online">
+              <div class="content">
+                  <h3>Consultores Online</h3>
+                  <p>Atendimento online com consultores espirituais preparados para orientar seu caminho.</p>
+                  <p><strong>Valores:</strong> R$1,00 por minuto online</p>
+              </div>
+          </a>
+      </div>
+  </div>
+
+  <footer>
+      © 2025 Cartomantes Online — Pai Márcio de Oxóssi | <a href="https://cartomantesonline.site" target="_blank">Visite o site oficial</a>
+  </footer>
+
+</body>
+</html>
