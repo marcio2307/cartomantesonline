@@ -4,134 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comprar Minutos - Cartomantes Online</title>
-
 <style>
-    body {
-        background: radial-gradient(circle at top, #1a1a1a, #000);
-        color: #fff;
-        font-family: 'Poppins', Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-    }
-
-    .container {
-        max-width: 420px;
-        margin: 40px auto;
-        background: rgba(255, 255, 255, 0.05);
-        border: 2px solid gold;
-        border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    }
-
-    h1 {
-        text-align: center;
-        color: gold;
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .option {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid #c7a008;
-        border-radius: 10px;
-        padding: 15px;
-        text-align: center;
-        margin-bottom: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .option:hover {
-        background: rgba(255, 215, 0, 0.15);
-        transform: scale(1.02);
-    }
-
-    .selected {
-        background: rgba(255, 215, 0, 0.3);
-        border: 2px solid gold;
-    }
-
-    .pix-section {
-        text-align: center;
-        margin-top: 25px;
-    }
-
-    .pix-logo {
-        width: 150px;
-        margin: 10px auto 15px;
-        display: block;
-        filter: drop-shadow(0 0 6px #0cdfb9);
-    }
-
-    .pix-btn {
-        background: linear-gradient(90deg, #00bfa5, #00937b);
-        border: none;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 16px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: transform 0.2s ease, background 0.3s ease;
-        width: 100%;
-        max-width: 250px;
-    }
-
-    .pix-btn:hover {
-        transform: scale(1.05);
-        background: linear-gradient(90deg, #10e7c2, #007c66);
-    }
-
-    .price-display {
-        text-align: center;
-        color: gold;
-        font-size: 20px;
-        margin-top: 20px;
-        font-weight: bold;
-    }
-
-    .consultor-img {
-        display: block;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin: 10px auto;
-        border: 2px solid gold;
-    }
-
+body{background:radial-gradient(circle at top,#1a1a1a,#000);color:#fff;font-family:'Poppins',Arial,sans-serif;margin:0;padding:20px;}
+.container{max-width:420px;margin:40px auto;background:rgba(255,255,255,0.05);border:2px solid gold;border-radius:15px;padding:25px;box-shadow:0 0 20px rgba(255,215,0,0.2);}
+h1{text-align:center;color:gold;font-size:22px;margin-bottom:10px;}
+.option{background:rgba(255,255,255,0.08);border:1px solid #c7a008;border-radius:10px;padding:15px;text-align:center;margin-bottom:15px;cursor:pointer;transition:all .3s;}
+.option:hover{background:rgba(255,215,0,0.15);transform:scale(1.02);}
+.selected{background:rgba(255,215,0,0.3);border:2px solid gold;}
+.pix-section{text-align:center;margin-top:25px;}
+.pix-logo{width:150px;margin:10px auto 15px;display:block;filter:drop-shadow(0 0 6px #0cdfb9);}
+.pix-btn{background:linear-gradient(90deg,#00bfa5,#00937b);border:none;color:white;padding:12px 20px;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold;transition:transform .2s,background .3s;width:100%;max-width:250px;}
+.pix-btn:hover{transform:scale(1.05);background:linear-gradient(90deg,#10e7c2,#007c66);}
+.price-display{text-align:center;color:gold;font-size:20px;margin-top:20px;font-weight:bold;}
+.consultor-img{display:block;width:120px;height:120px;border-radius:50%;object-fit:cover;margin:10px auto;border:2px solid gold;}
 </style>
 </head>
 <body>
 
 <div class="container">
     <div id="consultor-info"></div>
-
     <h1>Escolha seus minutos</h1>
-
-    <div class="option" data-price="10" data-minutes="10">
-        <h2>10 Minutos</h2>
-        <p>R$ 10,00</p>
-    </div>
-
-    <div class="option" data-price="20" data-minutes="20">
-        <h2>20 Minutos</h2>
-        <p>R$ 20,00</p>
-    </div>
-
-    <div class="option" data-price="30" data-minutes="30">
-        <h2>30 Minutos</h2>
-        <p>R$ 30,00</p>
-    </div>
-
-    <div class="option" data-price="60" data-minutes="60">
-        <h2>60 Minutos</h2>
-        <p>R$ 60,00</p>
-    </div>
-
+    <div id="opcoes"></div>
     <div class="price-display" id="selected-price">Selecione uma opção</div>
-
     <div class="pix-section">
         <img class="pix-logo" src="https://artpoin.com/wp-content/uploads/2023/09/artpoin-logo-pix.png" alt="PIX Logo">
         <button class="pix-btn" id="pixButton" disabled>Pagar com PIX</button>
@@ -139,42 +33,53 @@
 </div>
 
 <script>
-// Recuperar informações do consultor
-const nome = localStorage.getItem('consultor_nome');
-const preco = localStorage.getItem('consultor_preco');
-const imagem = localStorage.getItem('consultor_imagem');
+const nome=localStorage.getItem('consultor_nome');
+const precoTexto=localStorage.getItem('consultor_preco');
+const imagem=localStorage.getItem('consultor_imagem');
+const precoPorMinuto=parseFloat(precoTexto.replace('R$','').replace(',','.'))||1;
 
-if (nome && preco) {
-    document.getElementById('consultor-info').innerHTML = `
+if(nome&&precoTexto){
+    document.getElementById('consultor-info').innerHTML=`
         <img src="${imagem}" alt="${nome}" class="consultor-img">
-        <h2 style="color: gold; text-align: center;">${nome}</h2>
-        <p style="text-align: center; color: #fff; margin-bottom: 20px;">${preco}</p>
+        <h2 style="color:gold;text-align:center;">${nome}</h2>
+        <p style="text-align:center;color:#fff;margin-bottom:20px;">${precoTexto}</p>
     `;
 }
 
-const options = document.querySelectorAll('.option');
-const priceDisplay = document.getElementById('selected-price');
-const pixButton = document.getElementById('pixButton');
-let selectedPrice = null;
+// gera opções com base no valor por minuto
+const minutos=[10,20,30,60];
+const opcoesDiv=document.getElementById('opcoes');
+minutos.forEach(m=>{
+    const valor=(m*precoPorMinuto).toFixed(2).replace('.',',');
+    opcoesDiv.innerHTML+=`
+      <div class="option" data-price="${valor}" data-minutes="${m}">
+        <h2>${m} Minutos</h2>
+        <p>R$ ${valor}</p>
+      </div>`;
+});
 
-options.forEach(option => {
-    option.addEventListener('click', () => {
-        options.forEach(o => o.classList.remove('selected'));
-        option.classList.add('selected');
-        selectedPrice = option.getAttribute('data-price');
-        const minutes = option.getAttribute('data-minutes');
-        priceDisplay.textContent = `Você selecionou ${minutes} minutos - R$ ${selectedPrice},00`;
-        pixButton.disabled = false;
+const options=document.querySelectorAll('.option');
+const priceDisplay=document.getElementById('selected-price');
+const pixButton=document.getElementById('pixButton');
+let selectedPrice=null;
+
+options.forEach(opt=>{
+    opt.addEventListener('click',()=>{
+        options.forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedPrice=opt.getAttribute('data-price');
+        const minutes=opt.getAttribute('data-minutes');
+        priceDisplay.textContent=`Você selecionou ${minutes} minutos - R$ ${selectedPrice}`;
+        pixButton.disabled=false;
     });
 });
 
-pixButton.addEventListener('click', () => {
-    if (selectedPrice) {
-        const descricao = encodeURIComponent(`Consulta com ${nome} - ${selectedPrice} Reais`);
-        window.location.href = `https://cartomantespagamento.com.br/index.php?valor=${selectedPrice},00&descricao=${descricao}`;
+pixButton.addEventListener('click',()=>{
+    if(selectedPrice){
+        const descricao=encodeURIComponent(`Consulta com ${nome} - ${selectedPrice} Reais`);
+        window.location.href=`https://cartomantespagamento.com.br/index.php?valor=${selectedPrice}&descricao=${descricao}`;
     }
 });
 </script>
-
 </body>
 </html>
