@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo — Cartomantes Online</title>
+<style>
+body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; }
+h1, h2 { text-align:center; color:#ffd700; text-shadow:0 0 10px #ff0; }
+label { font-weight:bold; color:yellow; margin-top:10px; display:block; }
+input, select, textarea, button {
+  width:100%; padding:10px; margin-bottom:15px;
+  border-radius:6px; border:none; font-size:16px;
+}
+button { background:red; color:#fff; cursor:pointer; transition:0.3s; }
+button:hover { background:#b30000; }
+#loginForm { max-width:320px; margin:auto; margin-top:30px; }
+#painelGeral { display:none; margin-top:20px; }
+.tabs { text-align:center; margin-bottom:25px; }
+.tabs button {
+  background:#111; color:#ffd700; border:1px solid #ff0000;
+  margin:0 10px; padding:10px 20px; border-radius:6px;
+}
+.tabs button.active { background:red; color:#fff; }
+.section { display:none; }
+.horario-item {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:5px; background:#222; padding:5px 10px; border-radius:6px;
+  flex-wrap:wrap;
+}
+.horario-item div { flex:1; color:#0cdfb9; margin-bottom:5px; }
+footer { text-align:center; margin-top:30px; color:#888; }
+</style>
+</head>
+<body>
+
+<h1>Painel Administrativo</h1>
+
+<div id="loginForm">
+  <label>Usuário:</label>
+  <input type="text" id="username">
+  <label>Senha:</label>
+  <input type="password" id="password">
+  <button onclick="login()">Entrar</button>
+</div>
+
+<div id="painelGeral">
+  <div class="tabs">
+    <button id="btnAgendamento" class="active" onclick="mostrar('agendamento')">📅 Agendamentos</button>
+    <button id="btnColetivo" onclick="mostrar('coletivo')">🔥 Coletivo</button>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <!-- PAINEL DE AGENDAMENTOS -->
+  <div id="agendamento" class="section" style="display:block;">
+    <h2>Painel de Agendamentos</h2>
+    <label for="dataSelect">Selecione a Data:</label>
+    <input type="date" id="dataSelect">
+    <div id="horariosContainer"></div>
+  </div>
+
+  <!-- PAINEL DE COLETIVO -->
+  <div id="coletivo" class="section">
+    <h2>Painel — Amarração Coletiva</h2>
+    <input id="titulo" placeholder="Título do Coletivo">
+    <input id="data" placeholder="Data do Coletivo">
+    <input id="valor" placeholder="Valor (ex: R$ 47,00)">
+    <textarea id="desc" placeholder="Descrição"></textarea>
+    <input id="img" placeholder="URL da imagem">
+    <input id="vagas" type="number" placeholder="Número de vagas">
+    <button id="salvar">Salvar alterações</button>
+  </div>
+</div>
+
+<footer>© 2025 Cartomantes Online — Administração</footer>
+
+<!-- Firebase (compat + módulo) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script type="module">
+  import { initializeApp as initColetivo } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+
+  // Firebase do coletivo
+  const firebaseConfigColetivo = {
+    apiKey: "AIzaSyAg7SXLTDxayTOCzs7-sW5s0_nx7nkDgVo",
+    authDomain: "coletivo2025-9de23.firebaseapp.com",
+    databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
+    projectId: "coletivo2025-9de23",
+    storageBucket: "coletivo2025-9de23.appspot.com",
+    messagingSenderId: "740866367489",
+    appId: "1:740866367489:web:963e3f5be80cb35a71e000"
+  };
+  const appColetivo = initColetivo(firebaseConfigColetivo);
+  const db = getDatabase(appColetivo);
+  const infoNode = ref(db, "coletivo_info");
+
+  document.getElementById("salvar").addEventListener("click", async () => {
+    const data = {
+      titulo: document.getElementById("titulo").value,
+      data: document.getElementById("data").value,
+      valor: document.getElementById("valor").value,
+      desc: document.getElementById("desc").value,
+      img: document.getElementById("img").value,
+      vagas: parseInt(document.getElementById("vagas").value)
+    };
+    await set(infoNode, data);
+    alert("🔥 Coletivo atualizado com sucesso!");
+  });
+</script>
+
+<script>
+// Login simples
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "1234";
+
+function login(){
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  if(user===ADMIN_USER && pass===ADMIN_PASS){
+    document.getElementById('loginForm').style.display='none';
+    document.getElementById('painelGeral').style.display='block';
+  } else alert("Usuário ou senha incorretos!");
+}
+
+function logout(){
+  document.getElementById('painelGeral').style.display='none';
+  document.getElementById('loginForm').style.display='block';
+  document.getElementById('username').value='';
+  document.getElementById('password').value='';
+}
+
+// Alternância entre seções
+function mostrar(secao){
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById(secao).style.display='block';
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(secao==='agendamento') document.getElementById('btnAgendamento').classList.add('active');
+  if(secao==='coletivo') document.getElementById('btnColetivo').classList.add('active');
+}
+
+// ==== Firebase Agendamentos ====
+const firebaseConfigAgendamento = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  databaseURL: "https://calendario-f58bc-default-rtdb.firebaseio.com/",
+  projectId: "SEU_PROJETO",
+  storageBucket: "SEU_PROJETO.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+firebase.initializeApp(firebaseConfigAgendamento);
+const database = firebase.database();
+
+const dataSelect = document.getElementById('dataSelect');
+const horariosContainer = document.getElementById('horariosContainer');
+
+dataSelect.addEventListener('change', ()=>{
+  const selectedDate = dataSelect.value;
+  if(!selectedDate) return;
+  const ref = database.ref('agendamentos/'+selectedDate);
+  ref.on('value', snapshot=>{
+    const horarios = snapshot.val()||{};
+    renderHorarios(horarios, selectedDate);
+  });
+});
+
+function renderHorarios(horarios,data){
+  horariosContainer.innerHTML='';
+  const keys = Object.keys(horarios);
+  if(keys.length===0){ horariosContainer.innerHTML='<p>Nenhum horário agendado nesta data.</p>'; return; }
+  keys.forEach(hora=>{
+    const info = horarios[hora];
+    const div = document.createElement('div');
+    div.className='horario-item';
+    div.innerHTML=`
+      <div><strong>${hora}</strong> - ${info.nome} | ${info.email} | ${info.whatsapp} | ${info.pacote}</div>
+      <button onclick="liberarHorario('${data}','${hora}')">Liberar</button>
+    `;
+    horariosContainer.appendChild(div);
+  });
+}
+
+function liberarHorario(data,hora){
+  const ref = database.ref(`agendamentos/${data}/${hora}`);
+  ref.remove()
+    .then(()=>alert(`Horário ${hora} do dia ${data} liberado!`))
+    .catch(err=>alert("Erro ao liberar horário: "+err.message));
+}
+</script>
+</body>
+</html>
