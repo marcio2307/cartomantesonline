@@ -36,11 +36,19 @@ cursor: pointer; font-weight: bold; transition: transform 0.2s ease; width: 100%
     <button class="pix-btn" id="pixButton" disabled>Pagar com PIX</button>
 </div>
 <script>
+// Dados do consultor vindos do localStorage
 const nome = localStorage.getItem('consultorNome');
 const valor = parseFloat(localStorage.getItem('consultorValor'));
 const imagem = localStorage.getItem('consultorImagem');
 document.getElementById('consultorNome').textContent = nome;
 document.getElementById('consultorImagem').src = imagem;
+
+// Função para normalizar nomes (remove acentos e converte para minúsculas)
+function normalizarTexto(texto) {
+  return texto
+    ? texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
+    : "";
+}
 
 const minutos = [10, 20, 30, 60];
 const opcoesDiv = document.getElementById('opcoes');
@@ -100,32 +108,34 @@ const links = {
   }
 };
 
+// Criação dinâmica das opções de tempo
 minutos.forEach(m => {
-    const preco = (m * valor).toFixed(2);
-    const div = document.createElement('div');
-    div.className = 'option';
-    div.innerHTML = `<h2>${m} Minutos</h2><p>R$ ${preco}</p>`;
-    div.onclick = () => {
-        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-        div.classList.add('selected');
-        valorSelecionado = m;
-        precoSelecionado.textContent = `Você selecionou ${m} minutos - R$ ${preco}`;
-        botaoPix.disabled = false;
-    };
-    opcoesDiv.appendChild(div);
+  const preco = (m * valor).toFixed(2);
+  const div = document.createElement('div');
+  div.className = 'option';
+  div.innerHTML = `<h2>${m} Minutos</h2><p>R$ ${preco}</p>`;
+  div.onclick = () => {
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    div.classList.add('selected');
+    valorSelecionado = m;
+    precoSelecionado.textContent = `Você selecionou ${m} minutos - R$ ${preco}`;
+    botaoPix.disabled = false;
+  };
+  opcoesDiv.appendChild(div);
 });
 
+// Ação do botão PIX
 botaoPix.onclick = () => {
-    if (valorSelecionado) {
-        const nomeNormalizado = (nome || "").toLowerCase().trim();
-        const linkPix = links[nomeNormalizado]?.[valorSelecionado];
-        if (linkPix) {
-            window.location.href = linkPix;
-        } else {
-            const link = `https://cartomantespagamento.com.br/index.php?valor=${valorSelecionado}&descricao=${encodeURIComponent(nome)}%20Consulta`;
-            window.location.href = link;
-        }
+  if (valorSelecionado) {
+    const nomeNormalizado = normalizarTexto(nome);
+    const linkPix = links[nomeNormalizado]?.[valorSelecionado];
+    if (linkPix) {
+      window.location.href = linkPix;
+    } else {
+      const link = `https://cartomantespagamento.com.br/index.php?valor=${valorSelecionado}&descricao=${encodeURIComponent(nome)}%20Consulta`;
+      window.location.href = link;
     }
+  }
 };
 </script>
 </body>
