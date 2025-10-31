@@ -89,6 +89,7 @@
       margin: 40px auto;
   }
 
+  /* Layout padrão (PC): 3 colunas */
   .services {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -147,7 +148,7 @@
       text-decoration: underline;
   }
 
-  /* 🔹 2 cards por linha no celular */
+  /* 🔹 2 cards por linha em celulares e tablets */
   @media (max-width: 768px) {
       .services {
           grid-template-columns: repeat(2, 1fr);
@@ -158,8 +159,8 @@
       }
   }
 
-  /* 🔹 1 card por linha em telas muito pequenas */
-  @media (max-width: 420px) {
+  /* 🔹 1 card por linha em celulares muito pequenos */
+  @media (max-width: 450px) {
       .services {
           grid-template-columns: 1fr;
       }
