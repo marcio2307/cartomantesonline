@@ -3,83 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comprar Minutos - Cartomantes Online</title>
+<title>Pagar Consulta - Cartomantes Online</title>
 <style>
-body{background:radial-gradient(circle at top,#1a1a1a,#000);color:#fff;font-family:'Poppins',Arial,sans-serif;margin:0;padding:20px;}
-.container{max-width:420px;margin:40px auto;background:rgba(255,255,255,0.05);border:2px solid gold;border-radius:15px;padding:25px;box-shadow:0 0 20px rgba(255,215,0,0.2);}
-h1{text-align:center;color:gold;font-size:22px;margin-bottom:10px;}
-.option{background:rgba(255,255,255,0.08);border:1px solid #c7a008;border-radius:10px;padding:15px;text-align:center;margin-bottom:15px;cursor:pointer;transition:all .3s;}
-.option:hover{background:rgba(255,215,0,0.15);transform:scale(1.02);}
-.selected{background:rgba(255,215,0,0.3);border:2px solid gold;}
-.pix-section{text-align:center;margin-top:25px;}
-.pix-logo{width:150px;margin:10px auto 15px;display:block;filter:drop-shadow(0 0 6px #0cdfb9);}
-.pix-btn{background:linear-gradient(90deg,#00bfa5,#00937b);border:none;color:white;padding:12px 20px;border-radius:8px;font-size:16px;cursor:pointer;font-weight:bold;transition:transform .2s,background .3s;width:100%;max-width:250px;}
-.pix-btn:hover{transform:scale(1.05);background:linear-gradient(90deg,#10e7c2,#007c66);}
-.price-display{text-align:center;color:gold;font-size:20px;margin-top:20px;font-weight:bold;}
-.consultor-img{display:block;width:120px;height:120px;border-radius:50%;object-fit:cover;margin:10px auto;border:2px solid gold;}
+body { background: radial-gradient(circle at top, #1a1a1a, #000); color: #fff;
+font-family: 'Poppins', Arial, sans-serif; margin: 0; padding: 20px; }
+.container { max-width: 420px; margin: 40px auto; background: rgba(255,255,255,0.05);
+border: 2px solid gold; border-radius: 15px; padding: 25px; box-shadow: 0 0 20px rgba(255,215,0,0.2); text-align: center; }
+.consultor-img { width: 150px; border-radius: 10px; margin-bottom: 10px; }
+h1 { color: gold; font-size: 22px; margin: 10px 0; }
+p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
+.option { background: rgba(255,255,255,0.08); border: 1px solid #c7a008;
+border-radius: 10px; padding: 15px; margin-bottom: 10px; cursor: pointer;
+transition: all 0.3s ease; }
+.option:hover { background: rgba(255,215,0,0.15); transform: scale(1.02); }
+.option.selected { background: rgba(255,215,0,0.3); border: 2px solid gold; }
+.pix-logo { width: 150px; margin: 20px auto; display: block; filter: drop-shadow(0 0 6px #0cdfb9); }
+.pix-btn { background: linear-gradient(90deg, #00bfa5, #00937b); border: none;
+color: white; padding: 12px 20px; border-radius: 8px; font-size: 16px;
+cursor: pointer; font-weight: bold; transition: transform 0.2s ease; width: 100%; max-width: 250px; }
+.pix-btn:hover { transform: scale(1.05); }
+.price-display { color: gold; font-size: 20px; margin-top: 20px; font-weight: bold; }
 </style>
 </head>
 <body>
-
 <div class="container">
-    <div id="consultor-info"></div>
-    <h1>Escolha seus minutos</h1>
+    <img id="consultorImagem" class="consultor-img" src="" alt="Consultor">
+    <h1 id="consultorNome">Consultor</h1>
+    <p>Escolha quantos minutos deseja na sua consulta.</p>
     <div id="opcoes"></div>
-    <div class="price-display" id="selected-price">Selecione uma opção</div>
-    <div class="pix-section">
-        <img class="pix-logo" src="https://artpoin.com/wp-content/uploads/2023/09/artpoin-logo-pix.png" alt="PIX Logo">
-        <button class="pix-btn" id="pixButton" disabled>Pagar com PIX</button>
-    </div>
+    <div class="price-display" id="precoSelecionado">Selecione uma opção</div>
+    <img class="pix-logo" src="https://artpoin.com/wp-content/uploads/2023/09/artpoin-logo-pix.png" alt="PIX Logo">
+    <button class="pix-btn" id="pixButton" disabled>Pagar com PIX</button>
 </div>
-
 <script>
-const nome=localStorage.getItem('consultor_nome');
-const precoTexto=localStorage.getItem('consultor_preco');
-const imagem=localStorage.getItem('consultor_imagem');
-const precoPorMinuto=parseFloat(precoTexto.replace('R$','').replace(',','.'))||1;
-
-if(nome&&precoTexto){
-    document.getElementById('consultor-info').innerHTML=`
-        <img src="${imagem}" alt="${nome}" class="consultor-img">
-        <h2 style="color:gold;text-align:center;">${nome}</h2>
-        <p style="text-align:center;color:#fff;margin-bottom:20px;">${precoTexto}</p>
-    `;
-}
-
-// gera opções com base no valor por minuto
-const minutos=[10,20,30,60];
-const opcoesDiv=document.getElementById('opcoes');
-minutos.forEach(m=>{
-    const valor=(m*precoPorMinuto).toFixed(2).replace('.',',');
-    opcoesDiv.innerHTML+=`
-      <div class="option" data-price="${valor}" data-minutes="${m}">
-        <h2>${m} Minutos</h2>
-        <p>R$ ${valor}</p>
-      </div>`;
+const nome = localStorage.getItem('consultorNome');
+const valor = parseFloat(localStorage.getItem('consultorValor'));
+const imagem = localStorage.getItem('consultorImagem');
+document.getElementById('consultorNome').textContent = nome;
+document.getElementById('consultorImagem').src = imagem;
+const minutos = [10, 20, 30, 60];
+const opcoesDiv = document.getElementById('opcoes');
+const precoSelecionado = document.getElementById('precoSelecionado');
+const botaoPix = document.getElementById('pixButton');
+let valorSelecionado = null;
+minutos.forEach(m => {
+    const preco = (m * valor).toFixed(2);
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<h2>${m} Minutos</h2><p>R$ ${preco}</p>`;
+    div.onclick = () => {
+        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        div.classList.add('selected');
+        valorSelecionado = preco;
+        precoSelecionado.textContent = `Você selecionou ${m} minutos - R$ ${preco}`;
+        botaoPix.disabled = false;
+    };
+    opcoesDiv.appendChild(div);
 });
-
-const options=document.querySelectorAll('.option');
-const priceDisplay=document.getElementById('selected-price');
-const pixButton=document.getElementById('pixButton');
-let selectedPrice=null;
-
-options.forEach(opt=>{
-    opt.addEventListener('click',()=>{
-        options.forEach(o=>o.classList.remove('selected'));
-        opt.classList.add('selected');
-        selectedPrice=opt.getAttribute('data-price');
-        const minutes=opt.getAttribute('data-minutes');
-        priceDisplay.textContent=`Você selecionou ${minutes} minutos - R$ ${selectedPrice}`;
-        pixButton.disabled=false;
-    });
-});
-
-pixButton.addEventListener('click',()=>{
-    if(selectedPrice){
-        const descricao=encodeURIComponent(`Consulta com ${nome} - ${selectedPrice} Reais`);
-        window.location.href=`https://cartomantespagamento.com.br/index.php?valor=${selectedPrice}&descricao=${descricao}`;
+botaoPix.onclick = () => {
+    if (valorSelecionado) {
+        const link = `https://cartomantespagamento.com.br/index.php?valor=${valorSelecionado}&descricao=${encodeURIComponent(nome)}%20Consulta`;
+        window.location.href = link;
     }
-});
+};
 </script>
 </body>
 </html>
