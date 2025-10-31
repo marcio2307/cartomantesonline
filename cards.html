@@ -21,7 +21,6 @@
         font-size: 24px;
     }
 
-    /* GRID: 4 no PC, 2 no celular */
     .container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -142,12 +141,6 @@
         pointer-events: none;
     }
 
-    @media (max-width: 600px) {
-        h1 { font-size: 20px; }
-        .card img { height: 200px; }
-        .name { font-size: 15px; }
-        .price { font-size: 12px; }
-    }
 </style>
 </head>
 <body>
@@ -260,8 +253,7 @@ function atualizarStatus() {
         const badge = card.querySelector('.badge');
         const dot = card.querySelector('.dot');
         const btn = card.querySelector('.btn');
-
-        const online = Math.random() < 0.5;
+        const online = Math.random() < 0.7;
 
         if (online) {
             badge.textContent = 'Online';
@@ -269,18 +261,36 @@ function atualizarStatus() {
             dot.classList.remove('ocupado');
             btn.textContent = 'INICIAR CONSULTA';
             btn.classList.remove('ocupado');
+            btn.disabled = false;
         } else {
             badge.textContent = 'Ocupado';
             badge.classList.add('ocupado');
             dot.classList.add('ocupado');
             btn.textContent = 'OCUPADO';
             btn.classList.add('ocupado');
+            btn.disabled = true;
         }
     });
 }
 
 setInterval(atualizarStatus, 10000);
 atualizarStatus();
+
+// 🔗 Redirecionar para o painel PIX
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+        const card = e.target.closest('.card');
+        const nome = card.querySelector('.name').textContent.trim();
+        const preco = card.querySelector('.price').textContent.trim();
+        const imagem = card.querySelector('img').src;
+        
+        localStorage.setItem('consultor_nome', nome);
+        localStorage.setItem('consultor_preco', preco);
+        localStorage.setItem('consultor_imagem', imagem);
+
+        window.location.href = 'https://marcio2307.github.io/cartomantesonline/pix.html';
+    });
+});
 </script>
 
 </body>
