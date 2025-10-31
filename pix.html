@@ -62,24 +62,55 @@ small { color: #aaa; font-size: 13px; white-space: pre-wrap; display: block; mar
   <button id="copyButton" style="display:none;">📋 Copiar código Pix</button>
 </div>
 
-<!-- Bibliotecas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/leandross86/pix-code/pix.min.js"></script>
-
 <script>
-// 🔮 Dados do consultor
-const nome = localStorage.getItem('consultorNome') || "Consultor";
-const valor = parseFloat(localStorage.getItem('consultorValor')) || 1.00;
-const imagem = localStorage.getItem('consultorImagem') || "https://via.placeholder.com/150";
+const nome = "Consultor";
+const valorPorMinuto = 1.00;
+const imagem = "https://via.placeholder.com/150";
 document.getElementById('consultorNome').textContent = nome;
 document.getElementById('consultorImagem').src = imagem;
 
-// 🔮 Dados Pix
 const chavePix = "09161666351";
 const nomeDestinatario = "Cartomantes Online";
 const cidade = "Fortaleza";
 
-// 🔮 Opções de tempo
+// ---- FUNÇÃO CRC16 ----
+function crc16(payload) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+      crc &= 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+
+// ---- GERADOR DO PIX EMV COMPLETO ----
+function gerarPayloadPix(chave, nome, cidade, valor, txid) {
+  function t(id, v) {
+    return id + v.length.toString().padStart(2, "0") + v;
+  }
+  const gui = "br.gov.bcb.pix";
+  const merchantAccount = t("00", gui) + t("01", chave);
+  const merchantInfo = t("26", merchantAccount);
+  const tx = txid || "CONSULTA";
+  const base =
+    "000201" +
+    merchantInfo +
+    "52040000" +
+    "5303986" +
+    t("54", parseFloat(valor).toFixed(2)) +
+    "5802BR" +
+    t("59", nome) +
+    t("60", cidade) +
+    t("62", "05" + t("05", tx)) +
+    "6304";
+  return base + crc16(base);
+}
+
+// ---- INTERFACE ----
 const minutos = [10, 20, 30, 60];
 const opcoesDiv = document.getElementById('opcoes');
 const precoSelecionado = document.getElementById('precoSelecionado');
@@ -87,9 +118,8 @@ const botaoPix = document.getElementById('pixButton');
 const botaoCopiar = document.getElementById('copyButton');
 let valorSelecionado = null;
 
-// Cria as opções de tempo
 minutos.forEach(m => {
-  const preco = (m * valor).toFixed(2);
+  const preco = (m * valorPorMinuto).toFixed(2);
   const div = document.createElement('div');
   div.className = 'option';
   div.innerHTML = `<h2>${m} Minutos</h2><p>R$ ${preco}</p>`;
@@ -103,19 +133,12 @@ minutos.forEach(m => {
   opcoesDiv.appendChild(div);
 });
 
-// Gera QR Code Pix válido com CRC16
+// ---- GERAR PIX ----
 botaoPix.onclick = () => {
   if (valorSelecionado) {
     const valorPix = Number(valorSelecionado).toFixed(2);
-    const txid = "consulta" + Date.now();
-
-    const payload = PixCode.generatePayload({
-      pixKey: chavePix,
-      merchantName: nomeDestinatario,
-      merchantCity: cidade,
-      amount: valorPix,
-      transactionId: txid
-    });
+    const txid = "CONSULTA" + Date.now();
+    const payload = gerarPayloadPix(chavePix, nomeDestinatario, cidade, valorPix, txid);
 
     document.getElementById("qrcode").innerHTML = "";
     document.getElementById("pixCopiaCola").innerText = "";
@@ -135,7 +158,6 @@ botaoPix.onclick = () => {
       "\n\n✅ Escaneie o QR acima ou copie o código para pagar.";
 
     botaoCopiar.style.display = "inline-block";
-
     botaoCopiar.onclick = () => {
       navigator.clipboard.writeText(payload).then(() => {
         botaoCopiar.innerText = "✅ Código copiado!";
