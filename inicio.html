@@ -143,17 +143,24 @@
   }
 
   /* ====== Responsividade ====== */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
       .services {
-          grid-template-columns: 1fr 1fr !important;
-          gap: 15px;
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 18px;
       }
-      .service-card img { height: 180px; }
+      .service-card img { height: 200px; }
   }
 
-  @media (max-width: 450px) {
-      .services { grid-template-columns: 1fr !important; }
+  @media (max-width: 500px) {
+      .services {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 12px;
+      }
       .service-card img { height: 160px; }
+  }
+
+  @media (max-width: 360px) {
+      .services { grid-template-columns: 1fr !important; }
   }
 </style>
 
