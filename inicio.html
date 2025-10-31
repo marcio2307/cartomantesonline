@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Pai Márcio de Oxóssi Meus Serviços</title>
 
-<!-- 🔹 Font Awesome completo -->
+<!-- 🔹 Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
@@ -122,30 +122,24 @@
   }
 
   .service-icon {
-      font-size: 50px;
-      margin-bottom: 8px;
-      text-shadow: 0 0 20px rgba(255,215,0,0.8);
-      animation: iconPulse 3s infinite ease-in-out;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
   }
 
-  /* ✨ Bola de cristal visível e animada */
-  .crystal-ball {
+  .service-icon i {
+      font-size: 36px;
       color: #FFD700;
-      filter: drop-shadow(0 0 10px #FFD700);
-      animation: spin 6s linear infinite, glowBall 3s ease-in-out infinite;
+      text-shadow: 0 0 10px rgba(255,215,0,0.8);
+      animation: pulseStar 2.8s ease-in-out infinite;
   }
 
-  @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-  }
-
-  @keyframes glowBall {
-      0%,100% { filter: drop-shadow(0 0 8px #FFD700); }
-      50% { filter: drop-shadow(0 0 22px #FFD700); }
+  /* ✨ Animação suave nas estrelas */
+  @keyframes pulseStar {
+      0%,100% { transform: scale(1); filter: drop-shadow(0 0 5px #FFD700); }
+      50% { transform: scale(1.2); filter: drop-shadow(0 0 20px #FFD700); }
   }
 
   .service-title {
@@ -170,7 +164,7 @@
       .title { font-size: 22px; margin-top: 16px; }
       .services { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       a.service-card { height: 120px; font-size: 0.85rem; }
-      .service-icon { font-size: 38px; margin-bottom: 6px; }
+      .service-icon i { font-size: 30px; }
   }
 
   @media (max-width: 360px) {
@@ -190,25 +184,29 @@
 
           <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/agendamento.html" class="service-card" target="_blank">
-              <i class="fa-solid fa-star service-icon"></i>
+              <div class="service-icon"><i class="fa-solid fa-star"></i></div>
               <span class="service-title">Consulta</span>
           </a>
 
           <!-- Trabalhos -->
           <a href="https://marcio2307.github.io/cartomantesonline/trabalhos.html" class="service-card" target="_blank">
-              <i class="fa-solid fa-fire service-icon"></i>
+              <div class="service-icon"><i class="fa-solid fa-fire"></i></div>
               <span class="service-title">Trabalhos</span>
           </a>
 
           <!-- Coletivos -->
           <a href="https://marcio2307.github.io/cartomantesonline/coletivo.html" class="service-card" target="_blank">
-              <i class="fa-solid fa-people-group service-icon"></i>
+              <div class="service-icon"><i class="fa-solid fa-people-group"></i></div>
               <span class="service-title">Coletivos</span>
           </a>
 
-          <!-- Consultores (bola de cristal animada visível) -->
+          <!-- Consultores (⭐ 3 estrelas douradas animadas ⭐) -->
           <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card" target="_blank">
-              <i class="fa-solid fa-circle service-icon crystal-ball"></i>
+              <div class="service-icon">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+              </div>
               <span class="service-title">Consultores</span>
           </a>
 
