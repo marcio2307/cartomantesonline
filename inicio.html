@@ -12,13 +12,12 @@
   .banner {
     position: relative;
     width: 100%;
-    height: 45vh; /* 🔸 levemente maior */
+    height: 45vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    padding-bottom: 65px;
-    background: 
-      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.75)),
+    background:
+      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.8)),
       url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center/cover no-repeat;
     border-bottom: 2px solid #FFD700;
     overflow: hidden;
@@ -40,8 +39,10 @@
     100% { left: 125%; }
   }
 
+  /* ====== Título abaixo do banner ====== */
   .title {
-    position: relative;
+    text-align: center;
+    margin-top: 25px;
     font-size: clamp(24px, 4.5vw, 42px);
     font-weight: 800;
     color: #FFD700;
@@ -49,8 +50,6 @@
     animation: glow 3s ease-in-out infinite;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    text-align: center;
-    z-index: 2;
   }
 
   @keyframes glow {
@@ -154,9 +153,9 @@
 </head>
 <body>
 
-  <section class="banner">
-    <h1 class="title">Pai Márcio de Oxóssi Meus Serviços</h1>
-  </section>
+  <section class="banner"></section>
+
+  <h1 class="title">Pai Márcio de Oxóssi Meus Serviços</h1>
 
   <div class="container">
       <div class="services">
