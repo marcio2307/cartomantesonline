@@ -2,23 +2,29 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Pai Márcio de Oxóssi Meus Serviços</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background:#000; font-family: 'Poppins', system-ui, Arial, sans-serif; color:#FFD700; }
+  html, body {
+    background:#000;
+    font-family: 'Poppins', system-ui, Arial, sans-serif;
+    color:#FFD700;
+    height: 100%;
+    overflow-x: hidden;
+  }
 
   /* ====== Banner ====== */
   .banner {
     position: relative;
     width: 100%;
-    height: 45vh;
+    height: 38vh; /* 🔸 Banner um pouco menor */
     display: flex;
     align-items: center;
     justify-content: center;
     background:
-      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.8)),
-      url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center/cover no-repeat;
+      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
+      url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center top / cover no-repeat;
     border-bottom: 2px solid #FFD700;
     overflow: hidden;
   }
@@ -39,11 +45,11 @@
     100% { left: 125%; }
   }
 
-  /* ====== Título logo abaixo do banner ====== */
+  /* ====== Título abaixo do banner ====== */
   .title {
     text-align: center;
-    margin-top: 25px; /* 🔸 Subido o texto */
-    font-size: clamp(24px, 4.5vw, 42px);
+    margin-top: 18px; /* 🔸 título mais próximo do banner */
+    font-size: clamp(24px, 4.5vw, 40px);
     font-weight: 800;
     color: #FFD700;
     text-shadow: 0 0 10px #FFD700, 0 0 25px #ffea00;
@@ -61,13 +67,13 @@
   .container {
       width: 90%;
       max-width: 1000px;
-      margin: 30px auto; /* 🔸 Cards também subiram */
+      margin: 25px auto; /* 🔸 cards subiram um pouco */
   }
 
   .services {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
+      gap: 22px;
   }
 
   a.service-card {
@@ -75,7 +81,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 160px;
+      height: 150px;
       border-radius: 18px;
       background: linear-gradient(145deg, #b20220, #ff2b2b);
       box-shadow: 0 0 25px rgba(255,215,0,0.25), inset 0 0 12px rgba(0,0,0,0.4);
@@ -91,7 +97,7 @@
   }
 
   a.service-card:hover {
-      transform: translateY(-5px) scale(1.03);
+      transform: translateY(-4px) scale(1.03);
       box-shadow: 0 0 35px rgba(255,215,0,0.5), inset 0 0 18px rgba(0,0,0,0.4);
   }
 
@@ -112,8 +118,8 @@
   }
 
   .service-icon {
-      font-size: 52px;
-      margin-bottom: 10px;
+      font-size: 50px;
+      margin-bottom: 8px;
       text-shadow: 0 0 20px rgba(255,215,0,0.8);
       animation: iconPulse 3s infinite ease-in-out;
       display: flex;
@@ -127,20 +133,22 @@
   }
 
   .service-title {
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-shadow: 0 0 10px rgba(255,215,0,0.7);
       text-align: center;
   }
 
   /* ====== Responsividade ====== */
   @media (max-width: 900px) {
-      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 18px; }
+      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
   }
 
   @media (max-width: 500px) {
-      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
-      a.service-card { height: 140px; font-size: 0.9rem; }
-      .service-icon { font-size: 42px; margin-bottom: 8px; }
+      .banner { height: 35vh; background-position: center top; }
+      .title { font-size: 22px; margin-top: 14px; }
+      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+      a.service-card { height: 120px; font-size: 0.85rem; }
+      .service-icon { font-size: 38px; margin-bottom: 6px; }
   }
 
   @media (max-width: 360px) {
