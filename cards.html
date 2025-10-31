@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cartomantes Online</title>
 
-<!-- Fonte bonita -->
+<!-- Fontes elegantes -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* Fundo e base */
+/* Fundo geral */
 body {
   margin: 0;
   min-height: 100vh;
@@ -22,7 +22,7 @@ body {
   padding: 20px;
 }
 
-/* Cabeçalho com fundo no texto */
+/* Cabeçalho */
 h1 {
   text-align: center;
   color: gold;
@@ -49,11 +49,15 @@ h1 {
   margin: 0 auto;
 }
 
-@media (max-width: 900px) {
-  .container { grid-template-columns: repeat(2, 1fr); }
+/* Responsividade */
+@media (max-width: 1024px) {
+  .container { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 500px) {
-  .container { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+}
+@media (max-width: 480px) {
+  .container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 
 /* Cards */
@@ -70,7 +74,7 @@ h1 {
 
 .card img {
   width: 100%;
-  height: 240px;
+  height: 220px;
   object-fit: cover;
   display: block;
 }
@@ -93,7 +97,7 @@ h1 {
 
 .content { padding: 10px; }
 .name {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 5px;
@@ -117,7 +121,7 @@ h1 {
   color: gold;
   text-align: center;
   margin-bottom: 5px;
-  font-size: 15px;
+  font-size: 14px;
 }
 .price {
   text-align: center;
@@ -139,13 +143,53 @@ h1 {
 }
 .btn:hover { background-color: #2ecc71; }
 .btn.ocupado { background-color: #e67e22; pointer-events: none; }
+
+/* Seção explicativa */
+.explicacao {
+  max-width: 900px;
+  margin: 60px auto 40px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid gold;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  padding: 25px 30px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.explicacao h2 {
+  font-family: 'Cinzel', serif;
+  color: gold;
+  font-size: 26px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.explicacao p {
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+}
 </style>
 </head>
 
 <body>
 <h1>Cartomantes Online</h1>
 
+<!-- Cards -->
 <div class="container" id="cards-container"></div>
+
+<!-- Explicação abaixo dos cards -->
+<section class="explicacao">
+  <h2>Como se Consultar 🔮</h2>
+  <p>
+    Escolha o <b>consultor</b> que desejar e clique em <b>“Iniciar Consulta”</b>.<br>
+    Na próxima tela, selecione um dos <b>pacotes de minutos</b> disponíveis.<br>
+    Realize o <b>pagamento seguro</b> e aguarde alguns instantes.<br>
+    Assim que o sistema confirmar o pagamento, o <b>chat de atendimento</b> será aberto automaticamente<br>
+    para que você possa conversar com o consultor escolhido.
+  </p>
+</section>
 
 <script>
 const consultores = [
