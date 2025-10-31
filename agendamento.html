@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendamento de Tarot</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; display:flex; justify-content:center; }
+.container { background:#111; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.5); width:100%; max-width:500px; }
+h2 { text-align:center; color:red; margin-bottom:15px; }
+label { margin-top:10px; display:block; font-weight:bold; color:yellow; }
+input, select, button { width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ccc; font-size:16px; background:#222; color:#fff; }
+button { background:red; color:#fff; border:none; cursor:pointer; transition:0.3s; }
+button:hover { background:#b30000; }
+.confirmation { display:none; text-align:center; color:#0cdfb9; font-size:18px; margin-top:10px; }
+.aviso-final { margin-top:20px; color:yellow; font-size:14px; text-align:left; border-top:1px solid #333; padding-top:10px; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Agendamento de Tarot</h2>
+
+<form id="tarotForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="6332c1be-705b-4f53-94b4-a38267e2cf2a">
+    <input type="hidden" name="redirect" value="">
+    <input type="hidden" name="horario" id="horarioHidden">
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="whatsapp">Número de WhatsApp:</label>
+    <input type="tel" id="whatsapp" name="whatsapp" placeholder="+55 (XX) XXXXX-XXXX" required>
+
+    <label for="data">Data (Seg a Sáb):</label>
+    <input type="date" id="data" name="data" required>
+
+    <label for="hora">Horário:</label>
+    <select id="hora" name="hora" required>
+        <option value="">Selecione</option>
+        <option value="20:30">20:30</option>
+        <option value="21:30">21:30</option>
+        <option value="22:00">22:00</option>
+    </select>
+
+    <label for="pacote">Pacote de Perguntas:</label>
+    <select id="pacote" name="pacote" required>
+        <option value="">Selecione</option>
+        <option value="3 perguntas - R$60,00">3 perguntas - R$60,00</option>
+        <option value="7 perguntas - R$120,00">7 perguntas - R$120,00</option>
+    </select>
+
+    <button type="submit">Enviar Agendamento</button>
+</form>
+
+<div class="confirmation" id="confirmationDiv">
+    ✅ Seu agendamento foi enviado com sucesso!
+</div>
+
+<div class="aviso-final">
+    ⚠️ <b>Observações:</b><br>
+    • O atendimento é individual e confidencial.<br>
+    • Em caso de imprevisto, reagende com antecedência.<br>
+    • O horário escolhido será reservado apenas após a confirmação do pagamento.
+</div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  databaseURL: "https://calendario-f58bc-default-rtdb.firebaseio.com/",
+  projectId: "SEU_PROJETO",
+  storageBucket: "SEU_PROJETO.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+const form = document.getElementById('tarotForm');
+const confirmation = document.getElementById('confirmationDiv');
+const dataInput = document.getElementById('data');
+const horaSelect = document.getElementById('hora');
+const horarioHidden = document.getElementById('horarioHidden');
+const pacoteSelect = document.getElementById('pacote');
+
+horaSelect.addEventListener('change', () => {
+    horarioHidden.value = horaSelect.value;
+});
+
+dataInput.addEventListener('change', () => {
+    const day = new Date(dataInput.value).getDay();
+    if(day===0){ alert("O agendamento não pode ser em domingos."); dataInput.value=''; return; }
+
+    const ref = database.ref('agendamentos/'+dataInput.value);
+    ref.on('value', snapshot=>{
+        const ocupados = snapshot.val() || {};
+        Array.from(horaSelect.options).forEach(opt=>{
+            if(opt.value==="") return;
+            opt.disabled = !!ocupados[opt.value];
+        });
+    });
+});
+
+form.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const selectedDate = dataInput.value;
+    const selectedTime = horaSelect.value;
+    const pacote = pacoteSelect.value;
+
+    if(!selectedDate || !selectedTime || !pacote){ 
+        alert("Preencha todos os campos antes de prosseguir."); 
+        return; 
+    }
+
+    const ref = database.ref(`agendamentos/${selectedDate}/${selectedTime}`);
+    ref.get().then(snapshot=>{
+        if(snapshot.exists()){ alert("Este horário já foi agendado."); return; }
+
+        const agendamento = {
+            nome: document.getElementById('nome').value,
+            whatsapp: document.getElementById('whatsapp').value,
+            pacote: pacote,
+            horario: selectedTime,
+            data: selectedDate
+        };
+
+        ref.set(agendamento).then(()=>{
+            fetch(form.action,{method:"POST",body:new FormData(form)})
+            .then(res=>res.json())
+            .then(data=>{
+                if(data.success){
+                    // ✅ Redireciona para o WhatsApp (funciona em todos os navegadores)
+                    const numeroWhatsApp = "5585984368057";
+                    const mensagem = "Já fiz meu agendamento de consulta, desejo realizar pagamento e confirmar o horário.";
+                    const linkWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+                    window.open(linkWhatsApp, "_blank");
+                } else {
+                    alert("Erro ao enviar o formulário.");
+                }
+            }).catch(err=>{
+                alert("Erro na comunicação com Web3Forms.");
+            });
+        });
+    });
+});
+</script>
+</body>
+</html>
