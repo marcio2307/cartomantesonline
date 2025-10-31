@@ -18,7 +18,7 @@
   .banner {
     position: relative;
     width: 100%;
-    height: 48vh; /* 🔸 aumentamos para aparecer as velas */
+    height: 50vh; /* Padrão PC */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,8 +36,8 @@
     top: 0; left: -75%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-    animation: shineBanner 5s infinite;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: shineBanner 6s infinite;
   }
 
   @keyframes shineBanner {
@@ -48,8 +48,8 @@
   /* ====== Título abaixo do banner ====== */
   .title {
     text-align: center;
-    margin-top: 20px;
-    font-size: clamp(24px, 4.5vw, 40px);
+    margin-top: 24px;
+    font-size: clamp(24px, 4.5vw, 42px);
     font-weight: 800;
     color: #FFD700;
     text-shadow: 0 0 10px #FFD700, 0 0 25px #ffea00;
@@ -67,13 +67,13 @@
   .container {
       width: 90%;
       max-width: 1000px;
-      margin: 30px auto;
+      margin: 35px auto;
   }
 
   .services {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 24px;
   }
 
   a.service-card {
@@ -139,23 +139,36 @@
   }
 
   /* ====== Responsividade ====== */
-  @media (max-width: 900px) {
-      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+  @media (max-width: 1024px) { /* Tablets */
+      .banner {
+        height: 46vh;
+        background-position: center bottom;
+      }
+      .services { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 768px) { /* Tablets menores */
       .banner {
-        height: 45vh; /* 🔸 aumenta no celular */
-        background-position: center bottom; /* 🔸 mostra melhor as velas */
+        height: 44vh;
+        background-position: center bottom;
       }
-      .title { font-size: 22px; margin-top: 14px; }
-      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+      .title { margin-top: 20px; font-size: 28px; }
+  }
+
+  @media (max-width: 500px) { /* Celulares */
+      .banner {
+        height: 43vh;
+        background-position: center bottom;
+      }
+      .title { font-size: 22px; margin-top: 16px; }
+      .services { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       a.service-card { height: 120px; font-size: 0.85rem; }
       .service-icon { font-size: 38px; margin-bottom: 6px; }
   }
 
   @media (max-width: 360px) {
-      .services { grid-template-columns: 1fr !important; }
+      .banner { height: 40vh; }
+      .services { grid-template-columns: 1fr; }
   }
 </style>
 
