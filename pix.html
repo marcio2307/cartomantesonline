@@ -31,13 +31,6 @@
         margin-bottom: 10px;
     }
 
-    p {
-        text-align: center;
-        font-size: 14px;
-        color: #ccc;
-        margin-bottom: 25px;
-    }
-
     .option {
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid #c7a008;
@@ -52,18 +45,6 @@
     .option:hover {
         background: rgba(255, 215, 0, 0.15);
         transform: scale(1.02);
-    }
-
-    .option h2 {
-        color: gold;
-        margin: 0;
-        font-size: 18px;
-    }
-
-    .option p {
-        margin: 5px 0 0;
-        color: #fff;
-        font-size: 14px;
     }
 
     .selected {
@@ -110,13 +91,24 @@
         font-weight: bold;
     }
 
+    .consultor-img {
+        display: block;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 10px auto;
+        border: 2px solid gold;
+    }
+
 </style>
 </head>
 <body>
 
 <div class="container">
+    <div id="consultor-info"></div>
+
     <h1>Escolha seus minutos</h1>
-    <p>Selecione o tempo da sua consulta espiritual</p>
 
     <div class="option" data-price="10" data-minutes="10">
         <h2>10 Minutos</h2>
@@ -147,6 +139,19 @@
 </div>
 
 <script>
+// Recuperar informações do consultor
+const nome = localStorage.getItem('consultor_nome');
+const preco = localStorage.getItem('consultor_preco');
+const imagem = localStorage.getItem('consultor_imagem');
+
+if (nome && preco) {
+    document.getElementById('consultor-info').innerHTML = `
+        <img src="${imagem}" alt="${nome}" class="consultor-img">
+        <h2 style="color: gold; text-align: center;">${nome}</h2>
+        <p style="text-align: center; color: #fff; margin-bottom: 20px;">${preco}</p>
+    `;
+}
+
 const options = document.querySelectorAll('.option');
 const priceDisplay = document.getElementById('selected-price');
 const pixButton = document.getElementById('pixButton');
@@ -165,8 +170,8 @@ options.forEach(option => {
 
 pixButton.addEventListener('click', () => {
     if (selectedPrice) {
-        // Substitua o link abaixo pelo link real do seu Mercado Pago ou checkout PIX
-        window.location.href = `https://cartomantespagamento.com.br/index.php?valor=${selectedPrice},00&descricao=Consulta%20Espiritual%20${selectedPrice}%20Reais`;
+        const descricao = encodeURIComponent(`Consulta com ${nome} - ${selectedPrice} Reais`);
+        window.location.href = `https://cartomantespagamento.com.br/index.php?valor=${selectedPrice},00&descricao=${descricao}`;
     }
 });
 </script>
