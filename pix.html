@@ -35,6 +35,7 @@ cursor: pointer; font-weight: bold; transition: transform 0.2s ease; width: 100%
     <img class="pix-logo" src="https://artpoin.com/wp-content/uploads/2023/09/artpoin-logo-pix.png" alt="PIX Logo">
     <button class="pix-btn" id="pixButton" disabled>Pagar com PIX</button>
 </div>
+
 <script>
 // Dados do consultor vindos do localStorage
 const nome = localStorage.getItem('consultorNome');
@@ -56,58 +57,6 @@ const precoSelecionado = document.getElementById('precoSelecionado');
 const botaoPix = document.getElementById('pixButton');
 let valorSelecionado = null;
 
-// 🔮 LINKS PIX por consultor e tempo
-const links = {
-  "pai marcio": {
-    10: "https://mpago.la/23r6doo",
-    20: "https://mpago.la/2AYrqT2",
-    30: "https://mpago.la/2JTqnYT",
-    60: "https://mpago.la/2PwQztr"
-  },
-  "sulamita": {
-    10: "https://mpago.la/2ZdPBoJ",
-    20: "https://mpago.la/2cBTXPJ",
-    30: "https://mpago.la/1f2er51",
-    60: "https://mpago.la/1xjChjT"
-  },
-  "esmeralda": {
-    10: "https://mpago.la/22KTD6u",
-    20: "https://mpago.la/2SRucx9",
-    30: "https://mpago.la/1A4BEZu",
-    60: "https://mpago.la/1sZTU7o"
-  },
-  "maria padilha": {
-    10: "https://mpago.la/1cUz1SB",
-    20: "https://mpago.la/1LCEiHs",
-    30: "https://mpago.la/2wKbLZy",
-    60: "https://mpago.la/1iynjZ4"
-  },
-  "sara": {
-    10: "https://mpago.la/1kN5Gvy",
-    20: "https://mpago.la/1WPL6Le",
-    30: "https://mpago.la/2Jp5pcQ",
-    60: "https://mpago.la/1dy3rFz"
-  },
-  "7 saias": {
-    10: "https://mpago.la/2Kjbc3n",
-    20: "https://mpago.la/2LE7rpe",
-    30: "https://mpago.la/2bC8nu9",
-    60: "https://mpago.la/2TaY8vc"
-  },
-  "odara": {
-    10: "https://mpago.la/22PCNpq",
-    20: "https://mpago.la/1TvkTi1",
-    30: "https://mpago.la/2PKTB99",
-    60: "https://mpago.la/2XNfUZF"
-  },
-  "luara": {
-    10: "https://mpago.la/1eKjAKR",
-    20: "https://mpago.la/1neXstk",
-    30: "https://mpago.la/14jW7wg",
-    60: "https://mpago.la/11fG9i7"
-  }
-};
-
 // Criação dinâmica das opções de tempo
 minutos.forEach(m => {
   const preco = (m * valor).toFixed(2);
@@ -124,16 +73,26 @@ minutos.forEach(m => {
   opcoesDiv.appendChild(div);
 });
 
-// Ação do botão PIX
-botaoPix.onclick = () => {
+// Integração com API Mercado Pago
+botaoPix.onclick = async () => {
   if (valorSelecionado) {
-    const nomeNormalizado = normalizarTexto(nome);
-    const linkPix = links[nomeNormalizado]?.[valorSelecionado];
-    if (linkPix) {
-      window.location.href = linkPix;
-    } else {
-      const link = `https://cartomantespagamento.com.br/index.php?valor=${valorSelecionado}&descricao=${encodeURIComponent(nome)}%20Consulta`;
-      window.location.href = link;
+    const valorFinal = (valorSelecionado * valor).toFixed(2);
+    try {
+      const resposta = await fetch("https://cartomantespagamento.com.br/gerar_pix.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `nome=${encodeURIComponent(nome)}&valor=${encodeURIComponent(valorFinal)}`
+      });
+      const dados = await resposta.json();
+      if (dados.point_of_interaction?.transaction_data?.ticket_url) {
+        window.location.href = dados.point_of_interaction.transaction_data.ticket_url;
+      } else {
+        alert("Erro ao gerar pagamento Pix. Tente novamente.");
+        console.log(dados);
+      }
+    } catch (erro) {
+      alert("Falha na comunicação com o servidor. Verifique sua conexão.");
+      console.error(erro);
     }
   }
 };
