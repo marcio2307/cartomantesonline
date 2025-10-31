@@ -4,141 +4,126 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Consultores Espirituais Online</title>
-
 <style>
-    body { background-color:#111; color:#fff; font-family:'Poppins',Arial,sans-serif; margin:0; padding:20px; }
-    h1 { text-align:center; color:gold; margin-bottom:30px; font-size:24px; }
-    .container { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1200px; margin:auto; }
-    @media(max-width:768px){ .container{ grid-template-columns:repeat(2,1fr); gap:15px; } }
-    .card{ background:#222; border:2px solid #c7a008; border-radius:10px; overflow:hidden; box-shadow:0 0 15px rgba(0,0,0,0.5); transition:transform .2s; }
-    .card:hover{ transform:scale(1.03); }
-    .card img{ width:100%; height:240px; object-fit:cover; }
-    .badge{ position:absolute; top:10px; left:10px; background:#27ae60; padding:5px 10px; font-size:12px; border-radius:5px; }
-    .badge.ocupado{ background:#e67e22; }
-    .content{ padding:10px; }
-    .name{ font-size:17px; font-weight:bold; text-align:center; margin-bottom:5px; display:flex; justify-content:center; align-items:center; gap:6px; }
-    .dot{ width:10px; height:10px; border-radius:50%; background:#2ecc71; animation:blink 1s infinite; }
-    @keyframes blink{ 50%{opacity:0;} }
-    .dot.ocupado{ background:#e67e22; animation:none; }
-    .stars{ color:gold; text-align:center; margin-bottom:5px; font-size:15px; }
-    .price{ text-align:center; font-size:13px; margin-bottom:10px; }
-    .btn{ display:block; background:#27ae60; color:#fff; text-align:center; padding:8px; border-radius:5px; text-decoration:none; font-weight:bold; transition:background .3s; }
-    .btn:hover{ background:#2ecc71; }
-    .btn.ocupado{ background:#e67e22; pointer-events:none; }
+    body {
+        background-color: #111;
+        color: #fff;
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: gold;
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+    .container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+        .container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+    }
+    .card {
+        background-color: #222;
+        border: 2px solid #c7a008;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+    .card:hover { transform: scale(1.03); }
+    .card img { width: 100%; height: 240px; object-fit: cover; }
+    .badge {
+        position: absolute; top: 10px; left: 10px;
+        background: #27ae60; padding: 5px 10px; font-size: 12px;
+        border-radius: 5px; text-transform: uppercase;
+        transition: background 0.3s;
+    }
+    .badge.ocupado { background: #e67e22; }
+    .content { padding: 10px; }
+    .name {
+        font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 5px;
+        display: flex; justify-content: center; align-items: center; gap: 6px;
+    }
+    .dot {
+        width: 10px; height: 10px; border-radius: 50%; background: #2ecc71;
+        animation: blink 1s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .dot.ocupado { background: #e67e22; animation: none; }
+    .stars { color: gold; text-align: center; margin-bottom: 5px; font-size: 15px; }
+    .price { text-align: center; font-size: 13px; color: #fff; margin-bottom: 10px; }
+    .btn {
+        display: block; background-color: #27ae60; color: #fff; text-align: center;
+        padding: 8px; border-radius: 5px; text-decoration: none; font-weight: bold;
+        transition: background 0.3s; font-size: 13px;
+    }
+    .btn:hover { background-color: #2ecc71; }
+    .btn.ocupado { background-color: #e67e22; pointer-events: none; }
 </style>
 </head>
 <body>
-
 <h1>Consultores Espirituais Online</h1>
-
-<div class="container">
-    <!-- Pai Márcio -->
-    <div class="card">
-        <img src="https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg" alt="Pai Márcio">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Pai Márcio <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 3,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Sulamita -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2024/05/27//47a447851c-1-.jpg" alt="Sulamita">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Sulamita <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Cigana Esmeralda -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2020/05/18//41c4696d05-1-.jpg" alt="Cigana Esmeralda">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Cigana Esmeralda <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Maria Padilha -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2025/01/27//699974ac8a-1-.jpg" alt="Maria Padilha">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Maria Padilha <span class="dot"></span></div>
-            <div class="stars">★★★★☆</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Sara -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2024/09/04//9a6f4cec30-1-.jpg" alt="Sara">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Sara <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- 7 Saias -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2024/02/29//e43513a707-1-.jpg" alt="7 Saias">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">7 Saias <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Odara -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2024/01/15//91bb2a4455-1-.jpg" alt="Odara">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Odara <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-
-    <!-- Luara -->
-    <div class="card">
-        <img src="https://www.rainhasdotarot.com.br/Assets/Imagens/2024/08/24//dc4e2cb494-1-.jpg" alt="Luara">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">Luara <span class="dot"></span></div>
-            <div class="stars">★★★★★</div>
-            <div class="price"><b>R$ 1,00 por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>
-    </div>
-</div>
-
+<div class="container" id="cards-container"></div>
 <script>
-document.querySelectorAll('.btn').forEach(btn=>{
-    btn.addEventListener('click',e=>{
-        const card=e.target.closest('.card');
-        localStorage.setItem('consultor_nome',card.querySelector('.name').textContent.trim());
-        localStorage.setItem('consultor_preco',card.querySelector('.price').textContent.trim());
-        localStorage.setItem('consultor_imagem',card.querySelector('img').src);
-        window.location.href='https://marcio2307.github.io/cartomantesonline/pix.html';
+const consultores = [
+    { nome: "Pai Márcio", valor: 3, imagem: "https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg", estrelas: 5 },
+    { nome: "Sulamita", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/05/27//47a447851c-1-.jpg", estrelas: 5 },
+    { nome: "Cigana Esmeralda", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2020/05/18//41c4696d05-1-.jpg", estrelas: 5 },
+    { nome: "Maria Padilha", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2025/01/27//699974ac8a-1-.jpg", estrelas: 4 },
+    { nome: "Sara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/09/04//9a6f4cec30-1-.jpg", estrelas: 5 },
+    { nome: "7 Saias", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/02/29//e43513a707-1-.jpg", estrelas: 5 },
+    { nome: "Odara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/01/15//91bb2a4455-1-.jpg", estrelas: 5 },
+    { nome: "Luara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/08/24//dc4e2cb494-1-.jpg", estrelas: 5 }
+];
+const container = document.getElementById('cards-container');
+consultores.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <img src="${c.imagem}" alt="${c.nome}">
+        <span class="badge">Online</span>
+        <div class="content">
+            <div class="name">${c.nome} <span class="dot"></span></div>
+            <div class="stars">${'★'.repeat(c.estrelas)}${'☆'.repeat(5 - c.estrelas)}</div>
+            <div class="price"><b>R$ ${c.valor.toFixed(2)} por minuto</b></div>
+            <a href="#" class="btn">INICIAR CONSULTA</a>
+        </div>`;
+    card.querySelector('.btn').addEventListener('click', () => {
+        localStorage.setItem('consultorNome', c.nome);
+        localStorage.setItem('consultorValor', c.valor);
+        localStorage.setItem('consultorImagem', c.imagem);
+        window.location.href = 'pix.html';
     });
+    container.appendChild(card);
 });
+function atualizarStatus() {
+    document.querySelectorAll('.card').forEach(card => {
+        const badge = card.querySelector('.badge');
+        const dot = card.querySelector('.dot');
+        const btn = card.querySelector('.btn');
+        const online = Math.random() < 0.5;
+        if (online) {
+            badge.textContent = 'Online'; badge.classList.remove('ocupado');
+            dot.classList.remove('ocupado'); btn.textContent = 'INICIAR CONSULTA'; btn.classList.remove('ocupado');
+        } else {
+            badge.textContent = 'Ocupado'; badge.classList.add('ocupado');
+            dot.classList.add('ocupado'); btn.textContent = 'OCUPADO'; btn.classList.add('ocupado');
+        }
+    });
+}
+setInterval(atualizarStatus, 10000);
+atualizarStatus();
 </script>
 </body>
 </html>
