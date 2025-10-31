@@ -12,17 +12,36 @@
   .banner {
     position: relative;
     width: 100%;
-    height: 42vh; /* Banner equilibrado e bonito */
+    height: 45vh; /* 🔸 levemente maior */
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-bottom: 65px; /* 🔸 Texto mais abaixo */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6), #000),
+    padding-bottom: 65px;
+    background: 
+      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.75)),
       url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center/cover no-repeat;
     border-bottom: 2px solid #FFD700;
+    overflow: hidden;
+  }
+
+  /* 🔹 Efeito de brilho em movimento no banner */
+  .banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shineBanner 5s infinite;
+  }
+
+  @keyframes shineBanner {
+    0% { left: -75%; }
+    100% { left: 125%; }
   }
 
   .title {
+    position: relative;
     font-size: clamp(24px, 4.5vw, 42px);
     font-weight: 800;
     color: #FFD700;
@@ -31,6 +50,7 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     text-align: center;
+    z-index: 2;
   }
 
   @keyframes glow {
