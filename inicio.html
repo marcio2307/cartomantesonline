@@ -131,9 +131,21 @@
       justify-content: center;
   }
 
-  @keyframes iconPulse {
-      0%,100% { transform: scale(1); filter: drop-shadow(0 0 5px #FFD700); }
-      50% { transform: scale(1.15); filter: drop-shadow(0 0 20px #FFD700); }
+  /* ✨ Bola de cristal visível e animada */
+  .crystal-ball {
+      color: #FFD700;
+      filter: drop-shadow(0 0 10px #FFD700);
+      animation: spin 6s linear infinite, glowBall 3s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+
+  @keyframes glowBall {
+      0%,100% { filter: drop-shadow(0 0 8px #FFD700); }
+      50% { filter: drop-shadow(0 0 22px #FFD700); }
   }
 
   .service-title {
@@ -143,10 +155,6 @@
   }
 
   /* ====== Responsividade ====== */
-  @media (max-width: 1200px) {
-      .banner { height: 48vh; background-position: center bottom; }
-  }
-
   @media (max-width: 1024px) {
       .banner { height: 46vh; background-position: center bottom; }
       .services { grid-template-columns: repeat(2, 1fr); gap: 20px; }
@@ -198,9 +206,9 @@
               <span class="service-title">Coletivos</span>
           </a>
 
-          <!-- Consultores (ícone de lua) -->
+          <!-- Consultores (bola de cristal animada visível) -->
           <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card" target="_blank">
-              <i class="fa-solid fa-moon service-icon"></i>
+              <i class="fa-solid fa-circle service-icon crystal-ball"></i>
               <span class="service-title">Consultores</span>
           </a>
 
