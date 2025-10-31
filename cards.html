@@ -20,17 +20,22 @@
         margin-bottom: 30px;
     }
 
-    /* CONTAINER */
+    /* GRID: 3 colunas no PC / 2 no celular */
     .container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
         justify-content: center;
-        max-width: 900px;
+        max-width: 1000px;
         margin: 0 auto;
     }
 
-    /* CARD */
+    @media (max-width: 768px) {
+        .container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
     .card {
         background-color: #222;
         border: 2px solid #c7a008;
@@ -51,7 +56,6 @@
         object-fit: cover;
     }
 
-    /* BADGES */
     .badge {
         position: absolute;
         top: 10px;
@@ -61,16 +65,13 @@
         font-size: 12px;
         border-radius: 5px;
         text-transform: uppercase;
+        transition: background 0.3s;
     }
 
-    .badge.exclusivo {
-        left: auto;
-        right: 10px;
-        background: #b8b8b8;
-        color: #000;
+    .badge.offline {
+        background: #e67e22;
     }
 
-    /* CONTEÚDO */
     .content {
         padding: 15px;
     }
@@ -80,6 +81,27 @@
         font-weight: bold;
         text-align: center;
         margin-bottom: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #2ecc71;
+        animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    .dot.offline {
+        background: #e67e22;
+        animation: none;
     }
 
     .stars {
@@ -114,204 +136,104 @@
         background-color: #2ecc71;
     }
 
-    /* INFOS */
-    .info-box {
-        display: flex;
-        justify-content: space-around;
-        background: #333;
-        padding: 10px 0;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .info-box div {
-        text-align: center;
-    }
-
-    .info-title {
-        font-size: 12px;
-        color: gold;
-    }
-
-    .info-value {
-        font-weight: bold;
-    }
-
-    /* SERVIÇOS */
-    .services {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        padding: 5px 0 10px;
-        font-size: 12px;
-        color: #ddd;
-        text-align: center;
-    }
-
-    .services span {
-        display: block;
-        margin: 5px 0;
-    }
-
-    .price {
-        color: gold;
-        font-weight: bold;
-        display: block;
-    }
-
-    /* RESPONSIVIDADE */
     @media (max-width: 600px) {
-        .card img {
-            height: 250px;
-        }
-        .name {
-            font-size: 18px;
-        }
-        .desc {
-            font-size: 12px;
-        }
+        .card img { height: 250px; }
+        .name { font-size: 18px; }
+        .desc { font-size: 12px; }
     }
 </style>
 </head>
-
 <body>
 
 <h1>Consultores Espirituais Online</h1>
 
-<div class="container">
+<div class="container" id="cards-container">
 
     <!-- CARD 1 -->
     <div class="card">
         <img src="https://via.placeholder.com/260x300?text=Alara+Vidente" alt="Alara Vidente">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Alara Vidente</div>
+            <div class="name">Alara Vidente <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Com profunda conexão espiritual e dons ancestrais, desvendo os mistérios da sua alma.</div>
+            <div class="desc">Com dons ancestrais, revela caminhos espirituais e respostas da alma.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">263</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">36</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$1,99</span></span>
-                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
-            </div>
         </div>
     </div>
 
     <!-- CARD 2 -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Andaluzia+Cigana" alt="Andaluzia Cigana">
+        <img src="https://via.placeholder.com/260x300?text=Cigana+Solara" alt="Cigana Solara">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Andaluzia Cigana</div>
+            <div class="name">Cigana Solara <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">"O sangue cigano me guia, as cartas revelam o destino e eu te ajudo a encontrar o caminho."</div>
+            <div class="desc">Clarividência solar e energia cigana revelando verdades do amor e destino.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">4833</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">162</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$2,49</span></span>
-                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
-            </div>
         </div>
     </div>
 
     <!-- CARD 3 -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Baba+D'Vodoun" alt="Babá DVodoun">
+        <img src="https://via.placeholder.com/260x300?text=Mestre+Anúbis" alt="Mestre Anúbis">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Babá DVodoun</div>
+            <div class="name">Mestre Anúbis <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Onde a força dos Voduns reina, nenhum caminho fica sem resposta. Mestre de oráculos e energia ancestral.</div>
+            <div class="desc">Guardião dos portais espirituais, trabalha com justiça divina e proteção astral.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">5008</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">732</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$2,49</span></span>
-                <span>🎥 Vídeo<br><span class="price">R$2,99</span></span>
-                <span>🎧 Áudio<br><span class="price">R$2,75</span></span>
-                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
-            </div>
         </div>
     </div>
 
     <!-- CARD 4 -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Cigana+Kassandra" alt="Cigana Kassandra">
+        <img src="https://via.placeholder.com/260x300?text=Cigana+Eloa" alt="Cigana Eloa">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Cigana Kassandra</div>
-            <div class="stars">☆☆☆☆☆</div>
-            <div class="desc">Cigana no sangue e na alma, clarividente e sensitiva há mais de 20 anos guiada pela luz.</div>
+            <div class="name">Cigana Eloa <span class="dot"></span></div>
+            <div class="stars">★★★★☆</div>
+            <div class="desc">Sensitiva amorosa, especialista em relações afetivas e energias da alma gêmea.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">7</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">0</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$1,99</span></span>
-                <span>🎧 Áudio<br><span class="price">R$1,99</span></span>
-                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
-            </div>
         </div>
     </div>
 
     <!-- CARD 5 -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Iara+Tarologa" alt="Iara Taróloga">
+        <img src="https://via.placeholder.com/260x300?text=Pai+Orun" alt="Pai Orun">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Iara Taróloga</div>
-            <div class="stars">★★★★☆</div>
-            <div class="desc">Leitora intuitiva com mais de 15 anos de experiência em tarot e oráculos espirituais.</div>
+            <div class="name">Pai Orun <span class="dot"></span></div>
+            <div class="stars">★★★★★</div>
+            <div class="desc">Sacerdote dos orixás, guia espiritual e conselheiro de caminhos e prosperidade.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">1250</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">220</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$2,10</span></span>
-                <span>🎧 Áudio<br><span class="price">R$2,60</span></span>
-                <span>📧 E-mail<br><span class="price">R$49,90</span></span>
-            </div>
         </div>
     </div>
 
     <!-- CARD 6 -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Orun+Babalorixá" alt="Orun Babalorixá">
+        <img src="https://via.placeholder.com/260x300?text=Madame+Luzia" alt="Madame Luzia">
         <span class="badge">Online</span>
-        <span class="badge exclusivo">Exclusivo</span>
         <div class="content">
-            <div class="name">Orun Babalorixá</div>
+            <div class="name">Madame Luzia <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Sacerdote dos orixás, guia espiritual e conselheiro de caminhos e prosperidade.</div>
+            <div class="desc">Clarividente renomada, revela com sabedoria os mistérios do coração e destino.</div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
-            <div class="info-box">
-                <div><div class="info-title">CONSULTAS</div><div class="info-value">3890</div></div>
-                <div><div class="info-title">DEPOIMENTOS</div><div class="info-value">510</div></div>
-            </div>
-            <div class="services">
-                <span>💬 Chat<br><span class="price">R$2,90</span></span>
-                <span>🎥 Vídeo<br><span class="price">R$3,50</span></span>
-                <span>📧 E-mail<br><span class="price">R$59,90</span></span>
-            </div>
         </div>
     </div>
 
 </div>
+
+<script>
+setInterval(() => {
+    document.querySelectorAll('.badge').forEach(badge => {
+        const dot = badge.parentElement.querySelector('.dot');
+        const isOnline = badge.textContent.trim() === 'Online';
+        badge.textContent = isOnline ? 'Offline' : 'Online';
+        badge.classList.toggle('offline', isOnline);
+        if (dot) dot.classList.toggle('offline', isOnline);
+    });
+}, 3000);
+</script>
 
 </body>
 </html>
