@@ -89,7 +89,6 @@
       margin: 40px auto;
   }
 
-  /* Layout padrão (PC): 3 colunas */
   .services {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -148,21 +147,21 @@
       text-decoration: underline;
   }
 
-  /* 🔹 2 cards por linha em celulares e tablets */
+  /* 🔹 Forçar 2 cards por linha no celular */
   @media (max-width: 768px) {
       .services {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 15px;
+          grid-template-columns: 1fr 1fr !important;
+          gap: 12px !important;
       }
       .service-card img {
           height: 160px;
       }
   }
 
-  /* 🔹 1 card por linha em celulares muito pequenos */
-  @media (max-width: 450px) {
+  /* 🔹 1 card por linha em telas muito pequenas */
+  @media (max-width: 440px) {
       .services {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr !important;
       }
   }
 </style>
