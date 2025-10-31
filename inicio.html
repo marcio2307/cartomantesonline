@@ -3,58 +3,43 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Agendamentos — Trabalhos e Consultas</title>
+<title>Consultas — Pai Márcio de Oxóssi</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background:#000; font-family: 'Poppins', system-ui, -apple-system, Arial, sans-serif; }
+  body { background:#000; font-family: 'Poppins', system-ui, -apple-system, Arial, sans-serif; color:#FFD700; }
 
   /* ====== Banner ====== */
   .banner {
     position: relative;
     width: 100%;
-    height: 65vh;
+    height: 60vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    overflow: hidden;
-    padding-bottom: 50px;
-    background:
-      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.85)),
-      url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center center / cover no-repeat;
+    padding-bottom: 40px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), #000),
+      url('https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg') center/cover no-repeat;
     border-bottom: 2px solid #FFD700;
   }
 
-  .glow-ring {
-    position: absolute;
-    width: 120%;
-    height: 120%;
-    border: 1px solid rgba(255,215,0,0.15);
-    border-radius: 50%;
-    filter: drop-shadow(0 0 20px rgba(255,215,0,0.25));
-    animation: rotate 18s linear infinite;
-  }
-  .glow-ring:nth-child(2) { width: 140%; height: 140%; animation-duration: 26s; opacity: .5; }
-  .glow-ring:nth-child(3) { width: 160%; height: 160%; animation-duration: 34s; opacity: .3; }
-  @keyframes rotate { to { transform: rotate(360deg); } }
-
   .title {
-    font-size: clamp(22px, 4.5vw, 46px);
-    font-weight: 900;
-    text-transform: uppercase;
+    font-size: clamp(22px, 5vw, 50px);
+    font-weight: 800;
     color: #FFD700;
-    text-shadow: 0 0 5px #000, 0 0 12px #FFD700, 0 0 25px #ffcc00;
-    animation: pulse 2.6s ease-in-out infinite;
+    text-shadow: 0 0 10px #FFD700, 0 0 25px #ffea00;
+    animation: glow 3s ease-in-out infinite;
+    text-transform: uppercase;
   }
 
-  @keyframes pulse {
-    0%, 100% { filter: drop-shadow(0 0 0 rgba(255,215,0,0.4)); }
-    50%      { filter: drop-shadow(0 0 18px rgba(255,215,0,0.8)); }
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px #FFD700; }
+    50% { text-shadow: 0 0 30px #FFD700; }
   }
 
   /* ====== Cards ====== */
   .container {
       width: 90%;
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 40px auto;
   }
 
@@ -65,70 +50,60 @@
   }
 
   a.service-card {
-      position: relative;
-      display: block;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(255,215,0,0.35);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 180px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #b20220, #ff2b2b);
+      box-shadow: 0 0 25px rgba(255,215,0,0.25), inset 0 0 12px rgba(0,0,0,0.4);
       color: #FFD700;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
   }
 
   a.service-card:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 25px rgba(255,215,0,0.6);
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 0 35px rgba(255,215,0,0.5), inset 0 0 18px rgba(0,0,0,0.4);
   }
 
-  .service-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      filter: brightness(70%);
-      transition: filter 0.3s;
-  }
-
-  a.service-card:hover img {
-      filter: brightness(85%);
-  }
-
-  .service-info {
+  a.service-card::before {
+      content: "";
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 25px 10px;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      text-align: center;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
+      animation: shine 4s linear infinite;
+  }
+
+  @keyframes shine {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
   }
 
   .service-icon {
-      font-size: 42px;
-      color: #FFD700;
-      display: block;
-      margin-bottom: 6px;
-      text-shadow: 0 0 12px rgba(255,215,0,0.9);
-      animation: iconGlow 3s ease-in-out infinite;
+      font-size: 50px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(255,215,0,0.8);
+      animation: iconPulse 3s infinite ease-in-out;
   }
 
-  @keyframes iconGlow {
-    0%, 100% { text-shadow: 0 0 10px rgba(255,215,0,0.4); transform: translateY(0); }
-    50%      { text-shadow: 0 0 25px rgba(255,255,0,1); transform: translateY(-3px); }
+  @keyframes iconPulse {
+      0%,100% { transform: scale(1); filter: drop-shadow(0 0 5px #FFD700); }
+      50% { transform: scale(1.15); filter: drop-shadow(0 0 20px #FFD700); }
   }
 
   .service-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #FFD700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 10px rgba(255,215,0,0.6);
-      animation: textPulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes textPulse {
-    0%, 100% { opacity: 0.9; }
-    50%      { opacity: 1; text-shadow: 0 0 15px #FFD700; }
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255,215,0,0.7);
   }
 
   footer {
@@ -136,7 +111,7 @@
       padding: 15px 0;
       background-color: #FFD700;
       color: #000;
-      margin-top: 30px;
+      margin-top: 40px;
       font-weight: bold;
       letter-spacing: 0.5px;
       box-shadow: 0 -3px 10px rgba(255,215,0,0.3);
@@ -144,19 +119,12 @@
 
   /* ====== Responsividade ====== */
   @media (max-width: 900px) {
-      .services {
-          grid-template-columns: repeat(2, 1fr) !important;
-          gap: 18px;
-      }
-      .service-card img { height: 200px; }
+      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 18px; }
   }
 
   @media (max-width: 500px) {
-      .services {
-          grid-template-columns: repeat(2, 1fr) !important;
-          gap: 12px;
-      }
-      .service-card img { height: 160px; }
+      .services { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+      a.service-card { height: 160px; font-size: 0.9rem; }
   }
 
   @media (max-width: 360px) {
@@ -170,49 +138,34 @@
 <body>
 
   <section class="banner">
-    <div class="glow-ring"></div>
-    <div class="glow-ring"></div>
-    <div class="glow-ring"></div>
-    <h1 class="title">Pai Márcio de Oxóssi — Meus Serviços</h1>
+    <h1 class="title">Pai Márcio de Oxóssi</h1>
   </section>
 
   <div class="container">
       <div class="services">
 
-          <!-- Consulta de Tarot -->
+          <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/agendamento.html" class="service-card" target="_blank">
-              <img src="https://acdn-us.mitiendanube.com/stores/002/264/401/products/tfm-extra-5624bef514fa7a6e4417322996590771-1024-1024.webp" alt="Consulta de Tarot">
-              <div class="service-info">
-                  <i class="fa-solid fa-star service-icon"></i>
-                  <span class="service-title">Consulta de Tarot</span>
-              </div>
+              <i class="fa-solid fa-star service-icon"></i>
+              <span class="service-title">Consulta</span>
           </a>
 
-          <!-- Trabalhos Espirituais -->
+          <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/trabalhos.html" class="service-card" target="_blank">
-              <img src="https://i.pinimg.com/736x/72/96/30/729630cb04fdbbecee19559502b3d0e7.jpg" alt="Trabalhos Espirituais">
-              <div class="service-info">
-                  <i class="fa-solid fa-fire-flame-curved service-icon"></i>
-                  <span class="service-title">Trabalhos Espirituais</span>
-              </div>
+              <i class="fa-solid fa-fire service-icon"></i>
+              <span class="service-title">Consulta</span>
           </a>
 
-          <!-- Trabalhos Coletivos -->
+          <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/coletivo.html" class="service-card" target="_blank">
-              <img src="https://www.diegodeoxossi.com.br/site/views/00_projects/diegodeoxossi/content/image/home/1145d21a.jpg" alt="Trabalhos Coletivos">
-              <div class="service-info">
-                  <i class="fa-solid fa-people-group service-icon"></i>
-                  <span class="service-title">Trabalhos Coletivos</span>
-              </div>
+              <i class="fa-solid fa-people-group service-icon"></i>
+              <span class="service-title">Consulta</span>
           </a>
 
-          <!-- Consultores Online -->
+          <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card" target="_blank">
-              <img src="https://img.freepik.com/fotos-gratis/mulher-de-tiro-medio-lendo-taro-em-casa_23-2150273203.jpg?semt=ais_hybrid&w=740&q=80" alt="Consultores Online">
-              <div class="service-info">
-                  <i class="fa-solid fa-user-astronaut service-icon"></i>
-                  <span class="service-title">Consultores Online</span>
-              </div>
+              <i class="fa-solid fa-user-astronaut service-icon"></i>
+              <span class="service-title">Consulta</span>
           </a>
 
       </div>
