@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -20,7 +20,6 @@
         margin-bottom: 30px;
     }
 
-    /* GRID: 3 colunas no PC / 2 no celular */
     .container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -68,7 +67,7 @@
         transition: background 0.3s;
     }
 
-    .badge.offline {
+    .badge.ocupado {
         background: #e67e22;
     }
 
@@ -99,7 +98,7 @@
         50% { opacity: 0; }
     }
 
-    .dot.offline {
+    .dot.ocupado {
         background: #e67e22;
         animation: none;
     }
@@ -136,6 +135,11 @@
         background-color: #2ecc71;
     }
 
+    .btn.ocupado {
+        background-color: #e67e22;
+        pointer-events: none;
+    }
+
     @media (max-width: 600px) {
         .card img { height: 250px; }
         .name { font-size: 18px; }
@@ -149,74 +153,74 @@
 
 <div class="container" id="cards-container">
 
-    <!-- CARD 1 -->
+    <!-- 1: Pai Márcio -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Alara+Vidente" alt="Alara Vidente">
+        <img src="https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg" alt="Pai Márcio">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Alara Vidente <span class="dot"></span></div>
+            <div class="name">Pai Márcio <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Com dons ancestrais, revela caminhos espirituais e respostas da alma.</div>
+            <div class="desc">Mestre espiritual conhecido por trabalhos poderosos de proteção e união amorosa.<br><b>Consulta a partir de R$ 3,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
 
-    <!-- CARD 2 -->
+    <!-- 2: Maria Padilha -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Cigana+Solara" alt="Cigana Solara">
+        <img src="https://via.placeholder.com/260x300?text=Maria+Padilha" alt="Maria Padilha">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Cigana Solara <span class="dot"></span></div>
+            <div class="name">Maria Padilha <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Clarividência solar e energia cigana revelando verdades do amor e destino.</div>
+            <div class="desc">Rainha das encruzilhadas, trabalha com amor, sedução e justiça espiritual.<br><b>Consulta a partir de R$ 1,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
 
-    <!-- CARD 3 -->
+    <!-- 3: Cigana Esmeralda -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Mestre+Anúbis" alt="Mestre Anúbis">
+        <img src="https://via.placeholder.com/260x300?text=Cigana+Esmeralda" alt="Cigana Esmeralda">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Mestre Anúbis <span class="dot"></span></div>
+            <div class="name">Cigana Esmeralda <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Guardião dos portais espirituais, trabalha com justiça divina e proteção astral.</div>
+            <div class="desc">Clarividente cigana que revela caminhos de amor e prosperidade com sabedoria ancestral.<br><b>Consulta a partir de R$ 1,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
 
-    <!-- CARD 4 -->
+    <!-- 4: Maria Padilha -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Cigana+Eloa" alt="Cigana Eloa">
+        <img src="https://via.placeholder.com/260x300?text=Maria+Padilha" alt="Maria Padilha">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Cigana Eloa <span class="dot"></span></div>
+            <div class="name">Maria Padilha <span class="dot"></span></div>
             <div class="stars">★★★★☆</div>
-            <div class="desc">Sensitiva amorosa, especialista em relações afetivas e energias da alma gêmea.</div>
+            <div class="desc">Guiada por força e sedução, traz respostas para relacionamentos e caminhos afetivos.<br><b>Consulta a partir de R$ 1,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
 
-    <!-- CARD 5 -->
+    <!-- 5: Sara -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Pai+Orun" alt="Pai Orun">
+        <img src="https://via.placeholder.com/260x300?text=Sara" alt="Sara">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Pai Orun <span class="dot"></span></div>
+            <div class="name">Sara <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Sacerdote dos orixás, guia espiritual e conselheiro de caminhos e prosperidade.</div>
+            <div class="desc">Sensitiva experiente, especialista em energia do amor e caminhos espirituais.<br><b>Consulta a partir de R$ 1,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
 
-    <!-- CARD 6 -->
+    <!-- 6: 7 Saias -->
     <div class="card">
-        <img src="https://via.placeholder.com/260x300?text=Madame+Luzia" alt="Madame Luzia">
+        <img src="https://via.placeholder.com/260x300?text=7+Saias" alt="7 Saias">
         <span class="badge">Online</span>
         <div class="content">
-            <div class="name">Madame Luzia <span class="dot"></span></div>
+            <div class="name">7 Saias <span class="dot"></span></div>
             <div class="stars">★★★★★</div>
-            <div class="desc">Clarividente renomada, revela com sabedoria os mistérios do coração e destino.</div>
+            <div class="desc">Poderosa entidade cigana que atua na abertura de caminhos e no amor verdadeiro.<br><b>Consulta a partir de R$ 1,00 por minuto</b></div>
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>
     </div>
@@ -224,15 +228,32 @@
 </div>
 
 <script>
-setInterval(() => {
-    document.querySelectorAll('.badge').forEach(badge => {
-        const dot = badge.parentElement.querySelector('.dot');
-        const isOnline = badge.textContent.trim() === 'Online';
-        badge.textContent = isOnline ? 'Offline' : 'Online';
-        badge.classList.toggle('offline', isOnline);
-        if (dot) dot.classList.toggle('offline', isOnline);
+function atualizarStatus() {
+    document.querySelectorAll('.card').forEach(card => {
+        const badge = card.querySelector('.badge');
+        const dot = card.querySelector('.dot');
+        const btn = card.querySelector('.btn');
+
+        const online = Math.random() < 0.5;
+
+        if (online) {
+            badge.textContent = 'Online';
+            badge.classList.remove('ocupado');
+            dot.classList.remove('ocupado');
+            btn.textContent = 'INICIAR CONSULTA';
+            btn.classList.remove('ocupado');
+        } else {
+            badge.textContent = 'Ocupado';
+            badge.classList.add('ocupado');
+            dot.classList.add('ocupado');
+            btn.textContent = 'OCUPADO';
+            btn.classList.add('ocupado');
+        }
     });
-}, 3000);
+}
+
+setInterval(atualizarStatus, 10000);
+atualizarStatus();
 </script>
 
 </body>
