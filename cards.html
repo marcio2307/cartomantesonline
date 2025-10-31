@@ -3,83 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Consultores Espirituais Online</title>
+<title>Cartomantes Online</title>
+
+<!-- Fonte bonita -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-body { background-color: #111; color: #fff; font-family: 'Poppins', Arial, sans-serif; margin: 0; padding: 20px; }
-h1 { text-align: center; color: gold; margin-bottom: 30px; font-size: 24px; }
-.container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
-@media (max-width: 768px) { .container { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
-.card { background-color: #222; border: 2px solid #c7a008; border-radius: 10px; overflow: hidden; box-shadow: 0 0 15px rgba(0,0,0,0.5); transition: transform 0.2s ease; position: relative; }
+/* Fundo e base */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-image: url('https://img.freepik.com/vetores-gratis/fundo-do-zodiaco-bruxo_1094-146.jpg?semt=ais_hybrid&w=740&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  padding: 20px;
+}
+
+/* Cabeçalho com fundo no texto */
+h1 {
+  text-align: center;
+  color: gold;
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: 2px solid gold;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  margin: 20px auto 40px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Container dos cards */
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .container { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 500px) {
+  .container { grid-template-columns: 1fr; }
+}
+
+/* Cards */
+.card {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #c7a008;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease;
+  position: relative;
+}
 .card:hover { transform: scale(1.03); }
-.card img { width: 100%; height: 240px; object-fit: cover; display: block; }
-.badge { position: absolute; top: 10px; left: 10px; background: #27ae60; padding: 5px 10px; font-size: 12px; border-radius: 5px; text-transform: uppercase; color: #fff; font-weight: bold; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+
+.card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Indicadores */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #27ae60;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
 .badge.ocupado { background: #e67e22; }
+
 .content { padding: 10px; }
-.name { font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 5px; display: flex; justify-content: center; align-items: center; gap: 6px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: #2ecc71; animation: blink 1s infinite; }
+.name {
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2ecc71;
+  animation: blink 1s infinite;
+}
 @keyframes blink { 50% { opacity: 0; } }
 .dot.ocupado { background: #e67e22; animation: none; }
-.stars { color: gold; text-align: center; margin-bottom: 5px; font-size: 15px; }
-.price { text-align: center; font-size: 13px; color: #fff; margin-bottom: 10px; }
-.btn { display: block; background-color: #27ae60; color: #fff; text-align: center; padding: 8px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: background 0.3s; font-size: 13px; }
+
+.stars {
+  color: gold;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+.price {
+  text-align: center;
+  font-size: 13px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.btn {
+  display: block;
+  background-color: #27ae60;
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  font-size: 13px;
+}
 .btn:hover { background-color: #2ecc71; }
 .btn.ocupado { background-color: #e67e22; pointer-events: none; }
 </style>
 </head>
+
 <body>
-<h1>Consultores Espirituais Online</h1>
+<h1>Cartomantes Online</h1>
+
 <div class="container" id="cards-container"></div>
+
 <script>
 const consultores = [
-    { nome: "Pai Márcio", valor: 3, imagem: "https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg", estrelas: 5 },
-    { nome: "Sulamita", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/05/27//47a447851c-1-.jpg", estrelas: 5 },
-    { nome: "Esmeralda", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2020/05/18//41c4696d05-1-.jpg", estrelas: 5 },
-    { nome: "Maria Padilha", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2025/01/27//699974ac8a-1-.jpg", estrelas: 4 },
-    { nome: "Sara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/09/04//9a6f4cec30-1-.jpg", estrelas: 5 },
-    { nome: "7 Saias", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/02/29//e43513a707-1-.jpg", estrelas: 5 },
-    { nome: "Odara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/01/15//91bb2a4455-1-.jpg", estrelas: 5 },
-    { nome: "Luara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/08/24//dc4e2cb494-1-.jpg", estrelas: 5 }
+  { nome: "Pai Márcio", valor: 3, imagem: "https://i.ibb.co/B5wwzSHD/Imagem-do-Whats-App-de-2025-10-31-s-12-44-22-8316baa5.jpg", estrelas: 5 },
+  { nome: "Sulamita", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/05/27//47a447851c-1-.jpg", estrelas: 5 },
+  { nome: "Esmeralda", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2020/05/18//41c4696d05-1-.jpg", estrelas: 5 },
+  { nome: "Maria Padilha", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2025/01/27//699974ac8a-1-.jpg", estrelas: 4 },
+  { nome: "Sara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/09/04//9a6f4cec30-1-.jpg", estrelas: 5 },
+  { nome: "7 Saias", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/02/29//e43513a707-1-.jpg", estrelas: 5 },
+  { nome: "Odara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/01/15//91bb2a4455-1-.jpg", estrelas: 5 },
+  { nome: "Luara", valor: 1, imagem: "https://www.rainhasdotarot.com.br/Assets/Imagens/2024/08/24//dc4e2cb494-1-.jpg", estrelas: 5 }
 ];
+
 const container = document.getElementById('cards-container');
+
 consultores.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-        <img src="${c.imagem}" alt="${c.nome}">
-        <span class="badge">Online</span>
-        <div class="content">
-            <div class="name">${c.nome} <span class="dot"></span></div>
-            <div class="stars">${'★'.repeat(c.estrelas)}${'☆'.repeat(5 - c.estrelas)}</div>
-            <div class="price"><b>R$ ${c.valor.toFixed(2)} por minuto</b></div>
-            <a href="#" class="btn">INICIAR CONSULTA</a>
-        </div>`;
-    card.querySelector('.btn').addEventListener('click', () => {
-        localStorage.clear();
-        localStorage.setItem('consultorNome', c.nome);
-        localStorage.setItem('consultorValor', c.valor);
-        localStorage.setItem('consultorImagem', c.imagem);
-        window.location.href = 'pix.html';
-    });
-    container.appendChild(card);
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <img src="${c.imagem}" alt="${c.nome}">
+    <span class="badge">Online</span>
+    <div class="content">
+      <div class="name">${c.nome} <span class="dot"></span></div>
+      <div class="stars">${'★'.repeat(c.estrelas)}${'☆'.repeat(5 - c.estrelas)}</div>
+      <div class="price"><b>R$ ${c.valor.toFixed(2)} por minuto</b></div>
+      <a href="#" class="btn">INICIAR CONSULTA</a>
+    </div>`;
+  card.querySelector('.btn').addEventListener('click', () => {
+    localStorage.clear();
+    localStorage.setItem('consultorNome', c.nome);
+    localStorage.setItem('consultorValor', c.valor);
+    localStorage.setItem('consultorImagem', c.imagem);
+    window.location.href = 'pix.html';
+  });
+  container.appendChild(card);
 });
+
 function atualizarStatus() {
-    document.querySelectorAll('.card').forEach(card => {
-        const badge = card.querySelector('.badge');
-        const dot = card.querySelector('.dot');
-        const btn = card.querySelector('.btn');
-        const online = Math.random() < 0.5;
-        if (online) {
-            badge.textContent = 'Online'; badge.classList.remove('ocupado');
-            dot.classList.remove('ocupado'); btn.textContent = 'INICIAR CONSULTA'; btn.classList.remove('ocupado');
-        } else {
-            badge.textContent = 'Ocupado'; badge.classList.add('ocupado');
-            dot.classList.add('ocupado'); btn.textContent = 'OCUPADO'; btn.classList.add('ocupado');
-        }
-    });
+  document.querySelectorAll('.card').forEach(card => {
+    const badge = card.querySelector('.badge');
+    const dot = card.querySelector('.dot');
+    const btn = card.querySelector('.btn');
+    const online = Math.random() < 0.5;
+    if (online) {
+      badge.textContent = 'Online';
+      badge.classList.remove('ocupado');
+      dot.classList.remove('ocupado');
+      btn.textContent = 'INICIAR CONSULTA';
+      btn.classList.remove('ocupado');
+    } else {
+      badge.textContent = 'Ocupado';
+      badge.classList.add('ocupado');
+      dot.classList.add('ocupado');
+      btn.textContent = 'OCUPADO';
+      btn.classList.add('ocupado');
+    }
+  });
 }
 setInterval(atualizarStatus, 10000);
 atualizarStatus();
 </script>
 </body>
 </html>
-
