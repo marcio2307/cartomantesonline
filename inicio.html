@@ -147,9 +147,22 @@
       text-decoration: underline;
   }
 
+  /* 🔹 Ajuste para celulares: 2 cards por linha */
   @media (max-width: 600px) {
+      .services {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+      }
+
       .service-card img {
           height: 150px;
+      }
+  }
+
+  /* 🔹 Em telas muito pequenas: 1 card por linha */
+  @media (max-width: 400px) {
+      .services {
+          grid-template-columns: 1fr;
       }
   }
 </style>
@@ -210,4 +223,9 @@
       </div>
   </div>
 
- 
+  <footer>
+    © 2025 Pai Márcio de Oxóssi — Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>
