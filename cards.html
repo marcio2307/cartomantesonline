@@ -21,25 +21,17 @@
         font-size: 24px;
     }
 
-    /* GRID AJUSTÁVEL */
+    /* GRID: 4 no PC, 2 no celular */
     .container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 20px;
         justify-content: center;
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
-    /* 2 COLUNAS NO CELULAR */
     @media (max-width: 768px) {
-        .container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    /* 1 COLUNA EM TELAS MUITO PEQUENAS */
-    @media (max-width: 480px) {
         .container {
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
