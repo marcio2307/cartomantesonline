@@ -9,10 +9,10 @@ body { background-color: #111; color: #fff; font-family: 'Poppins', Arial, sans-
 h1 { text-align: center; color: gold; margin-bottom: 30px; font-size: 24px; }
 .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
 @media (max-width: 768px) { .container { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
-.card { background-color: #222; border: 2px solid #c7a008; border-radius: 10px; overflow: hidden; box-shadow: 0 0 15px rgba(0,0,0,0.5); transition: transform 0.2s ease; }
+.card { background-color: #222; border: 2px solid #c7a008; border-radius: 10px; overflow: hidden; box-shadow: 0 0 15px rgba(0,0,0,0.5); transition: transform 0.2s ease; position: relative; }
 .card:hover { transform: scale(1.03); }
-.card img { width: 100%; height: 240px; object-fit: cover; }
-.badge { position: absolute; top: 10px; left: 10px; background: #27ae60; padding: 5px 10px; font-size: 12px; border-radius: 5px; text-transform: uppercase; }
+.card img { width: 100%; height: 240px; object-fit: cover; display: block; }
+.badge { position: absolute; top: 10px; left: 10px; background: #27ae60; padding: 5px 10px; font-size: 12px; border-radius: 5px; text-transform: uppercase; color: #fff; font-weight: bold; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 .badge.ocupado { background: #e67e22; }
 .content { padding: 10px; }
 .name { font-size: 17px; font-weight: bold; text-align: center; margin-bottom: 5px; display: flex; justify-content: center; align-items: center; gap: 6px; }
@@ -54,7 +54,7 @@ consultores.forEach(c => {
             <a href="#" class="btn">INICIAR CONSULTA</a>
         </div>`;
     card.querySelector('.btn').addEventListener('click', () => {
-        localStorage.clear(); // limpa cache antigo
+        localStorage.clear();
         localStorage.setItem('consultorNome', c.nome);
         localStorage.setItem('consultorValor', c.valor);
         localStorage.setItem('consultorImagem', c.imagem);
