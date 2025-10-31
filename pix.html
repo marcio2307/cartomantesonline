@@ -10,7 +10,7 @@ font-family: 'Poppins', Arial, sans-serif; margin: 0; padding: 20px; }
 .container { max-width: 420px; margin: 40px auto; background: rgba(255,255,255,0.05);
 border: 2px solid gold; border-radius: 15px; padding: 25px; box-shadow: 0 0 20px rgba(255,215,0,0.2); text-align: center; }
 .consultor-img { width: 150px; border-radius: 10px; margin-bottom: 10px; }
-h1 { color: gold; font-size: 22px; margin: 10px 0; }
+h1 { color: gold; font-size: 22px; margin: 10px 0; text-transform: uppercase; }
 p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
 .option { background: rgba(255,255,255,0.08); border: 1px solid #c7a008;
 border-radius: 10px; padding: 15px; margin-bottom: 10px; cursor: pointer;
@@ -37,65 +37,65 @@ cursor: pointer; font-weight: bold; transition: transform 0.2s ease; width: 100%
 </div>
 
 <script>
-// dados do consultor
-const nome = localStorage.getItem('consultorNome')?.toLowerCase() || 'desconhecido';
+// Nome e imagem vindos do localStorage
+const nome = (localStorage.getItem('consultorNome') || '').toLowerCase().trim();
 const imagem = localStorage.getItem('consultorImagem') || '';
-document.getElementById('consultorNome').textContent = nome.toUpperCase();
+document.getElementById('consultorNome').textContent = nome.toUpperCase() || 'CONSULTOR';
 document.getElementById('consultorImagem').src = imagem;
 
-// mapeamento de links do Mercado Pago
+// Links e valores de cada consultor
 const linksPix = {
   "pai marcio": {
-    10: "https://mpago.la/23r6doo",
-    20: "https://mpago.la/2AYrqT2",
-    30: "https://mpago.la/2JTqnYT",
-    60: "https://mpago.la/2PwQztr"
+    10: { preco: 13, link: "https://mpago.la/23r6doo" },
+    20: { preco: 60, link: "https://mpago.la/2AYrqT2" },
+    30: { preco: 90, link: "https://mpago.la/2JTqnYT" },
+    60: { preco: 180, link: "https://mpago.la/2PwQztr" }
   },
   "sulamita": {
-    10: "https://mpago.la/2ZdPBoJ",
-    20: "https://mpago.la/2cBTXPJ",
-    30: "https://mpago.la/1f2er51",
-    60: "https://mpago.la/1xjChjT"
+    10: { preco: 10, link: "https://mpago.la/2ZdPBoJ" },
+    20: { preco: 20, link: "https://mpago.la/2cBTXPJ" },
+    30: { preco: 30, link: "https://mpago.la/1f2er51" },
+    60: { preco: 60, link: "https://mpago.la/1xjChjT" }
   },
   "esmeralda": {
-    10: "https://mpago.la/22KTD6u",
-    20: "https://mpago.la/2SRucx9",
-    30: "https://mpago.la/1A4BEZu",
-    60: "https://mpago.la/1sZTU7o"
+    10: { preco: 10, link: "https://mpago.la/22KTD6u" },
+    20: { preco: 20, link: "https://mpago.la/2SRucx9" },
+    30: { preco: 30, link: "https://mpago.la/1A4BEZu" },
+    60: { preco: 60, link: "https://mpago.la/1sZTU7o" }
   },
   "maria padilha": {
-    10: "https://mpago.la/1cUz1SB",
-    20: "https://mpago.la/1LCEiHs",
-    30: "https://mpago.la/2wKbLZy",
-    60: "https://mpago.la/1iynjZ4"
+    10: { preco: 10, link: "https://mpago.la/1cUz1SB" },
+    20: { preco: 20, link: "https://mpago.la/1LCEiHs" },
+    30: { preco: 30, link: "https://mpago.la/2wKbLZy" },
+    60: { preco: 60, link: "https://mpago.la/1iynjZ4" }
   },
   "sara": {
-    10: "https://mpago.la/1kN5Gvy",
-    20: "https://mpago.la/1WPL6Le",
-    30: "https://mpago.la/2Jp5pcQ",
-    60: "https://mpago.la/1dy3rFz"
+    10: { preco: 10, link: "https://mpago.la/1kN5Gvy" },
+    20: { preco: 20, link: "https://mpago.la/1WPL6Le" },
+    30: { preco: 30, link: "https://mpago.la/2Jp5pcQ" },
+    60: { preco: 60, link: "https://mpago.la/1dy3rFz" }
   },
   "7 saias": {
-    10: "https://mpago.la/2Kjbc3n",
-    20: "https://mpago.la/2LE7rpe",
-    30: "https://mpago.la/2bC8nu9",
-    60: "https://mpago.la/2TaY8vc"
+    10: { preco: 10, link: "https://mpago.la/2Kjbc3n" },
+    20: { preco: 20, link: "https://mpago.la/2LE7rpe" },
+    30: { preco: 30, link: "https://mpago.la/2bC8nu9" },
+    60: { preco: 60, link: "https://mpago.la/2TaY8vc" }
   },
   "odara": {
-    10: "https://mpago.la/22PCNpq",
-    20: "https://mpago.la/1TvkTi1",
-    30: "https://mpago.la/2PKTB99",
-    60: "https://mpago.la/2XNfUZF"
+    10: { preco: 10, link: "https://mpago.la/22PCNpq" },
+    20: { preco: 20, link: "https://mpago.la/1TvkTi1" },
+    30: { preco: 30, link: "https://mpago.la/2PKTB99" },
+    60: { preco: 60, link: "https://mpago.la/2XNfUZF" }
   },
   "luara": {
-    10: "https://mpago.la/1eKjAKR",
-    20: "https://mpago.la/1neXstk",
-    30: "https://mpago.la/14jW7wg",
-    60: "https://mpago.la/11fG9i7"
+    10: { preco: 10, link: "https://mpago.la/1eKjAKR" },
+    20: { preco: 20, link: "https://mpago.la/1neXstk" },
+    30: { preco: 30, link: "https://mpago.la/14jW7wg" },
+    60: { preco: 60, link: "https://mpago.la/11fG9i7" }
   }
 };
 
-// opções de tempo
+// Cria as opções dinamicamente
 const minutos = [10, 20, 30, 60];
 const opcoesDiv = document.getElementById('opcoes');
 const precoSelecionado = document.getElementById('precoSelecionado');
@@ -103,26 +103,27 @@ const botaoPix = document.getElementById('pixButton');
 let minutosSelecionados = null;
 
 minutos.forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'option';
-    div.innerHTML = `<h2>${m} Minutos</h2>`;
-    div.onclick = () => {
-        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-        div.classList.add('selected');
-        minutosSelecionados = m;
-        precoSelecionado.textContent = `Você selecionou ${m} minutos`;
-        botaoPix.disabled = false;
-    };
-    opcoesDiv.appendChild(div);
+  const div = document.createElement('div');
+  div.className = 'option';
+  let preco = linksPix[nome]?.[m]?.preco || '?';
+  div.innerHTML = `<h2>${m} Minutos</h2><p>R$ ${preco}</p>`;
+  div.onclick = () => {
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    div.classList.add('selected');
+    minutosSelecionados = m;
+    precoSelecionado.textContent = `Você selecionou ${m} minutos - R$ ${preco}`;
+    botaoPix.disabled = false;
+  };
+  opcoesDiv.appendChild(div);
 });
 
-// ação do botão PIX
+// Redirecionar ao link do Mercado Pago
 botaoPix.onclick = () => {
-    if (minutosSelecionados && linksPix[nome] && linksPix[nome][minutosSelecionados]) {
-        window.location.href = linksPix[nome][minutosSelecionados];
-    } else {
-        alert("Link PIX não encontrado para este consultor ou tempo selecionado.");
-    }
+  if (minutosSelecionados && linksPix[nome]?.[minutosSelecionados]) {
+    window.location.href = linksPix[nome][minutosSelecionados].link;
+  } else {
+    alert("Link PIX não encontrado para este consultor ou tempo selecionado.");
+  }
 };
 </script>
 </body>
