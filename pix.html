@@ -37,27 +37,22 @@ cursor: pointer; font-weight: bold; transition: transform 0.2s ease; width: 100%
 </div>
 
 <script>
-// Dados do consultor vindos do localStorage
-const nome = localStorage.getItem('consultorNome');
-const valor = parseFloat(localStorage.getItem('consultorValor'));
-const imagem = localStorage.getItem('consultorImagem');
+// 🔮 Dados do consultor vindos do localStorage
+const nome = localStorage.getItem('consultorNome') || "Consultor";
+const valor = parseFloat(localStorage.getItem('consultorValor')) || 1.00;
+const imagem = localStorage.getItem('consultorImagem') || "https://via.placeholder.com/150";
 document.getElementById('consultorNome').textContent = nome;
 document.getElementById('consultorImagem').src = imagem;
 
-// Função para normalizar nomes (remove acentos e converte para minúsculas)
-function normalizarTexto(texto) {
-  return texto
-    ? texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim()
-    : "";
-}
-
+// 🔢 Opções de minutos
 const minutos = [10, 20, 30, 60];
 const opcoesDiv = document.getElementById('opcoes');
 const precoSelecionado = document.getElementById('precoSelecionado');
 const botaoPix = document.getElementById('pixButton');
-let valorSelecionado = null;
+let minutosSelecionados = null;
+let precoFinal = null;
 
-// Criação dinâmica das opções de tempo
+// 🧭 Cria as opções dinamicamente
 minutos.forEach(m => {
   const preco = (m * valor).toFixed(2);
   const div = document.createElement('div');
@@ -66,34 +61,23 @@ minutos.forEach(m => {
   div.onclick = () => {
     document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
     div.classList.add('selected');
-    valorSelecionado = m;
+    minutosSelecionados = m;
+    precoFinal = preco;
     precoSelecionado.textContent = `Você selecionou ${m} minutos - R$ ${preco}`;
     botaoPix.disabled = false;
   };
   opcoesDiv.appendChild(div);
 });
 
-// Integração com API Mercado Pago
-botaoPix.onclick = async () => {
-  if (valorSelecionado) {
-    const valorFinal = (valorSelecionado * valor).toFixed(2);
-    try {
-      const resposta = await fetch("https://cartomantespagamento.com.br/gerar_pix.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `nome=${encodeURIComponent(nome)}&valor=${encodeURIComponent(valorFinal)}`
-      });
-      const dados = await resposta.json();
-      if (dados.point_of_interaction?.transaction_data?.ticket_url) {
-        window.location.href = dados.point_of_interaction.transaction_data.ticket_url;
-      } else {
-        alert("Erro ao gerar pagamento Pix. Tente novamente.");
-        console.log(dados);
-      }
-    } catch (erro) {
-      alert("Falha na comunicação com o servidor. Verifique sua conexão.");
-      console.error(erro);
-    }
+// 💰 Ao clicar em “Pagar com Pix”
+botaoPix.onclick = () => {
+  if (minutosSelecionados && precoFinal) {
+    // Formata valores e descrição
+    const descricao = encodeURIComponent(`MINUTOS ${nome.toUpperCase()}`);
+    const valorFormatado = precoFinal.replace('.', ',');
+    const linkPix = `https://cartomantespagamento.com.br/index.php?valor=${valorFormatado}&descricao=${descricao}`;
+    // Redireciona para o link Pix
+    window.location.href = linkPix;
   }
 };
 </script>
