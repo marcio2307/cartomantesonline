@@ -40,11 +40,19 @@ h2.category {
   box-shadow: 0 0 10px rgba(255,0,0,0.3);
 }
 
-.work-banner {
-  position: relative;
-  width: 90%;
-  max-width: 400px;
+/* GRADE RESPONSIVA */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  width: 95%;
+  max-width: 1300px;
   margin: 20px auto;
+  justify-items: center;
+}
+
+/* BANNER INDIVIDUAL */
+.work-banner {
   background: linear-gradient(135deg, #000000, #1a0000);
   border-radius: 15px;
   padding: 20px;
@@ -52,21 +60,33 @@ h2.category {
   text-align: center;
   box-shadow: 0 0 25px rgba(255,0,0,0.7);
   transition: transform 0.2s;
+  width: 100%;
+  max-width: 350px;
 }
 
 .work-banner:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
+}
+
+/* IMAGENS UNIFORMES */
+.work-banner img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 15px rgba(255,0,0,0.5);
 }
 
 .work-banner h3 {
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin-bottom: 10px;
   text-shadow: 0 0 10px red;
 }
 
 .work-banner .price {
-  font-size: 1.3em;
-  margin-bottom: 15px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .work-banner .price span {
@@ -75,22 +95,24 @@ h2.category {
 }
 
 .work-banner p {
-  font-size: 0.95em;
+  font-size: 0.9em;
   color: #fff;
   margin-bottom: 20px;
+  line-height: 1.4em;
 }
 
 .work-banner a.btn {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 30px;
+  display: block;
+  margin: 5px auto;
+  width: 85%;
+  padding: 10px 15px;
+  border-radius: 25px;
   background: linear-gradient(90deg, #ff0000, #a00000);
   color: #fff;
   font-weight: bold;
   text-decoration: none;
   box-shadow: 0 0 15px red;
   transition: all 0.3s ease;
-  margin-bottom: 10px;
 }
 
 .work-banner a.btn:hover {
@@ -98,16 +120,19 @@ h2.category {
 }
 
 @media (max-width: 800px) {
-  .work-banner {
-    width: 95%;
-    padding: 15px;
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  h1 {
-    font-size: 1.8em;
+  h1 { font-size: 1.8em; }
+  .notice { font-size: 0.95em; padding: 12px 15px; }
+}
+
+@media (max-width: 500px) {
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .notice {
-    font-size: 0.95em;
-    padding: 12px 15px;
+  .work-banner img {
+    height: 180px;
   }
 }
 </style>
@@ -125,128 +150,149 @@ function realizarPagamento(valor, descricao) {
 <h1>🔥 SUPER BLACK FRIDAY 🔥<br>Trabalhos Espirituais</h1>
 
 <div class="notice">
-  💳 <b>Aceitamos pagamento via Cartão de Crédito e Pix.</b>
+  💳 <b>Aceitamos pagamentos via Cartão de Crédito e Pix.</b>
 </div>
 
 <!-- AMOR E RELACIONAMENTOS -->
 <h2 class="category">💘 Amor e Relacionamentos</h2>
+<div class="works-grid">
 
 <div class="work-banner">
+  <img src="https://http2.mlstatic.com/D_NQ_NP_681096-MLB52388311331_112022-O.webp" alt="Amarração Amorosa">
   <h3>Amarração Amorosa</h3>
   <div class="price">R$ 487,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('487,00','Amarração Amorosa')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Trabalho poderoso para unir casais, reacender paixões e fortalecer laços com total proteção espiritual.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('487,00','Amarração Amorosa')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0UWyWUOg2oHo_cudVw-QFwljEvZR0Z1ftnBZBakWXQLCzQb7ADwspN6j3o3kGzn1L6Fs&usqp=CAU" alt="Chora nos Meus Pés">
   <h3>Chora nos Meus Pés</h3>
   <div class="price">R$ 257,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('257,00','Chora nos Meus Pés')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Faz a pessoa amada reconhecer seus erros e voltar arrependida, buscando sua presença com urgência e desejo.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('257,00','Chora nos Meus Pés')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://i.pinimg.com/474x/72/f7/7a/72f77a5fe3367533d9bcf2feffb043d4.jpg" alt="Dominação / Submissão">
   <h3>Dominação / Submissão</h3>
   <div class="price">R$ 587,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('587,00','Dominação / Submissão')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Magia voltada para fazer o outro se render ao seu comando, despertando desejo e obediência emocional.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('587,00','Dominação / Submissão')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzhtYq4WuYpRGTv1PWZ4XAxZPhr-XeeU23hw&s" alt="Abertura Amorosa">
   <h3>Abertura de Caminhos na Vida Amorosa</h3>
   <div class="price">R$ 357,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('357,00','Abertura de Caminhos na Vida Amorosa')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Remove bloqueios e energias negativas que impedem o amor verdadeiro de florescer em sua vida.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('357,00','Abertura de Caminhos na Vida Amorosa')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://pbs.twimg.com/media/GGrAhLaXQAEvVRX?format=jpg&name=large" alt="Adoçamento">
   <h3>Adoçamento</h3>
   <div class="price">R$ 357,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('357,00','Adoçamento')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Adoça o coração da pessoa amada, trazendo harmonia, carinho e suavidade nas atitudes e sentimentos.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('357,00','Adoçamento')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLyah1pEfsUsNM5DpNC8cRuDXtbQ_mF29zs_qpc-pPVqWrsRRao4tKjjx45hVsY0Gxy7U&usqp=CAU" alt="Arrasto">
   <h3>Arrasto</h3>
   <div class="price">R$ 587,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('587,00','Arrasto')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Trabalho de alta força espiritual para atrair a pessoa desejada, despertando paixão intensa e desejo constante.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('587,00','Arrasto')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
+</div>
 </div>
 
 <!-- PROTEÇÃO E PROSPERIDADE -->
 <h2 class="category">🛡️ Proteção e Prosperidade</h2>
+<div class="works-grid">
 
 <div class="work-banner">
-  <h3>Limpeza/Proteção Espiritual</h3>
+  <img src="https://p2.trrsf.com/image/fget/cf/940/0/images.terra.com/2024/10/21/1275252562-incenso-salvia.jpg" alt="Limpeza / Proteção Espiritual">
+  <h3>Limpeza / Proteção Espiritual</h3>
   <div class="price">R$ 387,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('387,00','Limpeza/Proteção Espiritual')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Elimina inveja, mau-olhado e ataques espirituais, restaurando sua energia vital e escudo de proteção pessoal.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('387,00','Limpeza / Proteção Espiritual')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://terreirodeumbandabh.com.br/wp-content/uploads/2024/07/WhatsApp-Image-2024-07-04-at-00.05.03.jpeg" alt="Prosperidade Financeira">
   <h3>Prosperidade Financeira</h3>
   <div class="price">R$ 337,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('337,00','Prosperidade Financeira')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Abre os caminhos do dinheiro, atrai prosperidade e favorece o sucesso em negócios e oportunidades.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('337,00','Prosperidade Financeira')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://blog.cartasdotarot.com.br/wp-content/uploads/2024/06/azbsfkgm2zcssgvk39ktkcemm3zch8s1.webp" alt="Abertura de Caminhos Financeiros">
   <h3>Abertura de Caminhos para a Vida Financeira</h3>
   <div class="price">R$ 327,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('327,00','Abertura de Caminhos para a Vida Financeira')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Desbloqueia barreiras espirituais que impedem seu crescimento financeiro, atraindo prosperidade contínua.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('327,00','Abertura de Caminhos Financeiros')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7DBIWaX4aUa7PorvmgFggskkG4hgua4LvHddDymaMmKwGfi_xD6970iwjA2OEESB2Oos&usqp=CAU" alt="Desfazer Magia">
   <h3>Desfazer Magia</h3>
   <div class="price">R$ 437,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('437,00','Desfazer Magia')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Remove feitiços, amarrações e maldições lançadas contra você, restaurando sua paz, equilíbrio e proteção.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('437,00','Desfazer Magia')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
+</div>
 </div>
 
-<!-- VINGANÇA / JUSTIÇA ESPIRITUAL -->
+<!-- JUSTIÇA ESPIRITUAL -->
 <h2 class="category">⚖️ Vingança / Justiça Espiritual</h2>
+<div class="works-grid">
 
 <div class="work-banner">
+  <img src="https://http2.mlstatic.com/D_NQ_NP_788526-MLB47579223373_092021-O.webp" alt="Destruição">
   <h3>Destruição</h3>
   <div class="price">R$ 537,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('537,00','Destruição')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Trabalho forte para neutralizar inimigos, desmanchar injustiças e devolver o mal recebido com justiça espiritual.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('537,00','Destruição')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://www.byadacalunga.com.br/uploads/servicos/8/thumb-800-0/1889e8108b074a822c1a76d7b803c860.jpg" alt="Separação">
   <h3>Separação</h3>
   <div class="price">R$ 557,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('557,00','Separação')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Feitiço destinado a afastar rivais, amantes ou relações indesejadas, com energia precisa e segura.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('557,00','Separação')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8EoU0abH5HdrbXotik4jDEIFU6MZSMmzATg&s" alt="Afastamento">
   <h3>Afastamento</h3>
   <div class="price">R$ 487,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('487,00','Afastamento')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Remove pessoas negativas da sua vida ou da vida da pessoa amada, sem causar danos espirituais diretos.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('487,00','Afastamento')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
 </div>
 
 <div class="work-banner">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt6xFZrBWyWTYgAuoX2LRzF4qMUAJ-jbhasQ&s" alt="Brochamento">
   <h3>Brochamento</h3>
   <div class="price">R$ 357,00 <span>🔥 Black Friday</span></div>
-  <p>Trabalhos espirituais com resultados rápidos e protegidos.</p>
-  <a href="#" class="btn" onclick="realizarPagamento('357,00','Brochamento')">Realizar Pagamento no WhatsApp 💬</a>
-  <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="btn" target="_blank">Falar com Consultor ↗</a>
+  <p>Trabalho específico para enfraquecer o desejo de rivais e impedir traições, mantendo a fidelidade do parceiro.</p>
+  <a href="#" class="btn" onclick="realizarPagamento('357,00','Brochamento')">Realizar Pagamento 💬</a>
+  <a href="https://cartomantesonline.site/consultores" class="btn" target="_blank">Falar com Consultor ↗</a>
+</div>
+
 </div>
 
 </body>
