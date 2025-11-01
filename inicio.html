@@ -1,8 +1,8 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
 <title>Pai Márcio de Oxóssi — Meus Serviços</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
@@ -20,22 +20,23 @@
   --wa-accent:#ffcc00;
 }
 
-/* ===== LAYOUT PRINCIPAL ===== */
-*{margin:0;padding:0;box-sizing:border-box}
+/* ===== REGRAS GERAIS ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
   background:#000;
   color:#FFD700;
   font-family:'Poppins',Arial,sans-serif;
   overflow-x:hidden;
+  line-height:1.6;
 }
 
 /* ===== BANNER ===== */
 .banner{
   position:relative;
   width:100%;
-  height:50vh;
+  height:45vh;
   background:linear-gradient(to bottom,rgba(0,0,0,0.25),rgba(0,0,0,0.85)),
-    url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg') center bottom/cover no-repeat;
+  url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg') center bottom/cover no-repeat;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -51,8 +52,8 @@ body{
 /* ===== TÍTULO ===== */
 .title{
   text-align:center;
-  margin:24px 0;
-  font-size:clamp(24px,4vw,42px);
+  margin:24px 10px;
+  font-size:clamp(24px,5vw,42px);
   font-weight:800;
   color:#FFD700;
   text-shadow:0 0 10px #FFD700,0 0 25px #ffea00;
@@ -60,40 +61,75 @@ body{
 
 /* ===== CARDS ===== */
 .container{width:90%;max-width:1000px;margin:auto;}
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-bottom:30px;
+}
 a.service-card{
-  text-decoration:none;color:#FFD700;font-weight:600;text-transform:uppercase;
+  text-decoration:none;
+  color:#FFD700;
+  font-weight:600;
+  text-transform:uppercase;
   background:linear-gradient(145deg,#b20220,#ff2b2b);
   border-radius:18px;
-  height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:150px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   box-shadow:0 0 25px rgba(255,215,0,0.25),inset 0 0 12px rgba(0,0,0,0.4);
   transition:transform .3s,box-shadow .3s;
 }
-a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px rgba(255,215,0,0.5);}
+a.service-card:hover{
+  transform:translateY(-4px)scale(1.03);
+  box-shadow:0 0 35px rgba(255,215,0,0.5);
+}
+a.service-card i{
+  font-size:28px;
+  margin-bottom:6px;
+}
 
 /* ===== NOTIFICAÇÃO APP ===== */
 .app-notification{
-  position:fixed;bottom:20px;left:20px;
-  background:rgba(255,215,0,0.95);color:#000;
-  padding:14px 20px;border-radius:12px;
+  position:fixed;
+  bottom:20px;left:20px;right:20px;
+  background:rgba(255,215,0,0.95);
+  color:#000;
+  padding:14px 20px;
+  border-radius:12px;
   box-shadow:0 0 20px rgba(255,215,0,0.5);
-  display:flex;align-items:center;gap:10px;font-weight:600;
-  z-index:998;animation:slideIn 1s ease forwards;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  font-weight:600;
+  z-index:998;
+  animation:slideIn 1s ease forwards;
 }
 .app-notification i{font-size:22px;color:#b20220;}
-.app-notification a{background:#b20220;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700;}
-.close-btn{background:none;border:none;font-size:18px;cursor:pointer;color:#000;}
+.app-notification a{
+  background:#b20220;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+}
+.close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:#000;}
 @keyframes slideIn{from{transform:translateY(100px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
 /* ===== CHAT FLUTUANTE ===== */
 .phone{
   width:min(420px,95%);
-  height:80vh;
+  height:75vh;
   background:var(--wa-chat);
   display:none;
   grid-template-rows:auto 1fr auto;
   position:fixed;
-  bottom:90px; /* fica acima da notificação */
+  bottom:90px;
   right:20px;
   border-radius:14px;
   box-shadow:0 0 25px rgba(0,0,0,.7);
@@ -101,13 +137,13 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
   overflow:hidden;
   z-index:999;
 }
-
-/* Cabeçalho do chat */
 .header{
   background:var(--wa-header);
   color:var(--wa-text);
   padding:10px 12px;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 .header-left{display:flex;align-items:center;gap:10px;}
 .avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;}
@@ -116,12 +152,8 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
 .hgroup b{font-size:15px}
 .hgroup small{color:var(--wa-muted);font-size:12px;display:flex;align-items:center;gap:4px;}
 .close-chat{background:none;border:0;color:var(--wa-muted);font-size:22px;cursor:pointer;}
-
-/* bolinha online */
 .online-dot{width:7px;height:7px;border-radius:50%;background:var(--wa-accent);animation:pulse 1.2s infinite;}
 @keyframes pulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.3)}}
-
-/* Mensagens */
 .messages{padding:10px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;background:var(--wa-chat);}
 .msg{max-width:78%;padding:8px 10px;border-radius:8px;word-wrap:break-word;white-space:pre-wrap;font-size:14.5px;}
 .in{align-self:flex-start;background:var(--wa-bubble-in);}
@@ -131,25 +163,21 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
 .dot{width:6px;height:6px;border-radius:50%;background:var(--wa-muted);opacity:.7;animation:bounce 1.2s infinite;}
 .dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
-
-/* Botões rápidos */
-.quick{display:flex;gap:6px;padding:6px 10px 0;flex-wrap:wrap;}
-.quick button{background:var(--wa-header);color:var(--wa-text);border:0;border-radius:16px;padding:6px 10px;font-size:12.5px;cursor:pointer;}
-
-/* Entrada */
+.quick{display:flex;gap:6px;padding:6px 10px 0;flex-wrap:wrap;justify-content:center;}
+.quick button{background:var(--wa-header);color:var(--wa-text);border:0;border-radius:16px;padding:6px 10px;font-size:13px;cursor:pointer;}
 .input{background:var(--wa-header);padding:8px;display:flex;align-items:center;gap:8px;}
 .input form{display:flex;gap:8px;flex:1;}
 .input input[type="text"]{flex:1;padding:10px 12px;border-radius:20px;border:0;outline:0;background:var(--wa-input);color:var(--wa-text);font-size:14.5px;}
 .send{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--wa-accent);color:#330000;font-weight:700;}
 .send:active{transform:scale(.98)}
 
-/* Botão flutuante */
+/* ===== BOTÃO FLUTUANTE ===== */
 #open-chat-btn{
   position:fixed;
   bottom:20px;right:20px;
   background:#ffcc00;color:#330000;
   border:3px solid #ff6600;border-radius:40px;
-  padding:8px 16px;font-weight:600;font-size:15px;
+  padding:10px 16px;font-weight:600;font-size:15px;
   cursor:pointer;display:flex;align-items:center;
   box-shadow:0 0 10px rgba(0,0,0,.4);
   transition:transform .2s,box-shadow .2s;
@@ -157,11 +185,24 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
 }
 #open-chat-btn:hover{transform:scale(1.05);box-shadow:0 0 14px rgba(0,0,0,.5);}
 #open-chat-btn img{width:28px;height:28px;margin-right:6px;border-radius:50%;}
+
+/* ===== RESPONSIVIDADE ===== */
+@media(max-width:768px){
+  .banner{height:35vh;}
+  .phone{width:95%;right:2.5%;height:70vh;}
+  .app-notification{left:10px;right:10px;flex-direction:column;align-items:flex-start;}
+  .app-notification a{align-self:flex-end;}
+}
+@media(max-width:480px){
+  .title{font-size:22px;}
+  a.service-card{height:120px;font-size:14px;}
+  .input input{font-size:13px;}
+  #open-chat-btn{font-size:14px;padding:8px 14px;}
+}
 </style>
 </head>
 <body>
 
-<!-- ===== BANNER ===== -->
 <section class="banner"></section>
 <h1 class="title">Pai Márcio de Oxóssi — Meus Serviços</h1>
 
@@ -174,7 +215,6 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
   </div>
 </div>
 
-<!-- ===== NOTIFICAÇÃO APP ===== -->
 <div class="app-notification" id="appNotify">
   <i class="fa-solid fa-download"></i>
   <span>Baixe nosso aplicativo para consultas mais rápidas!</span>
@@ -182,7 +222,6 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
   <button class="close-btn" onclick="document.getElementById('appNotify').style.display='none'">&times;</button>
 </div>
 
-<!-- ===== CHAT FLUTUANTE ===== -->
 <div class="phone" id="app">
   <div class="header">
     <div class="header-left">
@@ -194,9 +233,7 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
     </div>
     <button class="close-chat" id="closeChatBtn">✖</button>
   </div>
-
   <div class="messages" id="messages"></div>
-
   <div class="quick" id="quick">
     <button data-q="coletivo">Coletivos</button>
     <button data-q="consulta">Consulta</button>
@@ -207,7 +244,6 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
     <button data-q="prazos">Prazos</button>
     <button data-q="acompanhamento">Acompanhamento</button>
   </div>
-
   <div class="input">
     <form id="form">
       <input id="input" type="text" placeholder="Digite uma mensagem" autocomplete="off" />
@@ -216,13 +252,11 @@ a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px r
   </div>
 </div>
 
-<!-- Botão flutuante -->
 <button id="open-chat-btn">
   <img src="https://png.pngtree.com/png-vector/20241009/ourlarge/pngtree-black-and-yellow-call-center-icon-png-image_14024847.png" alt="Atendente">
   <span>Posso ajudar?</span>
 </button>
 
-<!-- ===== SCRIPT DO CHAT ===== -->
 <script>
 (function(){
   const nowTime=()=>new Date().toLocaleTimeString("pt-BR",{hour:'2-digit',minute:'2-digit'});
@@ -312,79 +346,4 @@ Ritual de reversão espiritual que neutraliza feitiços, pragas e magias negativ
 ⚡ Vingança / Justiça Espiritual
 
 Destruição
-Trabalho de energia pesada e justa, voltado à eliminação de inimigos espirituais ou pessoas que prejudicam o consulente. Atua como força de justiça divina e reparação.
-
-Separação
-Ritual destinado a afastar definitivamente casais ou relações que impedem a realização amorosa do consulente. Atua com precisão, cortando laços e vínculos energéticos.
-
-Afastamento
-Magia espiritual utilizada para distanciar pessoas indesejadas, rivais ou influências negativas. Promove paz e liberdade ao consulente, rompendo laços nocivos.
-
-Brochamento
-Trabalho voltado à impotência energética e emocional de terceiros, especialmente em casos de traição. Neutraliza o desejo e impede envolvimentos fora do relacionamento principal.`
-  };
-  const intents=[
-    {test:/(coletivo)/i,reply:respostas.coletivos},
-    {test:/(consulta)/i,reply:respostas.consulta},
-    {test:/(consultor|chat)/i,reply:respostas.consultores},
-    {test:/(pagamento|pix)/i,reply:respostas.pagamento},
-    {test:/(tabela|valores)/i,reply:respostas.tabela},
-    {test:/(funciona|ritual|explica)/i,reply:respostas.funciona},
-    {test:/(prazo)/i,reply:respostas.prazos},
-    {test:/(acompanhamento)/i,reply:respostas.acompanhamento}
-  ];
-  const $messages=document.getElementById("messages");
-  const $form=document.getElementById("form");
-  const $input=document.getElementById("input");
-  const $quick=document.getElementById("quick");
-  const $chat=document.getElementById("app");
-  const $openBtn=document.getElementById("open-chat-btn");
-  const $closeBtn=document.getElementById("closeChatBtn");
-
-  function addMsg(t,who='in'){
-    const el=document.createElement("div");
-    el.className=`msg ${who}`;
-    el.innerHTML=t.replace(/\n/g,"<br>")+`<span class="meta">${nowTime()}</span>`;
-    $messages.appendChild(el);
-    $messages.scrollTop=$messages.scrollHeight;
-  }
-  function addTyping(){
-    const el=document.createElement("div");
-    el.className="typing";
-    el.innerHTML='<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
-    $messages.appendChild(el);
-    $messages.scrollTop=$messages.scrollHeight;
-  }
-  function removeTyping(){
-    const t=$messages.querySelector(".typing");if(t)t.remove();
-  }
-  function handleQuery(q){
-    for(const i of intents){if(i.test.test(q))return i.reply;}
-    return respostas.boasvindas;
-  }
-  async function reply(q){
-    addMsg(q,'out');
-    addTyping();
-    await new Promise(r=>setTimeout(r,500+Math.random()*400));
-    removeTyping();
-    addMsg(handleQuery(q),'in');
-  }
-  $quick.addEventListener("click",e=>{
-    const b=e.target.closest("button[data-q]");
-    if(!b)return;
-    reply(b.getAttribute("data-q"));
-  });
-  $form.addEventListener("submit",e=>{
-    e.preventDefault();
-    const q=$input.value.trim();
-    if(!q)return;
-    $input.value="";
-    reply(q);
-  });
-  addMsg(respostas.boasvindas,'in');
-  $closeBtn.onclick=()=>{$chat.style.display='none';$openBtn.style.display='flex';};
-  $openBtn.onclick=()=>{$chat.style.display='grid';$openBtn.style.display='none';};
-})();
-</script>
-</body>
-</html>
+Trabalho de energia pesada e justa
