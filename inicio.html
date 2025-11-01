@@ -93,7 +93,7 @@
     .services{grid-template-columns:1fr;}
   }
 
-  /* 🔹 Chat estilos (mantidos do seu código original) */
+  /* 🔹 Chat estilos */
   :root{
     --wa-bg:#1a0000;
     --wa-chat:#220000;
@@ -105,10 +105,10 @@
     --wa-muted:#ffcc00;
     --wa-accent:#ffcc00;
   }
-  html,body{height:auto}
+
   .phone{
-    width:min(420px,100%);
-    height:90dvh;
+    width:min(400px,90%);
+    height:70vh;
     background:var(--wa-chat);
     display:grid;
     grid-template-rows:auto 1fr auto;
@@ -120,6 +120,11 @@
     box-shadow:0 0 20px rgba(0,0,0,.5);
     z-index:9999;
   }
+
+  @media (min-width:768px){
+    .phone{height:60vh;bottom:100px;right:30px;}
+  }
+
   .header{
     background:var(--wa-header);color:var(--wa-text);
     padding:10px;display:flex;align-items:center;justify-content:space-between;
@@ -146,6 +151,8 @@
   .input form{display:flex;gap:8px;flex:1;}
   .input input{flex:1;padding:10px 12px;border-radius:20px;border:0;outline:0;background:var(--wa-input);color:var(--wa-text);}
   .send{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--wa-accent);color:#330000;font-weight:700;}
+
+  /* botão flutuante */
   #open-chat-btn{
     position:fixed;bottom:20px;right:20px;
     background:#ffcc00;color:#330000;
@@ -211,7 +218,7 @@
       <button data-q="coletivo">Coletivos</button>
       <button data-q="consulta">Consulta</button>
       <button data-q="consultores">Consultores</button>
-      <button data-q="pagamento">Formas de Pagamento</button>
+      <button data-q="pagamento">Pagamento</button>
       <button data-q="tabela">Tabela</button>
       <button data-q="funciona">Como Funciona</button>
       <button data-q="prazos">Prazos</button>
@@ -239,29 +246,19 @@ Posso te ajudar com:
 • Coletivos
 • Consulta
 • Consultores
-• Formas de Pagamento
+• Pagamento
 • Tabela
 • Como Funciona
 • Prazos
 • Acompanhamento`,
-    coletivos:`🔥 COLETIVOS
-Temos rituais coletivos com vagas limitadas e acompanhamento espiritual.`,
-    consulta:`🃏 CONSULTA
-Atendimento com 3 ou 7 perguntas e pagamento via Pix.`,
-    consultores:`👥 CONSULTORES
-Leituras a partir de R$ 1,00 por minuto.`,
-    pagamento:`💳 FORMAS DE PAGAMENTO
-• Pix — 85 98436-8057 (Márcio Martins Lopes)`,
-    prazos:`⏱️ PRAZOS
-Resultados em até 7, 14 ou 21 dias.`,
-    acompanhamento:`📅 ACOMPANHAMENTO
-Sextas-feiras, das 15h às 17h.`,
-    tabela:`🧾 TABELA DE TRABALHOS
-Amarração — R$ 487
-Adoçamento — R$ 357
-Separação — R$ 557`,
-    funciona:`🔮 COMO FUNCIONA
-Cada trabalho é realizado com rituais personalizados e acompanhamento espiritual.`
+    coletivos:`🔥 COLETIVOS — Rituais coletivos com vagas limitadas.`,
+    consulta:`🃏 CONSULTA — Atendimento com 3 ou 7 perguntas via Pix.`,
+    consultores:`👥 CONSULTORES — Leituras a partir de R$1,00/minuto.`,
+    pagamento:`💳 FORMAS DE PAGAMENTO — Pix: 85 98436-8057 (Márcio Martins Lopes)`,
+    tabela:`🧾 TABELA — Amarração R$487 | Adoçamento R$357 | Separação R$557`,
+    funciona:`🔮 FUNCIONA — Trabalhos personalizados com acompanhamento espiritual.`,
+    prazos:`⏱️ PRAZOS — Resultados em até 7, 14 ou 21 dias.`,
+    acompanhamento:`📅 ACOMPANHAMENTO — Sextas, das 15h às 17h.`
   };
   const intents=[
     {test:/(coletivo)/i,reply:respostas.coletivos},
