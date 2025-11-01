@@ -1,281 +1,390 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Pai Márcio de Oxóssi Meus Serviços</title>
-
-<!-- 🔹 Font Awesome -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pai Márcio de Oxóssi — Meus Serviços</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body {
-    background:#000;
-    font-family: 'Poppins', system-ui, Arial, sans-serif;
-    color:#FFD700;
-    height: 100%;
-    overflow-x: hidden;
-  }
+/* ===== CORES GERAIS ===== */
+:root{
+  --wa-bg:#1a0000;
+  --wa-chat:#220000;
+  --wa-header:#330000;
+  --wa-input:#440000;
+  --wa-bubble-in:#4d0000;
+  --wa-bubble-out:#c40000;
+  --wa-text:#fff8e1;
+  --wa-muted:#ffcc00;
+  --wa-accent:#ffcc00;
+}
 
-  /* ====== Banner ====== */
-  .banner {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-      linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
-      url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg')
-      center bottom / cover no-repeat;
-    border-bottom: 2px solid #FFD700;
-    overflow: hidden;
-  }
+/* ===== LAYOUT PRINCIPAL ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#000;
+  color:#FFD700;
+  font-family:'Poppins',Arial,sans-serif;
+  overflow-x:hidden;
+}
 
-  .banner::before {
-    content: "";
-    position: absolute;
-    top: 0; left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
-    animation: shineBanner 6s infinite;
-  }
+/* ===== BANNER ===== */
+.banner{
+  position:relative;
+  width:100%;
+  height:50vh;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.25),rgba(0,0,0,0.85)),
+    url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg') center bottom/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:2px solid #FFD700;
+}
+.banner::before{
+  content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:shineBanner 6s infinite;
+}
+@keyframes shineBanner{0%{left:-75%}100%{left:125%}}
 
-  @keyframes shineBanner {
-    0% { left: -75%; }
-    100% { left: 125%; }
-  }
+/* ===== TÍTULO ===== */
+.title{
+  text-align:center;
+  margin:24px 0;
+  font-size:clamp(24px,4vw,42px);
+  font-weight:800;
+  color:#FFD700;
+  text-shadow:0 0 10px #FFD700,0 0 25px #ffea00;
+}
 
-  /* ====== Título ====== */
-  .title {
-    text-align: center;
-    margin-top: 24px;
-    font-size: clamp(24px, 4.5vw, 42px);
-    font-weight: 800;
-    color: #FFD700;
-    text-shadow: 0 0 10px #FFD700, 0 0 25px #ffea00;
-    animation: glow 3s ease-in-out infinite;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
+/* ===== CARDS ===== */
+.container{width:90%;max-width:1000px;margin:auto;}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+a.service-card{
+  text-decoration:none;color:#FFD700;font-weight:600;text-transform:uppercase;
+  background:linear-gradient(145deg,#b20220,#ff2b2b);
+  border-radius:18px;
+  height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 25px rgba(255,215,0,0.25),inset 0 0 12px rgba(0,0,0,0.4);
+  transition:transform .3s,box-shadow .3s;
+}
+a.service-card:hover{transform:translateY(-4px)scale(1.03);box-shadow:0 0 35px rgba(255,215,0,0.5);}
 
-  @keyframes glow {
-    0%, 100% { text-shadow: 0 0 10px #FFD700; }
-    50% { text-shadow: 0 0 30px #FFD700; }
-  }
+/* ===== NOTIFICAÇÃO APP ===== */
+.app-notification{
+  position:fixed;bottom:20px;left:20px;
+  background:rgba(255,215,0,0.95);color:#000;
+  padding:14px 20px;border-radius:12px;
+  box-shadow:0 0 20px rgba(255,215,0,0.5);
+  display:flex;align-items:center;gap:10px;font-weight:600;
+  z-index:998;animation:slideIn 1s ease forwards;
+}
+.app-notification i{font-size:22px;color:#b20220;}
+.app-notification a{background:#b20220;color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700;}
+.close-btn{background:none;border:none;font-size:18px;cursor:pointer;color:#000;}
+@keyframes slideIn{from{transform:translateY(100px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
-  /* ====== Cards ====== */
-  .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: 35px auto;
-  }
+/* ===== CHAT FLUTUANTE ===== */
+.phone{
+  width:min(420px,95%);
+  height:80vh;
+  background:var(--wa-chat);
+  display:none;
+  grid-template-rows:auto 1fr auto;
+  position:fixed;
+  bottom:90px; /* fica acima da notificação */
+  right:20px;
+  border-radius:14px;
+  box-shadow:0 0 25px rgba(0,0,0,.7);
+  border:2px solid var(--wa-accent);
+  overflow:hidden;
+  z-index:999;
+}
 
-  .services {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-  }
+/* Cabeçalho do chat */
+.header{
+  background:var(--wa-header);
+  color:var(--wa-text);
+  padding:10px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.header-left{display:flex;align-items:center;gap:10px;}
+.avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.hgroup{display:flex;flex-direction:column}
+.hgroup b{font-size:15px}
+.hgroup small{color:var(--wa-muted);font-size:12px;display:flex;align-items:center;gap:4px;}
+.close-chat{background:none;border:0;color:var(--wa-muted);font-size:22px;cursor:pointer;}
 
-  a.service-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 150px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #b20220, #ff2b2b);
-      box-shadow: 0 0 25px rgba(255,215,0,0.25), inset 0 0 12px rgba(0,0,0,0.4);
-      color: #FFD700;
-      text-decoration: none;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-  }
+/* bolinha online */
+.online-dot{width:7px;height:7px;border-radius:50%;background:var(--wa-accent);animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.3)}}
 
-  a.service-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 0 35px rgba(255,215,0,0.5), inset 0 0 18px rgba(0,0,0,0.4);
-  }
+/* Mensagens */
+.messages{padding:10px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;background:var(--wa-chat);}
+.msg{max-width:78%;padding:8px 10px;border-radius:8px;word-wrap:break-word;white-space:pre-wrap;font-size:14.5px;}
+.in{align-self:flex-start;background:var(--wa-bubble-in);}
+.out{align-self:flex-end;background:var(--wa-bubble-out);}
+.meta{display:block;font-size:11px;color:var(--wa-muted);margin-top:4px;text-align:right;}
+.typing{align-self:flex-start;display:flex;gap:6px;color:var(--wa-muted);padding:4px 8px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--wa-muted);opacity:.7;animation:bounce 1.2s infinite;}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-4px)}}
 
-  a.service-card::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
-      animation: shine 4s linear infinite;
-  }
+/* Botões rápidos */
+.quick{display:flex;gap:6px;padding:6px 10px 0;flex-wrap:wrap;}
+.quick button{background:var(--wa-header);color:var(--wa-text);border:0;border-radius:16px;padding:6px 10px;font-size:12.5px;cursor:pointer;}
 
-  @keyframes shine {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-  }
+/* Entrada */
+.input{background:var(--wa-header);padding:8px;display:flex;align-items:center;gap:8px;}
+.input form{display:flex;gap:8px;flex:1;}
+.input input[type="text"]{flex:1;padding:10px 12px;border-radius:20px;border:0;outline:0;background:var(--wa-input);color:var(--wa-text);font-size:14.5px;}
+.send{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;background:var(--wa-accent);color:#330000;font-weight:700;}
+.send:active{transform:scale(.98)}
 
-  .service-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
-  }
-
-  .service-icon i {
-      font-size: 36px;
-      color: #FFD700;
-      text-shadow: 0 0 10px rgba(255,215,0,0.8);
-      animation: pulseStar 2.8s ease-in-out infinite;
-  }
-
-  @keyframes pulseStar {
-      0%,100% { transform: scale(1); filter: drop-shadow(0 0 5px #FFD700); }
-      50% { transform: scale(1.2); filter: drop-shadow(0 0 20px #FFD700); }
-  }
-
-  .service-title {
-      font-size: 1rem;
-      text-shadow: 0 0 10px rgba(255,215,0,0.7);
-      text-align: center;
-  }
-
-  /* ====== Notificação flutuante ====== */
-  .app-notification {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 215, 0, 0.95);
-      color: #000;
-      padding: 14px 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      z-index: 9999;
-      animation: slideIn 1s ease forwards;
-  }
-
-  .app-notification i {
-      font-size: 24px;
-      color: #b20220;
-  }
-
-  .app-notification a {
-      background: #b20220;
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: background 0.3s;
-  }
-
-  .app-notification a:hover {
-      background: #8b0018;
-  }
-
-  @keyframes slideIn {
-      from { transform: translateY(100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-  }
-
-  .close-btn {
-      background: transparent;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      color: #000;
-      margin-left: 6px;
-  }
-
-  @media (max-width: 500px) {
-      .app-notification {
-          bottom: 10px;
-          right: 10px;
-          flex-direction: column;
-          text-align: center;
-      }
-      .app-notification a {
-          margin-top: 6px;
-      }
-  }
-
-  /* ====== Responsividade ====== */
-  @media (max-width: 1024px) {
-      .banner { height: 46vh; background-position: center bottom; }
-      .services { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  }
-
-  @media (max-width: 768px) {
-      .banner { height: 45vh; background-position: center bottom; }
-      .title { margin-top: 20px; font-size: 28px; }
-  }
-
-  @media (max-width: 500px) {
-      .banner { height: 44vh; background-position: center bottom; }
-      .title { font-size: 22px; margin-top: 16px; }
-      .services { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      a.service-card { height: 120px; font-size: 0.85rem; }
-      .service-icon i { font-size: 30px; }
-  }
-
-  @media (max-width: 360px) {
-      .banner { height: 42vh; }
-      .services { grid-template-columns: 1fr; }
-  }
+/* Botão flutuante */
+#open-chat-btn{
+  position:fixed;
+  bottom:20px;right:20px;
+  background:#ffcc00;color:#330000;
+  border:3px solid #ff6600;border-radius:40px;
+  padding:8px 16px;font-weight:600;font-size:15px;
+  cursor:pointer;display:flex;align-items:center;
+  box-shadow:0 0 10px rgba(0,0,0,.4);
+  transition:transform .2s,box-shadow .2s;
+  z-index:999;
+}
+#open-chat-btn:hover{transform:scale(1.05);box-shadow:0 0 14px rgba(0,0,0,.5);}
+#open-chat-btn img{width:28px;height:28px;margin-right:6px;border-radius:50%;}
 </style>
 </head>
 <body>
 
-  <section class="banner"></section>
+<!-- ===== BANNER ===== -->
+<section class="banner"></section>
+<h1 class="title">Pai Márcio de Oxóssi — Meus Serviços</h1>
 
-  <h1 class="title">Pai Márcio de Oxóssi Meus Serviços</h1>
+<div class="container">
+  <div class="services">
+    <a href="https://marcio2307.github.io/cartomantesonline/agendamento.html" class="service-card"><i class="fa-solid fa-star"></i><br>Consulta</a>
+    <a href="https://marcio2307.github.io/cartomantesonline/trabalhos.html" class="service-card"><i class="fa-solid fa-fire"></i><br>Trabalhos</a>
+    <a href="https://marcio2307.github.io/cartomantesonline/coletivo.html" class="service-card"><i class="fa-solid fa-people-group"></i><br>Coletivos</a>
+    <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card"><i class="fa-solid fa-users"></i><br>Consultores</a>
+  </div>
+</div>
 
-  <div class="container">
-      <div class="services">
-          <a href="https://marcio2307.github.io/cartomantesonline/agendamento.html" class="service-card" target="_blank">
-              <div class="service-icon"><i class="fa-solid fa-star"></i></div>
-              <span class="service-title">Consulta</span>
-          </a>
+<!-- ===== NOTIFICAÇÃO APP ===== -->
+<div class="app-notification" id="appNotify">
+  <i class="fa-solid fa-download"></i>
+  <span>Baixe nosso aplicativo para consultas mais rápidas!</span>
+  <a href="https://web2app-pro.appcollection.in/downloads/3643_PaiMarciodeOxssi.apk" target="_blank">Baixar</a>
+  <button class="close-btn" onclick="document.getElementById('appNotify').style.display='none'">&times;</button>
+</div>
 
-          <a href="https://marcio2307.github.io/cartomantesonline/trabalhos.html" class="service-card" target="_blank">
-              <div class="service-icon"><i class="fa-solid fa-fire"></i></div>
-              <span class="service-title">Trabalhos</span>
-          </a>
-
-          <a href="https://marcio2307.github.io/cartomantesonline/coletivo.html" class="service-card" target="_blank">
-              <div class="service-icon"><i class="fa-solid fa-people-group"></i></div>
-              <span class="service-title">Coletivos</span>
-          </a>
-
-          <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card" target="_blank">
-              <div class="service-icon">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="service-title">Consultores</span>
-          </a>
+<!-- ===== CHAT FLUTUANTE ===== -->
+<div class="phone" id="app">
+  <div class="header">
+    <div class="header-left">
+      <div class="avatar"><img src="https://png.pngtree.com/png-vector/20241009/ourlarge/pngtree-black-and-yellow-call-center-icon-png-image_14024847.png" alt="Assistente Virtual"></div>
+      <div class="hgroup">
+        <b>Assistente Virtual</b>
+        <small><span class="online-dot"></span> online</small>
       </div>
+    </div>
+    <button class="close-chat" id="closeChatBtn">✖</button>
   </div>
 
-  <!-- 🔔 Notificação flutuante -->
-  <div class="app-notification" id="appNotify">
-      <i class="fa-solid fa-download"></i>
-      <span>Baixe nosso aplicativo para consultas mais rápidas!</span>
-      <a href="https://web2app-pro.appcollection.in/downloads/3643_PaiMarciodeOxssi.apk" target="_blank">Baixar</a>
-      <button class="close-btn" onclick="document.getElementById('appNotify').style.display='none'">&times;</button>
+  <div class="messages" id="messages"></div>
+
+  <div class="quick" id="quick">
+    <button data-q="coletivo">Coletivos</button>
+    <button data-q="consulta">Consulta</button>
+    <button data-q="consultores">Consultores</button>
+    <button data-q="pagamento">Formas de Pagamento</button>
+    <button data-q="tabela">Tabela</button>
+    <button data-q="funciona">Como Funciona</button>
+    <button data-q="prazos">Prazos</button>
+    <button data-q="acompanhamento">Acompanhamento</button>
   </div>
 
+  <div class="input">
+    <form id="form">
+      <input id="input" type="text" placeholder="Digite uma mensagem" autocomplete="off" />
+      <button class="send" type="submit">➤</button>
+    </form>
+  </div>
+</div>
+
+<!-- Botão flutuante -->
+<button id="open-chat-btn">
+  <img src="https://png.pngtree.com/png-vector/20241009/ourlarge/pngtree-black-and-yellow-call-center-icon-png-image_14024847.png" alt="Atendente">
+  <span>Posso ajudar?</span>
+</button>
+
+<!-- ===== SCRIPT DO CHAT ===== -->
+<script>
+(function(){
+  const nowTime=()=>new Date().toLocaleTimeString("pt-BR",{hour:'2-digit',minute:'2-digit'});
+  const respostas={
+    boasvindas:`Olá! 👋 Sou o assistente virtual.
+Posso te ajudar com:
+• Coletivos
+• Consulta
+• Consultores
+• Formas de Pagamento
+• Tabela
+• Como Funciona
+• Prazos
+• Acompanhamento`,
+    coletivos:`🔥 COLETIVOS
+Temos rituais coletivos com acompanhamento espiritual.  
+👉 Acesse o menu COLETIVOS.`,
+    consulta:`🃏 CONSULTA
+Atendimento com 3 ou 7 perguntas via Pix.  
+👉 Acesse o menu CONSULTAS.`,
+    consultores:`👥 CONSULTORES
+Leituras a partir de R$ 1,00 por minuto.  
+👉 Acesse o menu CONSULTORES.`,
+    pagamento:`💳 FORMAS DE PAGAMENTO
+• Pix — Chave: 85 98436-8057  
+• Titular: Márcio Martins Lopes  
+Aceitamos Pix, cartão e depósito bancário.`,
+    tabela:`🧾 TABELA DE TRABALHOS
+
+🕯️ Amor e Relacionamentos
+ • Amarração Amorosa — R$ 487,00 
+ • Chora nos Meus Pés — R$ 257,00 
+ • Dominação / Submissão — R$ 587,00 
+ • Abertura de Caminhos na Vida Amorosa — R$ 357,00 
+ • Adoçamento — R$ 357,00 
+ • Arrasto — R$ 587,00 
+
+🕯️ Proteção e Prosperidade
+ • Limpeza/Proteção Espiritual — R$ 387,00
+ • Prosperidade Financeira — R$ 337,00 
+ • Abertura de Caminhos para a Vida Financeira — R$ 327,00
+ • Desfazer Magia — R$ 437,00 
+
+⚡ Vingança / Justiça Espiritual
+ • Destruição — R$ 537,00 
+ • Separação — R$ 557,00 
+ • Afastamento — R$ 487,00 
+ • Brochamento — R$ 357,00`,
+    prazos:`⏱️ PRAZOS
+Resultados costumam se manifestar entre 7 e 21 dias.`,
+    acompanhamento:`📅 ACOMPANHAMENTO
+Toda sexta-feira, das 15h às 17h.`,
+    funciona:`🔮 COMO FUNCIONA
+
+Amarração Amorosa
+Ritual poderoso para unir dois corações em um só destino. Atua no plano espiritual e emocional, fortalecendo o vínculo e despertando o amor verdadeiro da pessoa desejada.
+
+Chora nos Meus Pés
+Trabalho de magnetismo emocional que faz a pessoa amada sentir sua falta intensamente, buscando reconciliação e aproximação. Indicado para quem deseja reverter o afastamento.
+
+Dominação / Submissão
+Magia voltada ao controle energético dentro da relação. Ideal para quem busca fortalecer sua influência sobre o parceiro, despertando atração, obediência e entrega total.
+
+Abertura de Caminhos na Vida Amorosa
+Ritual de limpeza e libertação de bloqueios emocionais que impedem o amor de florescer. Atrai novas oportunidades afetivas e harmoniza relacionamentos já existentes.
+
+Adoçamento
+Trabalho sutil que suaviza os sentimentos e desperta ternura, empatia e compreensão no coração da pessoa amada. Indicado para casais em conflito ou em fase de distanciamento.
+
+Arrasto
+Magia de atração intensa, utilizada para fazer com que a pessoa desejada se sinta irresistivelmente puxada para você. Desperta desejo, saudade e conexão espiritual profunda.
+
+🕯️ Proteção e Prosperidade
+
+Limpeza / Proteção Espiritual
+Ritual de purificação que remove energias negativas, inveja e influências espirituais indesejadas. Cria um escudo protetor ao redor do consulente, promovendo paz e equilíbrio.
+
+Prosperidade Financeira
+Trabalho voltado para destravar os caminhos do dinheiro e atrair oportunidades. Estimula o crescimento profissional, a sorte nos negócios e a estabilidade financeira.
+
+Abertura de Caminhos para a Vida Financeira
+Magia de renovação energética que elimina bloqueios financeiros e atrai prosperidade contínua. Ideal para quem busca novos começos ou reerguimento material.
+
+Desfazer Magia
+Ritual de reversão espiritual que neutraliza feitiços, pragas e magias negativas. Restaura a harmonia e protege o consulente de novas investidas energéticas.
+
+⚡ Vingança / Justiça Espiritual
+
+Destruição
+Trabalho de energia pesada e justa, voltado à eliminação de inimigos espirituais ou pessoas que prejudicam o consulente. Atua como força de justiça divina e reparação.
+
+Separação
+Ritual destinado a afastar definitivamente casais ou relações que impedem a realização amorosa do consulente. Atua com precisão, cortando laços e vínculos energéticos.
+
+Afastamento
+Magia espiritual utilizada para distanciar pessoas indesejadas, rivais ou influências negativas. Promove paz e liberdade ao consulente, rompendo laços nocivos.
+
+Brochamento
+Trabalho voltado à impotência energética e emocional de terceiros, especialmente em casos de traição. Neutraliza o desejo e impede envolvimentos fora do relacionamento principal.`
+  };
+  const intents=[
+    {test:/(coletivo)/i,reply:respostas.coletivos},
+    {test:/(consulta)/i,reply:respostas.consulta},
+    {test:/(consultor|chat)/i,reply:respostas.consultores},
+    {test:/(pagamento|pix)/i,reply:respostas.pagamento},
+    {test:/(tabela|valores)/i,reply:respostas.tabela},
+    {test:/(funciona|ritual|explica)/i,reply:respostas.funciona},
+    {test:/(prazo)/i,reply:respostas.prazos},
+    {test:/(acompanhamento)/i,reply:respostas.acompanhamento}
+  ];
+  const $messages=document.getElementById("messages");
+  const $form=document.getElementById("form");
+  const $input=document.getElementById("input");
+  const $quick=document.getElementById("quick");
+  const $chat=document.getElementById("app");
+  const $openBtn=document.getElementById("open-chat-btn");
+  const $closeBtn=document.getElementById("closeChatBtn");
+
+  function addMsg(t,who='in'){
+    const el=document.createElement("div");
+    el.className=`msg ${who}`;
+    el.innerHTML=t.replace(/\n/g,"<br>")+`<span class="meta">${nowTime()}</span>`;
+    $messages.appendChild(el);
+    $messages.scrollTop=$messages.scrollHeight;
+  }
+  function addTyping(){
+    const el=document.createElement("div");
+    el.className="typing";
+    el.innerHTML='<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    $messages.appendChild(el);
+    $messages.scrollTop=$messages.scrollHeight;
+  }
+  function removeTyping(){
+    const t=$messages.querySelector(".typing");if(t)t.remove();
+  }
+  function handleQuery(q){
+    for(const i of intents){if(i.test.test(q))return i.reply;}
+    return respostas.boasvindas;
+  }
+  async function reply(q){
+    addMsg(q,'out');
+    addTyping();
+    await new Promise(r=>setTimeout(r,500+Math.random()*400));
+    removeTyping();
+    addMsg(handleQuery(q),'in');
+  }
+  $quick.addEventListener("click",e=>{
+    const b=e.target.closest("button[data-q]");
+    if(!b)return;
+    reply(b.getAttribute("data-q"));
+  });
+  $form.addEventListener("submit",e=>{
+    e.preventDefault();
+    const q=$input.value.trim();
+    if(!q)return;
+    $input.value="";
+    reply(q);
+  });
+  addMsg(respostas.boasvindas,'in');
+  $closeBtn.onclick=()=>{$chat.style.display='none';$openBtn.style.display='flex';};
+  $openBtn.onclick=()=>{$chat.style.display='grid';$openBtn.style.display='none';};
+})();
+</script>
 </body>
 </html>
