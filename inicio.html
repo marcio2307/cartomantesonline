@@ -29,15 +29,43 @@
     font-weight:bold;
   }
 
-  /* 🔹 Banner */
+  /* 🔹 Banner ajustado */
   .banner{
     width:100%;
-    height:35vh;
-    background:url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg') center bottom/cover no-repeat;
+    height:48vh;
+    background:url('https://i.ibb.co/bR25cncH/Imagem-do-Whats-App-de-2025-10-31-s-20-38-41-ca82c71d.jpg') center top/cover no-repeat;
     display:flex;
     justify-content:center;
     align-items:center;
     border-bottom:2px solid #FFD700;
+  }
+
+  /* 🔹 Player de áudio preto e dourado */
+  .audio-player{
+    text-align:center;
+    margin:25px 0;
+  }
+  .audio-wrapper{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+    border:2px solid #FFD700;
+    border-radius:12px;
+    padding:10px 18px;
+    box-shadow:0 0 20px rgba(255,215,0,0.3);
+  }
+  .audio-wrapper i{
+    color:#FFD700;
+    font-size:22px;
+    margin-right:10px;
+  }
+  audio{
+    width:280px;
+    height:40px;
+    background:#000;
+    border-radius:8px;
+    filter:invert(85%) sepia(90%) saturate(600%) hue-rotate(20deg);
   }
 
   .title{
@@ -47,19 +75,6 @@
     color:#FFD700;
     margin:20px 0;
     text-shadow:0 0 15px #FFD700;
-  }
-
-  /* 🔹 Player de áudio */
-  .audio-player{
-    text-align:center;
-    margin:10px 0 20px 0;
-  }
-  audio{
-    width:90%;
-    max-width:400px;
-    border:2px solid #FFD700;
-    border-radius:8px;
-    background:rgba(255,215,0,0.1);
   }
 
   /* 🔹 Cards */
@@ -95,15 +110,11 @@
 
   /* 🔹 Responsividade */
   @media(max-width:768px){
-    .banner{height:30vh;}
-    .services{gap:15px;}
+    .banner{height:42vh;}
   }
   @media(max-width:500px){
     .services{grid-template-columns:repeat(2,1fr);gap:10px;}
     .service-card{height:120px;font-size:0.9rem;}
-  }
-  @media(max-width:360px){
-    .services{grid-template-columns:1fr;}
   }
 
   /* 🔹 Chat estilos */
@@ -133,7 +144,6 @@
     box-shadow:0 0 20px rgba(0,0,0,.5);
     z-index:9999;
   }
-
   @media (min-width:768px){
     .phone{height:60vh;bottom:100px;right:30px;}
   }
@@ -182,7 +192,6 @@
 </head>
 <body>
 
-  <!-- 🔸 Mensagem menor acima do banner -->
   <div class="app-top">
     🔮 Baixe nosso aplicativo para consultas mais rápidas!
     <a href="https://web2app-pro.appcollection.in/downloads/3643_PaiMarciodeOxssi.apk" target="_blank">Baixar</a>
@@ -190,12 +199,15 @@
 
   <section class="banner"></section>
 
-  <!-- 🔹 Player de áudio -->
+  <!-- 🔹 Player de áudio preto e dourado -->
   <div class="audio-player">
-    <audio controls>
-      <source src="audio_convertido.mp3" type="audio/mpeg">
-      Seu navegador não suporta o áudio.
-    </audio>
+    <div class="audio-wrapper">
+      <i class="fa-solid fa-headphones"></i>
+      <audio controls>
+        <source src="audio_convertido.mp3" type="audio/mpeg">
+        Seu navegador não suporta o áudio.
+      </audio>
+    </div>
   </div>
 
   <h1 class="title">Pai Márcio de Oxóssi Meus Serviços</h1>
@@ -296,7 +308,7 @@ Vingança / Justiça Espiritual
  • Separação — R$ 557,00 
  • Afastamento — R$ 487,00 
  • Brochamento — R$ 357,00`,
-    funciona:`...`, /* (mantém o texto completo original aqui) */
+    funciona:`✨ FUNCIONAMENTO — Você escolhe o trabalho desejado, faz o pagamento e envia seus dados. Tudo é realizado com sigilo e acompanhamento personalizado.`,
     prazos:`⏱️ PRAZOS — Primeiros resultados em até 7, 14 ou 21 dias.`,
     acompanhamento:`📅 ACOMPANHAMENTO — Sextas-feiras, das 15h às 17h.`
   };
