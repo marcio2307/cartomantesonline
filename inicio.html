@@ -136,7 +136,6 @@
       animation: pulseStar 2.8s ease-in-out infinite;
   }
 
-  /* ✨ Animação suave nas estrelas */
   @keyframes pulseStar {
       0%,100% { transform: scale(1); filter: drop-shadow(0 0 5px #FFD700); }
       50% { transform: scale(1.2); filter: drop-shadow(0 0 20px #FFD700); }
@@ -146,6 +145,69 @@
       font-size: 1rem;
       text-shadow: 0 0 10px rgba(255,215,0,0.7);
       text-align: center;
+  }
+
+  /* ====== Notificação flutuante ====== */
+  .app-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 215, 0, 0.95);
+      color: #000;
+      padding: 14px 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      z-index: 9999;
+      animation: slideIn 1s ease forwards;
+  }
+
+  .app-notification i {
+      font-size: 24px;
+      color: #b20220;
+  }
+
+  .app-notification a {
+      background: #b20220;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background 0.3s;
+  }
+
+  .app-notification a:hover {
+      background: #8b0018;
+  }
+
+  @keyframes slideIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+  }
+
+  .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #000;
+      margin-left: 6px;
+  }
+
+  @media (max-width: 500px) {
+      .app-notification {
+          bottom: 10px;
+          right: 10px;
+          flex-direction: column;
+          text-align: center;
+      }
+      .app-notification a {
+          margin-top: 6px;
+      }
   }
 
   /* ====== Responsividade ====== */
@@ -181,26 +243,21 @@
 
   <div class="container">
       <div class="services">
-
-          <!-- Consulta -->
           <a href="https://marcio2307.github.io/cartomantesonline/agendamento.html" class="service-card" target="_blank">
               <div class="service-icon"><i class="fa-solid fa-star"></i></div>
               <span class="service-title">Consulta</span>
           </a>
 
-          <!-- Trabalhos -->
           <a href="https://marcio2307.github.io/cartomantesonline/trabalhos.html" class="service-card" target="_blank">
               <div class="service-icon"><i class="fa-solid fa-fire"></i></div>
               <span class="service-title">Trabalhos</span>
           </a>
 
-          <!-- Coletivos -->
           <a href="https://marcio2307.github.io/cartomantesonline/coletivo.html" class="service-card" target="_blank">
               <div class="service-icon"><i class="fa-solid fa-people-group"></i></div>
               <span class="service-title">Coletivos</span>
           </a>
 
-          <!-- Consultores (⭐ 3 estrelas douradas animadas ⭐) -->
           <a href="https://marcio2307.github.io/cartomantesonline/cards.html" class="service-card" target="_blank">
               <div class="service-icon">
                   <i class="fa-solid fa-star"></i>
@@ -209,8 +266,15 @@
               </div>
               <span class="service-title">Consultores</span>
           </a>
-
       </div>
+  </div>
+
+  <!-- 🔔 Notificação flutuante -->
+  <div class="app-notification" id="appNotify">
+      <i class="fa-solid fa-download"></i>
+      <span>Baixe nosso aplicativo para consultas mais rápidas!</span>
+      <a href="https://web2app-pro.appcollection.in/downloads/3643_PaiMarciodeOxssi.apk" target="_blank">Baixar</a>
+      <button class="close-btn" onclick="document.getElementById('appNotify').style.display='none'">&times;</button>
   </div>
 
 </body>
