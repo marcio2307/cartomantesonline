@@ -40,6 +40,105 @@
     border-bottom:2px solid #FFD700;
   }
 
+  /* 🔹 Stories (adicionados) */
+  .stories-wrap{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    background:rgba(255,255,0,0.05);
+    padding:15px 0 10px;
+    border-bottom:1px solid rgba(255,215,0,0.3);
+  }
+  .stories{
+    display:flex;
+    gap:18px;
+    overflow-x:auto;
+    padding:0 12px;
+    scroll-behavior:smooth;
+  }
+  .stories .story{
+    flex:0 0 auto;
+    text-align:center;
+    color:#FFD700;
+    font-size:13px;
+  }
+  .stories .story button{
+    appearance:none;
+    border:0;
+    background:transparent;
+    position:relative;
+    width:78px;height:78px;
+    border-radius:50%;
+    cursor:pointer;
+    margin-bottom:6px;
+  }
+  .stories .ring{
+    position:absolute;inset:0;border-radius:50%;
+    background:
+      radial-gradient(farthest-side,transparent calc(50% - 3px),#0000 calc(50% - 2px)),
+      conic-gradient(from 180deg,#ffcc00,#ffdd55,#ffcc00);
+    animation:storiesPulse 2s infinite alternate;
+    box-shadow:0 0 6px #ffcc00;
+  }
+  .stories-wrap .avatar{position:absolute;inset:3px;border-radius:50%;overflow:hidden;}
+  .stories-wrap .avatar img{width:100%;height:100%;object-fit:cover;}
+  @keyframes storiesPulse{
+    from{transform:scale(1);box-shadow:0 0 6px #ffcc00;}
+    to{transform:scale(1.05);box-shadow:0 0 14px #ffdd55;}
+  }
+
+  /* 🔹 Modal dos Stories */
+  .modal{
+    position:fixed; inset:0; background:rgba(0,0,0,.9);
+    display:none; place-items:center; z-index:1000; padding:16px;
+  }
+  .modal.open{ display:grid; }
+  .player{
+    width:min(420px, 92vw); aspect-ratio:9/16;
+    background:#000; border-radius:18px; overflow:hidden; position:relative;
+    box-shadow:0 20px 60px rgba(255,255,0,.15);
+    border:1px solid rgba(255,255,0,.2);
+  }
+  .progress{position:absolute; top:8px; left:8px; right:8px; display:flex; gap:6px; z-index:5;}
+  .bar{flex:1; height:4px; background:rgba(255,255,255,.25); border-radius:99px; overflow:hidden;}
+  .bar > i{display:block; width:0%; height:100%; background:#ffcc00; transition:width linear;}
+
+  .media{position:absolute; inset:0;}
+  iframe{width:100%; height:100%; border:0;}
+
+  .top-ui{
+    position:absolute; top:0; left:0; right:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 12px; z-index:6;
+  }
+
+  .user{
+    display:flex; align-items:center; gap:10px;
+    font-weight:700; color:#ffcc00;
+  }
+  .user .thumb{
+    width:36px; height:36px; border-radius:50%;
+    overflow:hidden; border:2px solid #ffcc00;
+  }
+  .user .thumb img{width:100%; height:100%; object-fit:cover;}
+
+  .btn{
+    background:rgba(255,255,0,.15); color:#ffcc00;
+    border:1px solid rgba(255,255,0,.3); padding:10px 14px; border-radius:99px;
+    cursor:pointer; backdrop-filter:blur(6px);
+  }
+  .btn:hover{background:rgba(255,255,0,.25);}
+
+  .nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    font-size:28px; background:rgba(255,255,0,.1); color:#ffcc00;
+    border:none; border-radius:50%; width:48px; height:48px;
+    cursor:pointer; z-index:10; backdrop-filter:blur(8px);
+  }
+  .nav-btn:hover{background:rgba(255,255,0,.25);}
+  .prev-btn{left:10px;}
+  .next-btn{right:10px;}
+
   /* 🔹 Player de áudio preto e dourado */
   .audio-player{
     text-align:center;
@@ -117,7 +216,7 @@
     .service-card{height:120px;font-size:0.9rem;}
   }
 
-  /* 🔹 Chat estilos */
+  /* 🔹 Chat estilos (original, mantido) */
   :root{
     --wa-bg:#1a0000;
     --wa-chat:#220000;
@@ -199,6 +298,50 @@
 
   <section class="banner"></section>
 
+  <!-- 🔹 Stories adicionados (somente círculos) -->
+  <div class="stories-wrap">
+    <div class="stories">
+      <div class="story" data-id="depoimentos">
+        <button><span class="ring"></span><span class="avatar"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgMqP8AFFoWnB4lNhPil23ZesnVu3-TtNmJg&s" alt="Depoimentos"></span></button>
+        <span>Depoimentos</span>
+      </div>
+      <div class="story" data-id="festas">
+        <button><span class="ring"></span><span class="avatar"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgMqP8AFFoWnB4lNhPil23ZesnVu3-TtNmJg&s" alt="Festas"></span></button>
+        <span>Festas</span>
+      </div>
+      <div class="story" data-id="shorts">
+        <button><span class="ring"></span><span class="avatar"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgMqP8AFFoWnB4lNhPil23ZesnVu3-TtNmJg&s" alt="Shorts"></span></button>
+        <span>Shorts</span>
+      </div>
+      <div class="story" data-id="trabalhos">
+        <button><span class="ring"></span><span class="avatar"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgMqP8AFFoWnB4lNhPil23ZesnVu3-TtNmJg&s" alt="Trabalhos"></span></button>
+        <span>Trabalhos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Modal dos Stories -->
+  <div class="modal" id="modal">
+    <div class="player" id="player">
+      <div class="progress" id="progress"></div>
+      <div class="top-ui">
+        <div class="user">
+          <div class="thumb">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgMqP8AFFoWnB4lNhPil23ZesnVu3-TtNmJg&s" alt="Capa">
+          </div>
+          <span>Pai Márcio de Oxóssi</span>
+        </div>
+        <div>
+          <button class="btn" id="muteBtn">🔊</button>
+          <button class="btn" id="closeBtn">✕</button>
+        </div>
+      </div>
+      <button class="nav-btn prev-btn" id="prevBtn">⟵</button>
+      <button class="nav-btn next-btn" id="nextBtn">⟶</button>
+      <div class="media" id="media"></div>
+    </div>
+  </div>
+
   <!-- 🔹 Player de áudio preto e dourado -->
   <div class="audio-player">
     <div class="audio-wrapper">
@@ -233,7 +376,7 @@
     </div>
   </div>
 
-  <!-- Chat popup -->
+  <!-- Chat popup (original, mantido) -->
   <div class="phone" id="app" style="display:none;">
     <div class="header">
       <div class="header-left">
@@ -271,7 +414,89 @@
     <span>Posso ajudar?</span>
   </button>
 
+<!-- YouTube API para os stories -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
+/* === Stories (modal) === */
+const stories = {
+  shorts: ["nAsM2AgYYNU","bb7hujkqYik","fsk96kvhj_A","Z4EXW-403g4","Seg6hDqmbKE"],
+  depoimentos: ["L3oj7XacgeY","42kU9aiUuLo","izLfTMJXY3I","8rlbHnGG_aI","0WWWtholIOw","MIrQwnbAOw4"],
+  festas: ["e_Ub0zxq-B4","LEqjnx9dPdY","ECcsMEgpNsw"],
+  trabalhos: ["zg2egyJUfZQ","q3G6i4eo9Cw"]
+};
+const MAX_DURATION = 180000;
+let current = 0, muted = false, currentList = [], player, timer = null;
+
+const modal=document.getElementById("modal"), media=document.getElementById("media"),
+progress=document.getElementById("progress"), muteBtn=document.getElementById("muteBtn"),
+closeBtn=document.getElementById("closeBtn"), nextBtn=document.getElementById("nextBtn"),
+prevBtn=document.getElementById("prevBtn");
+
+document.querySelectorAll(".story").forEach(el=>el.onclick=()=>openStory(el.dataset.id));
+closeBtn.onclick=closeStory; muteBtn.onclick=toggleMute;
+nextBtn.onclick=()=>nextVideo(true); prevBtn.onclick=()=>prevVideo(true);
+
+function openStory(type){
+  currentList=stories[type]; current=0;
+  modal.classList.add("open");
+  renderProgress(); showVideo();
+}
+function closeStory(){
+  modal.classList.remove("open"); stopTimer();
+  if(player){ try{player.stopVideo();}catch(e){} }
+  media.innerHTML="";
+}
+function renderProgress(){
+  progress.innerHTML="";
+  currentList.forEach((_,i)=>{
+    const b=document.createElement("div"); b.className="bar";
+    const f=document.createElement("i"); if(i<current) f.style.width="100%";
+    b.appendChild(f); progress.appendChild(b);
+  });
+}
+function animateProgress(d){
+  const f=progress.querySelectorAll(".bar i")[current];
+  if(!f) return;
+  f.style.transition="none"; f.style.width="0%";
+  requestAnimationFrame(()=>{f.style.transition=`width ${d}ms linear`;
+    requestAnimationFrame(()=>{f.style.width="100%";});
+  });
+}
+function showVideo(){
+  stopTimer();
+  const vid=currentList[current];
+  media.innerHTML=`<div id="ytplayer"></div>`;
+  player=new YT.Player('ytplayer',{
+    videoId:vid,
+    playerVars:{autoplay:1,controls:0,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},
+    events:{
+      onReady:e=>{
+        const dur=(e.target.getDuration()*1000)||MAX_DURATION;
+        const duration=Math.min(dur,MAX_DURATION);
+        animateProgress(duration);
+        timer=setTimeout(nextVideo,duration);
+      },
+      onStateChange:e=>{
+        if(e.data===YT.PlayerState.ENDED) nextVideo();
+      }
+    }
+  });
+}
+function nextVideo(manual=false){
+  if(current<currentList.length-1){ current++; renderProgress(); showVideo(); }
+  else if(manual){ current=0; renderProgress(); showVideo(); }
+  else{ closeStory(); }
+}
+function prevVideo(manual=false){
+  if(current>0){ current--; renderProgress(); showVideo(); }
+  else if(manual){ current=currentList.length-1; renderProgress(); showVideo(); }
+}
+function stopTimer(){ if(timer){ clearTimeout(timer); timer=null; } }
+function toggleMute(){ muted=!muted; muteBtn.textContent=muted?"🔇":"🔊"; if(player){ muted?player.mute():player.unMute(); } }
+</script>
+
+<script>
+/* === Chat original (mantido exatamente) === */
 (function(){
   const nowTime=()=>new Date().toLocaleTimeString("pt-BR",{hour:'2-digit',minute:'2-digit'});
   const respostas={
