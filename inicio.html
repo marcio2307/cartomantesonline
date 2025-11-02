@@ -40,7 +40,7 @@
     border-bottom:2px solid #FFD700;
   }
 
-  /* 🔹 Stories (adicionados) */
+  /* 🔹 Stories (com nomes abaixo dos círculos) */
   .stories-wrap{
     width:100%;
     display:flex;
@@ -71,6 +71,12 @@
     border-radius:50%;
     cursor:pointer;
     margin-bottom:6px;
+  }
+  .stories .story span{
+    display:block;
+    margin-top:4px;
+    font-weight:600;
+    font-size:13px;
   }
   .stories .ring{
     position:absolute;inset:0;border-radius:50%;
@@ -139,94 +145,46 @@
   .prev-btn{left:10px;}
   .next-btn{right:10px;}
 
-  /* 🔹 Player de áudio preto e dourado */
-  .audio-player{
-    text-align:center;
-    margin:25px 0;
-  }
+  /* 🔹 Player de áudio */
+  .audio-player{text-align:center;margin:25px 0;}
   .audio-wrapper{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:#000;
-    border:2px solid #FFD700;
-    border-radius:12px;
-    padding:10px 18px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:#000;border:2px solid #FFD700;
+    border-radius:12px;padding:10px 18px;
     box-shadow:0 0 20px rgba(255,215,0,0.3);
   }
-  .audio-wrapper i{
-    color:#FFD700;
-    font-size:22px;
-    margin-right:10px;
-  }
+  .audio-wrapper i{color:#FFD700;font-size:22px;margin-right:10px;}
   audio{
-    width:280px;
-    height:40px;
-    background:#000;
-    border-radius:8px;
+    width:280px;height:40px;background:#000;border-radius:8px;
     filter:invert(85%) sepia(90%) saturate(600%) hue-rotate(20deg);
   }
 
-  .title{
-    text-align:center;
-    font-size:2rem;
-    font-weight:700;
-    color:#FFD700;
-    margin:20px 0;
-    text-shadow:0 0 15px #FFD700;
-  }
+  .title{text-align:center;font-size:2rem;font-weight:700;color:#FFD700;margin:20px 0;text-shadow:0 0 15px #FFD700;}
 
   /* 🔹 Cards */
   .container{width:90%;max-width:1000px;margin:0 auto 40px auto;}
-  .services{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-  }
+  .services{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
   .service-card{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:150px;
-    border-radius:15px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    height:150px;border-radius:15px;
     background:linear-gradient(145deg,#b20220,#ff2b2b);
-    text-decoration:none;
-    color:#FFD700;
-    font-weight:bold;
-    text-transform:uppercase;
+    text-decoration:none;color:#FFD700;font-weight:bold;text-transform:uppercase;
     transition:transform .3s, box-shadow .3s;
   }
-  .service-card:hover{
-    transform:scale(1.03);
-    box-shadow:0 0 20px rgba(255,215,0,0.4);
-  }
-  .service-card i{
-    font-size:36px;
-    margin-bottom:8px;
-    color:#FFD700;
-  }
+  .service-card:hover{transform:scale(1.03);box-shadow:0 0 20px rgba(255,215,0,0.4);}
+  .service-card i{font-size:36px;margin-bottom:8px;color:#FFD700;}
 
-  /* 🔹 Responsividade */
-  @media(max-width:768px){
-    .banner{height:42vh;}
-  }
+  @media(max-width:768px){.banner{height:42vh;}}
   @media(max-width:500px){
     .services{grid-template-columns:repeat(2,1fr);gap:10px;}
     .service-card{height:120px;font-size:0.9rem;}
   }
 
-  /* 🔹 Chat estilos (original, mantido) */
+  /* 🔹 Chat estilos */
   :root{
-    --wa-bg:#1a0000;
-    --wa-chat:#220000;
-    --wa-header:#330000;
-    --wa-input:#440000;
-    --wa-bubble-in:#4d0000;
-    --wa-bubble-out:#c40000;
-    --wa-text:#fff8e1;
-    --wa-muted:#ffcc00;
-    --wa-accent:#ffcc00;
+    --wa-bg:#1a0000;--wa-chat:#220000;--wa-header:#330000;--wa-input:#440000;
+    --wa-bubble-in:#4d0000;--wa-bubble-out:#c40000;--wa-text:#fff8e1;
+    --wa-muted:#ffcc00;--wa-accent:#ffcc00;
   }
 
   .phone{
@@ -298,7 +256,7 @@
 
   <section class="banner"></section>
 
-  <!-- 🔹 Stories adicionados (somente círculos) -->
+  <!-- 🔹 Stories com nomes abaixo -->
   <div class="stories-wrap">
     <div class="stories">
       <div class="story" data-id="depoimentos">
@@ -342,7 +300,7 @@
     </div>
   </div>
 
-  <!-- 🔹 Player de áudio preto e dourado -->
+  <!-- 🔹 Player de áudio -->
   <div class="audio-player">
     <div class="audio-wrapper">
       <i class="fa-solid fa-headphones"></i>
@@ -376,7 +334,7 @@
     </div>
   </div>
 
-  <!-- Chat popup (original, mantido) -->
+  <!-- 🔹 Chat mantido -->
   <div class="phone" id="app" style="display:none;">
     <div class="header">
       <div class="header-left">
@@ -414,149 +372,43 @@
     <span>Posso ajudar?</span>
   </button>
 
-<!-- YouTube API para os stories -->
+<!-- YouTube API -->
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-/* === Stories (modal) === */
-const stories = {
-  shorts: ["nAsM2AgYYNU","bb7hujkqYik","fsk96kvhj_A","Z4EXW-403g4","Seg6hDqmbKE"],
-  depoimentos: ["L3oj7XacgeY","42kU9aiUuLo","izLfTMJXY3I","8rlbHnGG_aI","0WWWtholIOw","MIrQwnbAOw4"],
-  festas: ["e_Ub0zxq-B4","LEqjnx9dPdY","ECcsMEgpNsw"],
-  trabalhos: ["zg2egyJUfZQ","q3G6i4eo9Cw"]
-};
-const MAX_DURATION = 180000;
-let current = 0, muted = false, currentList = [], player, timer = null;
-
-const modal=document.getElementById("modal"), media=document.getElementById("media"),
-progress=document.getElementById("progress"), muteBtn=document.getElementById("muteBtn"),
-closeBtn=document.getElementById("closeBtn"), nextBtn=document.getElementById("nextBtn"),
-prevBtn=document.getElementById("prevBtn");
-
+/* === Stories === */
+const stories={shorts:["nAsM2AgYYNU","bb7hujkqYik","fsk96kvhj_A","Z4EXW-403g4","Seg6hDqmbKE"],depoimentos:["L3oj7XacgeY","42kU9aiUuLo","izLfTMJXY3I","8rlbHnGG_aI","0WWWtholIOw","MIrQwnbAOw4"],festas:["e_Ub0zxq-B4","LEqjnx9dPdY","ECcsMEgpNsw"],trabalhos:["zg2egyJUfZQ","q3G6i4eo9Cw"]};
+const MAX_DURATION=180000;
+let current=0,muted=false,currentList=[],player,timer=null;
+const modal=document.getElementById("modal"),media=document.getElementById("media"),progress=document.getElementById("progress"),muteBtn=document.getElementById("muteBtn"),closeBtn=document.getElementById("closeBtn"),nextBtn=document.getElementById("nextBtn"),prevBtn=document.getElementById("prevBtn");
 document.querySelectorAll(".story").forEach(el=>el.onclick=()=>openStory(el.dataset.id));
-closeBtn.onclick=closeStory; muteBtn.onclick=toggleMute;
-nextBtn.onclick=()=>nextVideo(true); prevBtn.onclick=()=>prevVideo(true);
-
-function openStory(type){
-  currentList=stories[type]; current=0;
-  modal.classList.add("open");
-  renderProgress(); showVideo();
-}
-function closeStory(){
-  modal.classList.remove("open"); stopTimer();
-  if(player){ try{player.stopVideo();}catch(e){} }
-  media.innerHTML="";
-}
-function renderProgress(){
-  progress.innerHTML="";
-  currentList.forEach((_,i)=>{
-    const b=document.createElement("div"); b.className="bar";
-    const f=document.createElement("i"); if(i<current) f.style.width="100%";
-    b.appendChild(f); progress.appendChild(b);
-  });
-}
-function animateProgress(d){
-  const f=progress.querySelectorAll(".bar i")[current];
-  if(!f) return;
-  f.style.transition="none"; f.style.width="0%";
-  requestAnimationFrame(()=>{f.style.transition=`width ${d}ms linear`;
-    requestAnimationFrame(()=>{f.style.width="100%";});
-  });
-}
-function showVideo(){
-  stopTimer();
-  const vid=currentList[current];
-  media.innerHTML=`<div id="ytplayer"></div>`;
-  player=new YT.Player('ytplayer',{
-    videoId:vid,
-    playerVars:{autoplay:1,controls:0,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},
-    events:{
-      onReady:e=>{
-        const dur=(e.target.getDuration()*1000)||MAX_DURATION;
-        const duration=Math.min(dur,MAX_DURATION);
-        animateProgress(duration);
-        timer=setTimeout(nextVideo,duration);
-      },
-      onStateChange:e=>{
-        if(e.data===YT.PlayerState.ENDED) nextVideo();
-      }
-    }
-  });
-}
-function nextVideo(manual=false){
-  if(current<currentList.length-1){ current++; renderProgress(); showVideo(); }
-  else if(manual){ current=0; renderProgress(); showVideo(); }
-  else{ closeStory(); }
-}
-function prevVideo(manual=false){
-  if(current>0){ current--; renderProgress(); showVideo(); }
-  else if(manual){ current=currentList.length-1; renderProgress(); showVideo(); }
-}
-function stopTimer(){ if(timer){ clearTimeout(timer); timer=null; } }
-function toggleMute(){ muted=!muted; muteBtn.textContent=muted?"🔇":"🔊"; if(player){ muted?player.mute():player.unMute(); } }
+closeBtn.onclick=closeStory;muteBtn.onclick=toggleMute;nextBtn.onclick=()=>nextVideo(true);prevBtn.onclick=()=>prevVideo(true);
+function openStory(type){currentList=stories[type];current=0;modal.classList.add("open");renderProgress();showVideo();}
+function closeStory(){modal.classList.remove("open");stopTimer();if(player){try{player.stopVideo();}catch(e){}}media.innerHTML="";}
+function renderProgress(){progress.innerHTML="";currentList.forEach((_,i)=>{const b=document.createElement("div");b.className="bar";const f=document.createElement("i");if(i<current)f.style.width="100%";b.appendChild(f);progress.appendChild(b);});}
+function animateProgress(d){const f=progress.querySelectorAll(".bar i")[current];if(!f)return;f.style.transition="none";f.style.width="0%";requestAnimationFrame(()=>{f.style.transition=`width ${d}ms linear`;requestAnimationFrame(()=>{f.style.width="100%";});});}
+function showVideo(){stopTimer();const vid=currentList[current];media.innerHTML=`<div id="ytplayer"></div>`;player=new YT.Player('ytplayer',{videoId:vid,playerVars:{autoplay:1,controls:0,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},events:{onReady:e=>{const dur=(e.target.getDuration()*1000)||MAX_DURATION;const duration=Math.min(dur,MAX_DURATION);animateProgress(duration);timer=setTimeout(nextVideo,duration);},onStateChange:e=>{if(e.data===YT.PlayerState.ENDED)nextVideo();}}});}
+function nextVideo(manual=false){if(current<currentList.length-1){current++;renderProgress();showVideo();}else if(manual){current=0;renderProgress();showVideo();}else{closeStory();}}
+function prevVideo(manual=false){if(current>0){current--;renderProgress();showVideo();}else if(manual){current=currentList.length-1;renderProgress();showVideo();}}
+function stopTimer(){if(timer){clearTimeout(timer);timer=null;}}
+function toggleMute(){muted=!muted;muteBtn.textContent=muted?"🔇":"🔊";if(player){muted?player.mute():player.unMute();}}
 </script>
 
 <script>
-/* === Chat original (mantido exatamente) === */
+/* === Chat === */
 (function(){
-  const nowTime=()=>new Date().toLocaleTimeString("pt-BR",{hour:'2-digit',minute:'2-digit'});
-  const respostas={
-    boasvindas:`Olá! 👋 Sou o assistente virtual.
-Posso te ajudar com:
-• Coletivos
-• Consulta
-• Consultores
-• Pagamento
-• Tabela
-• Como Funciona
-• Prazos
-• Acompanhamento`,
-    coletivos:`🔥 COLETIVOS — Rituais coletivos com vagas limitadas acesse o menu Coletivos.`,
-    consulta:`🃏 CONSULTA — Atendimento com 3 ou 7 perguntas pelo WhatsApp acesse o menu Consultas.`,
-    consultores:`👥 CONSULTORES — Leituras a partir de R$1,00/minuto acesse o menu Consultores.`,
-    pagamento:`💳 FORMAS DE PAGAMENTO — Cartão de crédito, Pix e depósito. Pix: 85 98436-8057 (Márcio Martins Lopes)`,
-    tabela:`Amor e Relacionamentos
- • Amarração Amorosa — R$ 487,00 
- • Chora nos Meus Pés — R$ 257,00 
- • Dominação / Submissão — R$ 587,00 
- • Abertura de Caminhos na Vida Amorosa — R$ 357,00 
- • Adoçamento — R$ 357,00 
- • Arrasto — R$ 587,00 
-
-Proteção e Prosperidade
- • Limpeza/Proteção Espiritual — R$ 387,00
- • Prosperidade Financeira — R$ 337,00 
- • Abertura de Caminhos para a Vida Financeira — R$ 327,00
- • Desfazer Magia — R$ 437,00 
-
-Vingança / Justiça Espiritual
- • Destruição — R$ 537,00 
- • Separação — R$ 557,00 
- • Afastamento — R$ 487,00 
- • Brochamento — R$ 357,00`,
-    funciona:`✨ FUNCIONAMENTO — Você escolhe o Serviço desejado nos menus, faz o pagamento e envia seus dados. Tudo é realizado com sigilo e acompanhamento personalizado.`,
-    prazos:`⏱️ PRAZOS — Primeiros resultados em até 7, 14 ou 21 dias em alguns casos pode custar mais .`,
-    acompanhamento:`📅 ACOMPANHAMENTO — Sextas-feiras, das 15h às 17h.`
-  };
-  const intents=[
-    {test:/(coletivo)/i,reply:respostas.coletivos},
-    {test:/(consulta)/i,reply:respostas.consulta},
-    {test:/(consultor)/i,reply:respostas.consultores},
-    {test:/(pagamento|pix)/i,reply:respostas.pagamento},
-    {test:/(tabela)/i,reply:respostas.tabela},
-    {test:/(funciona)/i,reply:respostas.funciona},
-    {test:/(prazo)/i,reply:respostas.prazos},
-    {test:/(acompanhamento)/i,reply:respostas.acompanhamento},
-  ];
-  const $m=document.getElementById("messages"),$f=document.getElementById("form"),$i=document.getElementById("input"),$q=document.getElementById("quick"),$chat=document.getElementById("app"),$open=document.getElementById("open-chat-btn"),$close=document.getElementById("closeChatBtn");
-  function msg(t,who='in'){const e=document.createElement("div");e.className=`msg ${who}`;e.innerHTML=t.replace(/\n/g,"<br>")+`<span class="meta">${nowTime()}</span>`;$m.appendChild(e);$m.scrollTop=$m.scrollHeight;}
-  function typing(on){if(on){const e=document.createElement("div");e.className="typing";e.setAttribute("data-typing","1");e.innerHTML='<span class="dot"></span><span class="dot"></span><span class="dot"></span>'; $m.appendChild(e);} else {const e=$m.querySelector('.typing[data-typing="1"]');if(e)e.remove();}}
-  function handle(q){for(const i of intents){if(i.test.test(q))return i.reply;}return"Posso te mostrar Coletivos, Consulta, Consultores, Pagamento, Tabela, Como Funciona, Prazos ou Acompanhamento.";}
-  async function reply(q){msg(q,'out');typing(true);await new Promise(r=>setTimeout(r,600));typing(false);msg(handle(q),'in');}
-  $q.addEventListener('click',e=>{const b=e.target.closest('button[data-q]');if(!b)return;reply(b.getAttribute('data-q'));});
-  $f.addEventListener('submit',e=>{e.preventDefault();const q=($i.value||"").trim();if(!q)return;$i.value="";reply(q);});
-  msg(respostas.boasvindas,'in');
-  $close.onclick=()=>{$chat.style.display='none';$open.style.display='flex';};
-  $open.onclick=()=>{$chat.style.display='grid';$open.style.display='none';};
+const nowTime=()=>new Date().toLocaleTimeString("pt-BR",{hour:'2-digit',minute:'2-digit'});
+const respostas={boasvindas:`Olá! 👋 Sou o assistente virtual.\nPosso te ajudar com:\n• Coletivos\n• Consulta\n• Consultores\n• Pagamento\n• Tabela\n• Como Funciona\n• Prazos\n• Acompanhamento`,coletivos:`🔥 COLETIVOS — Rituais coletivos com vagas limitadas acesse o menu Coletivos.`,consulta:`🃏 CONSULTA — Atendimento com 3 ou 7 perguntas pelo WhatsApp acesse o menu Consultas.`,consultores:`👥 CONSULTORES — Leituras a partir de R$1,00/minuto acesse o menu Consultores.`,pagamento:`💳 FORMAS DE PAGAMENTO — Cartão de crédito, Pix e depósito. Pix: 85 98436-8057 (Márcio Martins Lopes)`,tabela:`Amor e Relacionamentos\n • Amarração Amorosa — R$ 487,00 \n • Chora nos Meus Pés — R$ 257,00 \n • Dominação / Submissão — R$ 587,00 \n • Abertura de Caminhos na Vida Amorosa — R$ 357,00 \n • Adoçamento — R$ 357,00 \n • Arrasto — R$ 587,00 \n\nProteção e Prosperidade\n • Limpeza/Proteção Espiritual — R$ 387,00\n • Prosperidade Financeira — R$ 337,00 \n • Abertura de Caminhos para a Vida Financeira — R$ 327,00\n • Desfazer Magia — R$ 437,00 \n\nVingança / Justiça Espiritual\n • Destruição — R$ 537,00 \n • Separação — R$ 557,00 \n • Afastamento — R$ 487,00 \n • Brochamento — R$ 357,00`,funciona:`✨ FUNCIONAMENTO — Você escolhe o Serviço desejado nos menus, faz o pagamento e envia seus dados. Tudo é realizado com sigilo e acompanhamento personalizado.`,prazos:`⏱️ PRAZOS — Primeiros resultados em até 7, 14 ou 21 dias em alguns casos pode custar mais .`,acompanhamento:`📅 ACOMPANHAMENTO — Sextas-feiras, das 15h às 17h.`};
+const intents=[{test:/(coletivo)/i,reply:respostas.coletivos},{test:/(consulta)/i,reply:respostas.consulta},{test:/(consultor)/i,reply:respostas.consultores},{test:/(pagamento|pix)/i,reply:respostas.pagamento},{test:/(tabela)/i,reply:respostas.tabela},{test:/(funciona)/i,reply:respostas.funciona},{test:/(prazo)/i,reply:respostas.prazos},{test:/(acompanhamento)/i,reply:respostas.acompanhamento}];
+const $m=document.getElementById("messages"),$f=document.getElementById("form"),$i=document.getElementById("input"),$q=document.getElementById("quick"),$chat=document.getElementById("app"),$open=document.getElementById("open-chat-btn"),$close=document.getElementById("closeChatBtn");
+function msg(t,who='in'){const e=document.createElement("div");e.className=`msg ${who}`;e.innerHTML=t.replace(/\n/g,"<br>")+`<span class="meta">${nowTime()}</span>`;$m.appendChild(e);$m.scrollTop=$m.scrollHeight;}
+function typing(on){if(on){const e=document.createElement("div");e.className="typing";e.setAttribute("data-typing","1");e.innerHTML='<span class="dot"></span><span class="dot"></span><span class="dot"></span>'; $m.appendChild(e);} else {const e=$m.querySelector('.typing[data-typing="1"]');if(e)e.remove();}}
+function handle(q){for(const i of intents){if(i.test.test(q))return i.reply;}return"Posso te mostrar Coletivos, Consulta, Consultores, Pagamento, Tabela, Como Funciona, Prazos ou Acompanhamento.";}
+async function reply(q){msg(q,'out');typing(true);await new Promise(r=>setTimeout(r,600));typing(false);msg(handle(q),'in');}
+$q.addEventListener('click',e=>{const b=e.target.closest('button[data-q]');if(!b)return;reply(b.getAttribute('data-q'));});
+$f.addEventListener('submit',e=>{e.preventDefault();const q=($i.value||"").trim();if(!q)return;$i.value="";reply(q);});
+msg(respostas.boasvindas,'in');
+$close.onclick=()=>{$chat.style.display='none';$open.style.display='flex';};
+$open.onclick=()=>{$chat.style.display='grid';$open.style.display='none';};
 })();
 </script>
 
