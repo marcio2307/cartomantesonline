@@ -145,17 +145,20 @@
   .prev-btn{left:10px;}
   .next-btn{right:10px;}
 
-  /* 🔹 Player de áudio */
+  /* 🔹 Player de áudio — MODIFICADO: fundo transparente e comandos amarelos */
   .audio-player{text-align:center;margin:25px 0;}
   .audio-wrapper{
     display:inline-flex;align-items:center;justify-content:center;
-    background:#000;border:2px solid #FFD700;
+    background:transparent; /* <- antes: #000 */
+    border:2px solid #FFD700;
     border-radius:12px;padding:10px 18px;
     box-shadow:0 0 20px rgba(255,215,0,0.3);
   }
   .audio-wrapper i{color:#FFD700;font-size:22px;margin-right:10px;}
   audio{
-    width:280px;height:40px;background:#000;border-radius:8px;
+    width:280px;height:40px;background:transparent; /* <- antes: #000 */
+    border-radius:8px;
+    /* Mantém os controles em amarelo */
     filter:invert(85%) sepia(90%) saturate(600%) hue-rotate(20deg);
   }
 
@@ -300,7 +303,7 @@
     </div>
   </div>
 
-  <!-- 🔹 Player de áudio -->
+  <!-- 🔹 Player de áudio (transparente + amarelo) -->
   <div class="audio-player">
     <div class="audio-wrapper">
       <i class="fa-solid fa-headphones"></i>
