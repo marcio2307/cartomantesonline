@@ -1,4 +1,4 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -11,38 +11,63 @@
     }
     *{box-sizing:border-box}
     body{
-      margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
       background:radial-gradient(1200px 600px at 80% -10%, rgba(98,23,112,0.22), transparent),
                  linear-gradient(180deg, #110915, #0b0710 60%, #09060c);
       color:var(--txt);
     }
-    .wrap{max-width:960px;margin:0 auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--roxo),#a64ccf);
-      display:grid;place-items:center;color:#fff;font-weight:700;box-shadow:0 10px 30px rgba(98,23,112,.35)}
-    .title h1{font-size:20px;margin:0}.title small{color:var(--muted)}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);
-      border-radius:16px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.28)}
-    .grid{display:grid;gap:16px}@media(min-width:780px){.grid{grid-template-columns:1.2fr .8fr}}
-    .saldo{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
-    .saldo h2{margin:0;font-size:15px;color:var(--muted)}
-    .valor{font-size:40px;font-weight:800;letter-spacing:-.5px;
-      background:linear-gradient(180deg,#fff,#d8cbe2);-webkit-background-clip:text;color:transparent}
-    .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(12,223,185,.12);
-      border:1px solid rgba(12,223,185,.35);color:#b8fff1}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{appearance:none;border:0;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:700;
-      background:linear-gradient(135deg,var(--roxo),#a64ccf);color:white;box-shadow:0 8px 22px rgba(98,23,112,.35);
-      transition:transform .08s ease,filter .2s ease}
-    .btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}
-    .btn.outline{background:transparent;color:#e9d9f2;border:1px solid rgba(255,255,255,.16)}
-    .btn.ghost{background:transparent;color:#d5f8f0;border:1px dashed rgba(12,223,185,.35)}
-    .note{font-size:13px;color:var(--muted)}
-    .list{margin:0;padding:0;list-style:none}
-    .tx{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-    .tx:last-child{border-bottom:0}.tx .amt{font-weight:700}.ok{color:var(--ok)}.warn{color:var(--warn)}
-    footer{margin-top:24px;text-align:center;color:var(--muted);font-size:12px}
+    .wrap{max-width:960px; margin:0 auto; padding:24px}
+    header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px;}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:44px; height:44px; border-radius:12px;
+      background:linear-gradient(135deg,var(--roxo),#a64ccf);
+      display:grid; place-items:center; color:#fff; font-weight:700;
+      box-shadow:0 10px 30px rgba(98,23,112,.35);
+    }
+    .title h1{font-size:20px; margin:0}
+    .title small{color:var(--muted)}
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,.06);
+      border-radius:16px; padding:18px; box-shadow:0 10px 24px rgba(0,0,0,.28);
+    }
+    .grid{display:grid; gap:16px}
+    @media (min-width:780px){ .grid{grid-template-columns:1.2fr .8fr} }
+    .saldo{display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap;}
+    .saldo h2{margin:0; font-size:15px; color:var(--muted)}
+    .valor{
+      font-size:40px; font-weight:800; letter-spacing:-.5px;
+      background:linear-gradient(180deg,#fff,#d8cbe2);
+      -webkit-background-clip:text; color:transparent;
+    }
+    .badge{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      background:rgba(12,223,185,.12);
+      border:1px solid rgba(12,223,185,.35); color:#b8fff1;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:0; cursor:pointer; border-radius:12px;
+      padding:12px 16px; font-weight:700;
+      background:linear-gradient(135deg,var(--roxo),#a64ccf);
+      color:white; box-shadow:0 8px 22px rgba(98,23,112,.35);
+      transition:transform .08s ease, filter .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.outline{background:transparent; color:#e9d9f2; border:1px solid rgba(255,255,255,.16)}
+    .btn.ghost{background:transparent; color:#d5f8f0; border:1px dashed rgba(12,223,185,.35)}
+    .note{font-size:13px; color:var(--muted)}
+    .list{margin:0; padding:0; list-style:none}
+    .tx{display:flex; align-items:center; justify-content:space-between; gap:8px;
+      padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.08)}
+    .tx:last-child{border-bottom:0}
+    .tx .amt{font-weight:700}
+    .ok{color:var(--ok)} .warn{color:var(--warn)}
+    footer{margin-top:24px; text-align:center; color:var(--muted); font-size:12px}
+    .chip{display:inline-flex; align-items:center; gap:8px; font-size:12px;
+      padding:6px 10px; border-radius:999px;
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); color:#e6dff0;
+    }
   </style>
 </head>
 <body>
@@ -59,81 +84,126 @@
     </header>
 
     <div class="grid">
+      <!-- SALDO -->
       <section class="card">
         <div class="saldo">
           <div>
             <h2>Seu saldo disponível</h2>
             <div class="valor" id="saldoView">R$ 0,00</div>
           </div>
-          <span class="badge" id="lastCreditBadge">sem créditos</span>
+          <span class="badge" id="lastCreditBadge" title="Último crédito">sem créditos</span>
         </div>
 
         <div class="row" style="margin-top:16px">
-          <a class="btn" target="_blank" 
+          <!-- Botão de pagamento fixo -->
+          <a class="btn" target="_blank"
              href="https://cartomantespagamento.com.br/index.php?valor=10,00&descricao=MINUTOS%20ODARA">
-             Adicionar R$ 10,00 (PIX)
+            Adicionar R$ 10,00 (PIX)
           </a>
           <button class="btn outline" id="btnDetectar">Detectar pagamento</button>
           <button class="btn ghost" id="btnLimpar">Zerar saldo</button>
         </div>
 
         <p class="note" style="margin-top:10px">
-          Assim que o pagamento for aprovado, você será redirecionado automaticamente a este painel e seu saldo será atualizado.
+          Após o pagamento via PIX, você será redirecionado automaticamente de volta a esta página com o saldo atualizado.
         </p>
       </section>
 
+      <!-- HISTÓRICO -->
       <aside class="card">
         <h3 style="margin-top:0">Movimentações</h3>
         <ul class="list" id="listaTx"></ul>
       </aside>
     </div>
 
-    <footer>© <span id="year"></span> Cartomantes Online — Seu atendimento místico</footer>
+    <footer>
+      © <span id="year"></span> Cartomantes Online — Seu atendimento místico
+    </footer>
   </div>
 
   <script>
-    const fmt = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
-    const toNumberBR=v=>Number(v.replace(',','.'))||0;
-    const saldoView=document.getElementById('saldoView');
-    const lastCreditBadge=document.getElementById('lastCreditBadge');
-    const listaTx=document.getElementById('listaTx');
-    const STORAGE_SALDO='co_saldo';const STORAGE_TX='co_tx';
+    // ===== Utilidades =====
+    const fmt = new Intl.NumberFormat('pt-BR',{style:'currency', currency:'BRL'});
+    const toNumberBR = v => Number(String(v||'').replace(/\./g,'').replace(',','.')) || 0;
 
-    const getSaldo=()=>Number(localStorage.getItem(STORAGE_SALDO)||0);
-    const setSaldo=n=>localStorage.setItem(STORAGE_SALDO,n);
-    const getTx=()=>JSON.parse(localStorage.getItem(STORAGE_TX)||'[]');
-    const setTx=a=>localStorage.setItem(STORAGE_TX,JSON.stringify(a));
+    const STORAGE_SALDO = 'co_saldo_reais';
+    const STORAGE_TX = 'co_tx_list';
 
-    function render(){
-      saldoView.textContent=fmt.format(getSaldo());
-      const tx=getTx();listaTx.innerHTML='';
-      if(!tx.length){listaTx.innerHTML='<li class="tx"><span>Nenhuma movimentação</span><span class="amt">—</span></li>';return;}
-      tx.slice().reverse().forEach(t=>{
-        const when=new Date(t.ts).toLocaleString('pt-BR',{timeZone:'America/Fortaleza'});
-        listaTx.innerHTML+=`<li class="tx"><div><strong>${t.desc}</strong><br><small class="ok">${when}</small></div><div class="amt">+ ${fmt.format(t.valor)}</div></li>`;
+    const getSaldo = () => Number(localStorage.getItem(STORAGE_SALDO)||'0');
+    const setSaldo = n => localStorage.setItem(STORAGE_SALDO, String(n));
+    const getTxList = () => JSON.parse(localStorage.getItem(STORAGE_TX)||'[]');
+    const setTxList = arr => localStorage.setItem(STORAGE_TX, JSON.stringify(arr));
+
+    const saldoView = document.getElementById('saldoView');
+    const lastCreditBadge = document.getElementById('lastCreditBadge');
+    const listaTx = document.getElementById('listaTx');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function renderSaldo(){ saldoView.textContent = fmt.format(getSaldo()); }
+    function renderTx(){
+      const tx = getTxList();
+      listaTx.innerHTML = '';
+      if (!tx.length){
+        listaTx.innerHTML = '<li class="tx"><span>Nenhuma movimentação</span><span class="amt">—</span></li>';
+        lastCreditBadge.textContent = 'sem créditos';
+        return;
+      }
+      tx.slice().reverse().forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'tx';
+        const when = new Date(t.ts).toLocaleString('pt-BR', { timeZone: 'America/Fortaleza' });
+        li.innerHTML = `<div><strong>${t.desc}</strong><br><small class="${t.tipo==='credito'?'ok':'warn'}">${when}</small></div><div class="amt">${t.tipo==='credito'?'+':'-'} ${fmt.format(t.valor)}</div>`;
+        listaTx.appendChild(li);
       });
-      lastCreditBadge.textContent=`Último crédito: ${fmt.format(tx[tx.length-1].valor)}`;
+      const ult = tx[tx.length-1];
+      if (ult && ult.tipo==='credito') lastCreditBadge.textContent = `Último crédito: ${fmt.format(ult.valor)}`;
     }
 
-    function addCredito(valor,desc='Crédito'){
-      const novo=getSaldo()+valor;setSaldo(novo);
-      const tx=getTx();tx.push({valor,desc,ts:Date.now()});setTx(tx);
-      render();alert('💰 Crédito recebido: '+fmt.format(valor));
+    function addCredito(valor, desc='Crédito PIX'){
+      const novo = getSaldo()+valor;
+      setSaldo(novo);
+      const tx = getTxList();
+      tx.push({ tipo:'credito', valor, desc, ts:Date.now() });
+      setTxList(tx);
+      renderSaldo(); renderTx();
+      toast(`Crédito recebido: ${fmt.format(valor)}`);
     }
 
-    function detectFromURL(){
-      const url=new URL(location.href);
-      const status=(url.searchParams.get('status')||'').toLowerCase();
-      const valor=url.searchParams.get('valor');const desc=url.searchParams.get('descricao')||'Crédito';
-      if(status==='paid'&&valor){addCredito(toNumberBR(valor),desc);
-        url.search='';history.replaceState({},'',url);}
+    function creditFromURL(){
+      const url = new URL(location.href);
+      const status = (url.searchParams.get('status')||'').toLowerCase();
+      const valorStr = url.searchParams.get('valor');
+      const desc = url.searchParams.get('descricao')||'Crédito PIX';
+      const valor = toNumberBR(valorStr);
+      const okStatus = ['paid','approved','aprovado','ok','1','success','true'];
+
+      if (!valor || !okStatus.includes(status)) return false;
+      const onceKey = 'once_'+btoa(url.search);
+      if (sessionStorage.getItem(onceKey)) return false;
+      sessionStorage.setItem(onceKey,'1');
+      addCredito(valor, desc);
+
+      // Limpa URL
+      url.searchParams.delete('status');
+      url.searchParams.delete('valor');
+      url.searchParams.delete('descricao');
+      history.replaceState({}, '', url.pathname);
+      return true;
     }
 
-    document.getElementById('btnDetectar').onclick=detectFromURL;
-    document.getElementById('btnLimpar').onclick=()=>{localStorage.clear();render();};
-    document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('btnDetectar').onclick = ()=>{ toast(creditFromURL()?'Pagamento detectado!':'Nada para detectar.'); };
+    document.getElementById('btnLimpar').onclick = ()=>{ if(confirm('Zerar saldo e histórico?')){ setSaldo(0); setTxList([]); renderSaldo(); renderTx(); toast('Saldo zerado.'); } };
 
-    render();detectFromURL();
+    function toast(msg){
+      const t=document.createElement('div');
+      t.textContent=msg;
+      Object.assign(t.style,{position:'fixed',left:'50%',bottom:'24px',transform:'translateX(-50%)',background:'rgba(0,0,0,.7)',color:'#fff',padding:'10px 14px',borderRadius:'10px',fontSize:'14px',boxShadow:'0 10px 20px rgba(0,0,0,.35)',zIndex:9999});
+      document.body.appendChild(t);
+      setTimeout(()=>t.remove(),2500);
+    }
+
+    renderSaldo(); renderTx();
+    creditFromURL(); // detecta automaticamente ao abrir
   </script>
 </body>
 </html>
