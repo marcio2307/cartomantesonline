@@ -3,224 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Administrativo — Cartomantes Online</title>
+<title>Painel de Agendamentos — Cartomantes Online</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <style>
 body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; }
-h1, h2 { text-align:center; color:#ffd700; text-shadow:0 0 10px #ff0; }
-label { font-weight:bold; color:yellow; margin-top:10px; display:block; }
-input, select, textarea, button {
-  width:100%; padding:10px; margin-bottom:15px;
-  border-radius:6px; border:none; font-size:16px;
-}
-button { background:red; color:#fff; cursor:pointer; transition:0.3s; }
-button:hover { background:#b30000; }
-#loginForm { max-width:320px; margin:auto; margin-top:30px; }
-#painelGeral { display:none; margin-top:20px; }
-.tabs { text-align:center; margin-bottom:25px; }
-.tabs button {
-  background:#111; color:#ffd700; border:1px solid #ff0000;
-  margin:0 10px; padding:10px 20px; border-radius:6px;
-}
-.tabs button.active { background:red; color:#fff; }
-.section { display:none; }
-table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+h1 { text-align:center; color:#ffd700; text-shadow:0 0 10px #ff0; margin-bottom:20px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; font-size:15px; }
 th, td { border:1px solid #333; padding:8px; text-align:left; }
 th { background:#111; color:#ffd700; }
 tr:nth-child(even){ background:#111; }
-button.excluir { background:#ff0000; padding:5px 10px; border:none; border-radius:4px; font-size:13px; }
-button.excluir:hover { background:#b30000; }
-footer { text-align:center; margin-top:30px; color:#888; }
+button {
+  padding:6px 12px; border:none; border-radius:5px;
+  cursor:pointer; font-size:14px; transition:0.3s;
+}
+button:hover { transform:scale(1.05); }
+button.liberar { background:#0cdfb9; color:#000; }
+button.excluir { background:#ff0000; color:#fff; }
+footer { text-align:center; margin-top:25px; color:#888; font-size:14px; }
 </style>
 </head>
 <body>
+<h1>📅 Painel de Agendamentos</h1>
 
-<h1>Painel Administrativo — Cartomantes Online</h1>
+<table>
+<thead>
+<tr><th>Data</th><th>Hora</th><th>Nome</th><th>WhatsApp</th><th>Pacote</th><th>Ações</th></tr>
+</thead>
+<tbody id="lista"></tbody>
+</table>
 
-<!-- LOGIN -->
-<div id="loginForm">
-  <label>Usuário:</label>
-  <input type="text" id="username">
-  <label>Senha:</label>
-  <input type="password" id="password">
-  <button onclick="login()">Entrar</button>
-</div>
-
-<!-- PAINEL GERAL -->
-<div id="painelGeral">
-  <div class="tabs">
-    <button id="btnAgendamento" class="active" onclick="mostrar('agendamento')">📅 Agendamentos</button>
-    <button id="btnColetivo" onclick="mostrar('coletivo')">🔥 Coletivo</button>
-    <button onclick="logout()">Sair</button>
-  </div>
-
-  <!-- AGENDAMENTOS -->
-  <div id="agendamento" class="section" style="display:block;">
-    <h2>🗓️ Painel de Agendamentos</h2>
-    <table id="tabelaAgendamento">
-      <thead>
-        <tr>
-          <th>Data/Hora</th>
-          <th>Nome</th>
-          <th>WhatsApp</th>
-          <th>Dia Marcado</th>
-          <th>Horário</th>
-          <th>Pacote</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    <p id="erroAgendamento" style="color:red; text-align:center;"></p>
-  </div>
-
-  <!-- COLETIVO -->
-  <div id="coletivo" class="section">
-    <h2>🔥 Painel do Coletivo</h2>
-    <form id="formColetivo">
-      <label for="titulo">Título:</label>
-      <input id="titulo" name="titulo" required>
-
-      <label for="data">Data:</label>
-      <input id="data" name="data" required>
-
-      <label for="valor">Valor:</label>
-      <input id="valor" name="valor" required>
-
-      <label for="desc">Descrição:</label>
-      <textarea id="desc" name="desc" rows="4" required></textarea>
-
-      <label for="img">URL da imagem:</label>
-      <input id="img" name="img" required>
-
-      <label for="vagas">Número de vagas:</label>
-      <input id="vagas" name="vagas" type="number" min="1" required>
-
-      <button type="submit">💾 Salvar Coletivo</button>
-    </form>
-
-    <div id="confirmacao" style="display:none; color:#0cdfb9; text-align:center;">✅ Coletivo atualizado com sucesso!</div>
-  </div>
-</div>
-
-<footer>© 2025 — Cartomantes Online</footer>
+<footer>© 2025 — Cartomantes Online 🔮</footer>
 
 <script>
-// ================== LOGIN ==================
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
+// === FIREBASE CONFIG ===
+const firebaseConfig = {
+  apiKey: "AIzaSyA7XSLTDxayTOczs7-sW5s0_nx7nkDgVo",
+  authDomain: "coletivo2025-9de23.firebaseapp.com",
+  databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
+  projectId: "coletivo2025-9de23",
+  storageBucket: "coletivo2025-9de23.appspot.com",
+  messagingSenderId: "740866367489",
+  appId: "1:740866367489:web:963e3f5be80cb35a71e000"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-// 🔗 TROQUE AQUI PELO SEU LINK DO APPS SCRIPT (AGENDAMENTOS)
-const scriptAgendamento = "https://script.google.com/macros/s/AKfycbwl4s5pIqfKLd8H33jHkpM3XL56UnQGB-p7amWrah6x2AAs3KyTxEl-CFeOu_vuXnPNNw/exec";
-// 🔗 LINK DO COLETIVO
-const scriptColetivo = "https://script.google.com/macros/s/AKfycbw47QavcdkCgLKFk223ZcwcuZIpPiZo-9otrGUhpR6rpaST-YjGoXhIDQ3ZVjy7trRSgw/exec";
+// === CARREGAR ===
+db.ref("agendamentos").on("value", snap=>{
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+  const dados = snap.val();
+  if(!dados){ lista.innerHTML="<tr><td colspan=6>Nenhum agendamento ainda.</td></tr>"; return; }
 
-function login(){
-  const user = username.value;
-  const pass = password.value;
-  if(user===ADMIN_USER && pass===ADMIN_PASS){
-    loginForm.style.display='none';
-    painelGeral.style.display='block';
-    carregarAgendamentos();
-    carregarColetivo();
-  } else alert("Usuário ou senha incorretos!");
-}
-
-function logout(){
-  painelGeral.style.display='none';
-  loginForm.style.display='block';
-  username.value='';
-  password.value='';
-}
-
-function mostrar(secao){
-  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
-  document.getElementById(secao).style.display='block';
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  if(secao==='agendamento') btnAgendamento.classList.add('active');
-  if(secao==='coletivo') btnColetivo.classList.add('active');
-}
-
-// ================== AGENDAMENTOS ==================
-function carregarAgendamentos(){
-  fetch(scriptAgendamento)
-    .then(res => res.json())
-    .then(data => {
-      const tbody = document.querySelector("#tabelaAgendamento tbody");
-      tbody.innerHTML = "";
-      if (!data || data.length === 0){
-        erroAgendamento.textContent = "Nenhum agendamento encontrado.";
-        return;
-      }
-
-      data.forEach((item, i) => {
-        // 🔮 Corrigir hora numérica (planilha tipo 0.875 vira 21:00)
-        let horaFormatada = "Sem horário definido";
-        if (item.hora) {
-          let valor = item.hora.toString().trim();
-          let num = parseFloat(valor);
-          if (!isNaN(num) && num > 0 && num < 2) {
-            let totalMin = Math.round(num * 24 * 60);
-            let h = Math.floor(totalMin / 60);
-            let m = totalMin % 60;
-            horaFormatada = `Consulta agendada para ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-          } else if (valor.includes(":")) {
-            horaFormatada = `Consulta agendada para ${valor}`;
-          }
-        }
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${new Date(item.timestamp).toLocaleString("pt-BR")}</td>
-          <td>${item.nome}</td>
-          <td>${item.whatsapp}</td>
-          <td>${item.data}</td>
-          <td>${horaFormatada}</td>
-          <td>${item.pacote}</td>
-          <td><button class='excluir' onclick='excluirAgendamento(${i+2})'>Excluir</button></td>`;
-        tbody.appendChild(tr);
-      });
-    })
-    .catch(err => erroAgendamento.textContent = "Erro ao carregar agendamentos: " + err.message);
-}
-
-// 🔴 Função de exclusão corrigida
-function excluirAgendamento(linha){
-  if(!confirm("Tem certeza que deseja excluir este agendamento?")) return;
-  fetch(`${scriptAgendamento}?action=delete&linha=${linha}`, { method: "GET" })
-    .then(res => res.text())
-    .then(() => {
-      alert("Agendamento excluído com sucesso!");
-      carregarAgendamentos();
-    })
-    .catch(err => alert("Erro ao excluir: " + err.message));
-}
-
-// ================== COLETIVO ==================
-const form = document.getElementById('formColetivo');
-const confirmacao = document.getElementById('confirmacao');
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  fetch(scriptColetivo, { method:'POST', body:formData })
-    .then(res => res.text())
-    .then(()=>{ confirmacao.style.display='block'; setTimeout(()=>confirmacao.style.display='none',4000); })
-    .catch(err=>alert("Erro ao salvar coletivo: " + err.message));
+  Object.entries(dados).forEach(([id,a])=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${a.data}</td>
+      <td>${a.hora}</td>
+      <td>${a.nome}</td>
+      <td>${a.whatsapp}</td>
+      <td>${a.pacote}</td>
+      <td>
+        <button class="excluir" onclick="excluir('${id}')">Excluir</button>
+        <button class="liberar" onclick="liberar('${id}')">Liberar</button>
+      </td>`;
+    lista.appendChild(tr);
+  });
 });
 
-function carregarColetivo(){
-  fetch(scriptColetivo)
-    .then(res=>res.json())
-    .then(data=>{
-      if(!data || data.error) return;
-      titulo.value = data.titulo || "";
-      data.value = data.data || "";
-      valor.value = data.valor || "";
-      desc.value = data.desc || "";
-      img.value = data.img || "";
-      vagas.value = data.vagas || "";
-    })
-    .catch(()=>{});
+function excluir(id){
+  if(confirm("Excluir este agendamento?"))
+    db.ref("agendamentos/"+id).remove();
+}
+
+function liberar(id){
+  if(confirm("Liberar esta vaga para novo agendamento?"))
+    db.ref("agendamentos/"+id).remove();
 }
 </script>
 </body>
