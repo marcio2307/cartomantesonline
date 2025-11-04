@@ -4,97 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agendamento de Tarot</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
-body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; display:flex; justify-content:center; }
-.container { background:#111; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.5); width:100%; max-width:500px; }
-h2 { text-align:center; color:red; margin-bottom:15px; }
-label { margin-top:10px; display:block; font-weight:bold; color:yellow; }
-input, select, button { width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ccc; font-size:16px; background:#222; color:#fff; }
-button { background:red; color:#fff; border:none; cursor:pointer; transition:0.3s; }
-button:hover { background:#b30000; }
-.confirmation { display:none; text-align:center; color:#0cdfb9; font-size:18px; margin-top:10px; }
-.aviso-final { margin-top:20px; color:yellow; font-size:14px; text-align:left; border-top:1px solid #333; padding-top:10px; line-height:1.6; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url('https://ticivitoria.com.br/wp-content/uploads/2023/10/o-que-e-tarot.png') center/cover no-repeat;
+  color:#fff; min-height:100vh;
+  display:flex; justify-content:center; align-items:center;
+  padding:20px;
+}
+.container {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 25px rgba(255,255,255,0.2);
+  width:100%; max-width:480px;
+  animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+h2 {
+  text-align:center;
+  color:#ffd700;
+  margin-bottom:15px;
+  font-size:26px;
+  text-shadow:0 0 10px #ff0;
+}
+label { margin-top:10px; display:block; font-weight:bold; color:#ffeb3b; }
+input, select, button {
+  width:100%; padding:12px; margin-top:6px; margin-bottom:15px;
+  border-radius:8px; border:none; font-size:16px;
+  background:#222; color:#fff; outline:none;
+}
+input:focus, select:focus { box-shadow:0 0 8px #ffeb3b; }
+button {
+  background:linear-gradient(90deg, #b30000, #ff0000);
+  color:#fff; font-weight:bold; letter-spacing:1px;
+  border:none; cursor:pointer; transition:0.3s;
+}
+button:hover { transform:scale(1.05); box-shadow:0 0 12px #ff0000; }
+.confirmation {
+  display:none; text-align:center;
+  color:#0cdfb9; font-size:18px; margin-top:15px;
+}
+.aviso-final {
+  margin-top:20px; color:#ffeb3b; font-size:14px;
+  text-align:left; border-top:1px solid #555; padding-top:10px; line-height:1.6;
+}
 </style>
 </head>
 <body>
-
 <div class="container">
-<h2>Agendamento de Tarot</h2>
+<h2>🔮 Agendamento de Tarot</h2>
 
 <form id="tarotForm">
-    <input type="hidden" name="access_key" value="6332c1be-705b-4f53-94b4-a38267e2cf2a">
+  <input type="hidden" name="access_key" value="6332c1be-705b-4f53-94b4-a38267e2cf2a">
 
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
+  <label>Nome completo:</label>
+  <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
 
-    <label for="whatsapp">Número de WhatsApp:</label>
-    <input type="tel" id="whatsapp" name="whatsapp" placeholder="+55 (XX) XXXXX-XXXX" required>
+  <label>WhatsApp:</label>
+  <input type="tel" id="whatsapp" name="whatsapp" placeholder="+55 (XX) XXXXX-XXXX" required>
 
-    <label for="data">Data (Seg a Sáb):</label>
-    <input type="date" id="data" name="data" required>
+  <label>Data (Seg a Sáb):</label>
+  <input type="date" id="data" name="data" required>
 
-    <label for="hora">Horário:</label>
-    <select id="hora" name="hora" required>
-        <option value="">Selecione</option>
-        <option value="20:30">20:30</option>
-        <option value="21:30">21:30</option>
-        <option value="22:00">22:00</option>
-    </select>
+  <label>Horário:</label>
+  <select id="hora" name="hora" required>
+    <option value="">Selecione</option>
+    <option value="20:30">20:30</option>
+    <option value="21:30">21:30</option>
+    <option value="22:00">22:00</option>
+  </select>
 
-    <label for="pacote">Pacote de Perguntas:</label>
-    <select id="pacote" name="pacote" required>
-        <option value="">Selecione</option>
-        <option value="3 perguntas - R$60,00">3 perguntas - R$60,00</option>
-        <option value="7 perguntas - R$120,00">7 perguntas - R$120,00</option>
-    </select>
+  <label>Pacote de Perguntas:</label>
+  <select id="pacote" name="pacote" required>
+    <option value="">Selecione</option>
+    <option value="3 perguntas - R$60,00">3 perguntas - R$60,00</option>
+    <option value="7 perguntas - R$120,00">7 perguntas - R$120,00</option>
+  </select>
 
-    <button type="submit">Enviar Agendamento</button>
+  <button type="submit">✨ Enviar Agendamento</button>
 </form>
 
-<div class="confirmation" id="confirmationDiv">
-    ✅ Seu agendamento foi enviado com sucesso!
-</div>
+<div class="confirmation" id="confirmationDiv">✅ Seu agendamento foi enviado com sucesso!</div>
 
 <div class="aviso-final">
-    ⚠️ <b>Observações:</b><br>
-    • O atendimento é individual e confidencial.<br>
-    • Em caso de imprevisto, reagende com antecedência.<br>
-    • O horário será reservado apenas após a confirmação do pagamento.
+<b>⚠️ Observações:</b><br>
+• O atendimento é individual e confidencial.<br>
+• Em caso de imprevisto, reagende com antecedência.<br>
+• O horário será reservado após confirmação do pagamento.
 </div>
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbwl4s5pIqfKLd8H33jHkpM3XL56UnQGB-p7amWrah6x2AAs3KyTxEl-CFeOu_vuXnPNNw/exec";
+// === FIREBASE CONFIG ===
+const firebaseConfig = {
+  apiKey: "AIzaSyA7XSLTDxayTOczs7-sW5s0_nx7nkDgVo",
+  authDomain: "coletivo2025-9de23.firebaseapp.com",
+  databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
+  projectId: "coletivo2025-9de23",
+  storageBucket: "coletivo2025-9de23.appspot.com",
+  messagingSenderId: "740866367489",
+  appId: "1:740866367489:web:963e3f5be80cb35a71e000"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-const form = document.getElementById('tarotForm');
-const confirmation = document.getElementById('confirmationDiv');
+// === BLOQUEAR HORÁRIOS OCUPADOS ===
+const dataInput = document.getElementById("data");
+const horaSelect = document.getElementById("hora");
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  const data = new FormData(form);
-
-  // Envia para a planilha Google
-  fetch(scriptURL, { method: 'POST', body: data })
-    .then(response => {
-      // Envia também para o Web3Forms
-      fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
-      .then(res => res.json())
-      .then(dataWeb => {
-        if (dataWeb.success) {
-          confirmation.style.display = "block";
-          form.reset();
-
-          // Redireciona para o WhatsApp
-          const numero = "5585984368057";
-          const msg = "Já fiz meu agendamento de consulta e desejo realizar o pagamento.";
-          window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(msg)}`, "_blank");
-        } else {
-          alert("Erro ao enviar via Web3Forms.");
+dataInput.addEventListener("change", () => {
+  const data = dataInput.value;
+  horaSelect.querySelectorAll("option").forEach(opt => opt.disabled = false);
+  firebase.database().ref("agendamentos").once("value", snap => {
+    const ags = snap.val();
+    if (ags) {
+      Object.values(ags).forEach(a => {
+        if (a.data === data) {
+          const opt = horaSelect.querySelector(`option[value="${a.hora}"]`);
+          if (opt) opt.disabled = true;
         }
       });
+    }
+  });
+});
+
+// === ENVIAR AGENDAMENTO ===
+document.getElementById("tarotForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  const nome = document.getElementById("nome").value;
+  const whatsapp = document.getElementById("whatsapp").value;
+  const dataSel = document.getElementById("data").value;
+  const horaSel = document.getElementById("hora").value;
+  const pacote = document.getElementById("pacote").value;
+
+  // salva no Firebase
+  const ref = firebase.database().ref("agendamentos").push();
+  ref.set({ nome, whatsapp, data: dataSel, hora: horaSel, pacote, timestamp: new Date().toISOString() });
+
+  // envia também via Web3Forms
+  fetch("https://api.web3forms.com/submit", { method: "POST", body: data })
+    .then(res => res.json())
+    .then(result => {
+      if(result.success){
+        document.getElementById("confirmationDiv").style.display = "block";
+        form.reset();
+        // redireciona para WhatsApp
+        const numero = "5585984368057";
+        const msg = `Olá! Já fiz meu agendamento para ${dataSel} às ${horaSel} e desejo realizar o pagamento.`;
+        window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(msg)}`, "_blank");
+      } else {
+        alert("Erro ao enviar o formulário.");
+      }
     })
-    .catch(error => alert("Erro ao registrar na planilha: " + error.message));
+    .catch(err => alert("Erro: " + err.message));
 });
 </script>
 </body>
