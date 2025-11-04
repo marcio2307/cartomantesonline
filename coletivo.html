@@ -1,85 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Coletivo — Faça sua Reserva</title>
-  <style>
-    body {
-      background: radial-gradient(circle at center, #000 70%, #111 100%);
-      color: #fff;
-      font-family: 'Arial Black', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #ff0000;
-      font-size: 2.2em;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px #ff0000, 0 0 20px #800000;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #ff0000;
-      border-radius: 12px;
-      padding: 20px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 0 20px #ff0000a8;
-      margin-top: 20px;
-    }
-
-    img {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #ff0000;
-    }
-
-    h2 {
-      color: #ffd700;
-      margin-top: 15px;
-    }
-
-    p {
-      color: #ddd;
-      font-size: 1em;
-      line-height: 1.5em;
-    }
-
-    .vagas {
-      font-size: 1.2em;
-      margin: 10px 0;
-      color: #ff4444;
-      font-weight: bold;
-    }
-
-    button {
-      background: linear-gradient(90deg, #ff0000, #ff4500);
-      color: #fff;
-      border: none;
-      padding: 14px 22px;
-      border-radius: 8px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 15px #ff0000;
-    }
-
-    button:hover {
-      transform: scale(1.08);
-      background: linear-gradient(90deg, #ff2e2e, #ff7b00);
-      box-shadow: 0 0 25px #ff0000;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Coletivo — Faça sua Reserva</title>
+<style>
+body {
+  background: radial-gradient(circle at center, #000 70%, #111 100%);
+  color: #fff;
+  font-family: 'Arial Black', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+h1 {
+  color: #ff0000;
+  font-size: 2.2em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #800000;
+}
+.card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ff0000;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 20px #ff0000a8;
+  margin-top: 20px;
+}
+img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ff0000;
+}
+h2 {
+  color: #ffd700;
+  margin-top: 15px;
+}
+p {
+  color: #ddd;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+.vagas {
+  font-size: 1.2em;
+  margin: 10px 0;
+  color: #ff4444;
+  font-weight: bold;
+}
+button {
+  background: linear-gradient(90deg, #ff0000, #ff4500);
+  color: #fff;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 15px #ff0000;
+}
+button:hover {
+  transform: scale(1.08);
+  background: linear-gradient(90deg, #ff2e2e, #ff7b00);
+  box-shadow: 0 0 25px #ff0000;
+}
+</style>
 </head>
 <body>
   <h1>🔥 Faça a sua Reserva Agora 🔥</h1>
@@ -93,50 +84,32 @@
     <button id="reserva">Fazer reserva pelo WhatsApp</button>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbw47QavcdkCgLKFk223ZcwcuZIpPiZo-9otrGUhpR6rpaST-YjGoXhIDQ3ZVjy7trRSgw/exec";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAg7SXLTDxayTOCzs7-sW5s0_nx7nkDgVo",
-      authDomain: "coletivo2025-9de23.firebaseapp.com",
-      databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
-      projectId: "coletivo2025-9de23",
-      storageBucket: "coletivo2025-9de23.appspot.com",
-      messagingSenderId: "740866367489",
-      appId: "1:740866367489:web:963e3f5be80cb35a71e000"
-    };
+fetch(scriptURL)
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      document.getElementById("titulo").innerText = "Nenhum coletivo cadastrado.";
+      return;
+    }
+    document.getElementById("titulo").innerText = data.titulo || "Coletivo Espiritual";
+    document.getElementById("data").innerText = "🗓️ Data: " + (data.data || "");
+    document.getElementById("valor").innerText = "💰 Valor: " + (data.valor || "");
+    document.getElementById("desc").innerText = data.desc || "";
+    document.getElementById("img").src = data.img || "";
+    document.getElementById("vagas").innerText = data.vagas || "--";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const infoNode = ref(db, "coletivo_info");
-
-    // Atualiza o conteúdo automaticamente
-    onValue(infoNode, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        document.getElementById("titulo").innerText = data.titulo || "Coletivo Espiritual";
-        document.getElementById("data").innerText = "🗓️ Data: " + (data.data || "");
-        document.getElementById("valor").innerText = "💰 Valor: " + (data.valor || "");
-        document.getElementById("desc").innerText = data.desc || "";
-        document.getElementById("img").src = data.img || "";
-        document.getElementById("vagas").innerText = data.vagas ?? "--";
-      }
+    // WhatsApp direto
+    document.getElementById("reserva").addEventListener("click", () => {
+      const msg = `Olá! Quero reservar minha vaga no ${data.titulo || "Coletivo"} 🙏`;
+      window.open(`https://wa.me/5585984368057?text=${encodeURIComponent(msg)}`, "_blank");
     });
-
-    // Botão de reserva pelo WhatsApp e diminuição global das vagas
-    document.getElementById("reserva").addEventListener("click", async () => {
-      const whatsapp = "https://wa.me/5585984368057?text=Olá! Quero fazer minha reserva no Coletivo 🙏";
-      window.open(whatsapp, "_blank");
-
-      // Diminui globalmente as vagas no Firebase
-      await runTransaction(ref(db, "coletivo_info/vagas"), (current) => {
-        if (current && current > 0) {
-          return current - 1;
-        }
-        return current;
-      });
-    });
-  </script>
+  })
+  .catch(err => {
+    document.getElementById("titulo").innerText = "Erro ao carregar dados.";
+  });
+</script>
 </body>
 </html>
