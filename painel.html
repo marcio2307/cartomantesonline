@@ -3,42 +3,155 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel de Agendamentos — Cartomantes Online</title>
+<title>Painel Unificado — Cartomantes Online</title>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <style>
-body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; }
-h1 { text-align:center; color:#ffd700; text-shadow:0 0 10px #ff0; margin-bottom:20px; }
-table { width:100%; border-collapse:collapse; margin-top:10px; font-size:15px; }
-th, td { border:1px solid #333; padding:8px; text-align:left; }
-th { background:#111; color:#ffd700; }
-tr:nth-child(even){ background:#111; }
-button {
-  padding:6px 12px; border:none; border-radius:5px;
-  cursor:pointer; font-size:14px; transition:0.3s;
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  margin: 0;
 }
-button:hover { transform:scale(1.05); }
-button.liberar { background:#0cdfb9; color:#000; }
-button.excluir { background:#ff0000; color:#fff; }
-footer { text-align:center; margin-top:25px; color:#888; font-size:14px; }
+h1, h2 {
+  text-align: center;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ff0;
+}
+h2 {
+  margin-top: 40px;
+}
+.container {
+  background: #111;
+  border: 1px solid #ff0000;
+  border-radius: 12px;
+  padding: 15px;
+  max-width: 700px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px #ff000066;
+}
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 12px 0;
+  border-radius: 8px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff0000, #ff4500);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 5px;
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #ff0000;
+}
+.status {
+  text-align: center;
+  margin-top: 10px;
+  color: #0cdfb9;
+  font-weight: bold;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 15px;
+}
+th, td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background: #111;
+  color: #ffd700;
+}
+tr:nth-child(even) {
+  background: #181818;
+}
+button.excluir {
+  background: #ff0000;
+  color: #fff;
+}
+button.liberar {
+  background: #0cdfb9;
+  color: #000;
+}
+@media (max-width: 600px) {
+  table, th, td {
+    font-size: 13px;
+    display: block;
+  }
+  th, td {
+    text-align: left;
+    border: none;
+    padding: 5px;
+  }
+  tr {
+    margin-bottom: 15px;
+    background: #111;
+    padding: 10px;
+    border-radius: 8px;
+  }
+}
 </style>
 </head>
 <body>
-<h1>📅 Painel de Agendamentos</h1>
 
-<table>
-<thead>
-<tr><th>Data</th><th>Hora</th><th>Nome</th><th>WhatsApp</th><th>Pacote</th><th>Ações</th></tr>
-</thead>
-<tbody id="lista"></tbody>
-</table>
+<h1>🔮 Painel Unificado — Cartomantes Online</h1>
 
-<footer>© 2025 — Cartomantes Online 🔮</footer>
+<div class="container">
+  <h2>🌀 Dados do Coletivo</h2>
+
+  <label>Título:</label>
+  <input type="text" id="titulo">
+
+  <label>Descrição:</label>
+  <textarea id="descricao" rows="3"></textarea>
+
+  <label>Valor:</label>
+  <input type="text" id="valor">
+
+  <label>Imagem (URL):</label>
+  <input type="text" id="imagem">
+
+  <label>Vagas disponíveis:</label>
+  <input type="number" id="vagas" min="0">
+
+  <button id="salvar">Salvar Alterações</button>
+  <div class="status" id="status"></div>
+</div>
+
+<div class="container" style="margin-top:30px;">
+  <h2>📅 Agendamentos</h2>
+  <table>
+    <thead>
+      <tr><th>Data</th><th>Hora</th><th>Nome</th><th>WhatsApp</th><th>Pacote</th><th>Ações</th></tr>
+    </thead>
+    <tbody id="lista"></tbody>
+  </table>
+</div>
+
+<footer style="text-align:center;margin-top:30px;color:#888;">© 2025 — Cartomantes Online 🔮</footer>
 
 <script>
-// === FIREBASE CONFIG ===
+// === Firebase Config ===
 const firebaseConfig = {
   apiKey: "AIzaSyA7XSLTDxayTOczs7-sW5s0_nx7nkDgVo",
   authDomain: "coletivo2025-9de23.firebaseapp.com",
@@ -51,13 +164,44 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// === CARREGAR ===
-db.ref("agendamentos").on("value", snap=>{
+// === PAINEL DO COLETIVO ===
+const refColetivo = db.ref("coletivo");
+
+refColetivo.on("value", snap => {
+  const d = snap.val() || {};
+  document.getElementById("titulo").value = d.titulo || "";
+  document.getElementById("descricao").value = d.descricao || "";
+  document.getElementById("valor").value = d.valor || "";
+  document.getElementById("imagem").value = d.imagem || "";
+  document.getElementById("vagas").value = d.vagas ?? 0;
+});
+
+document.getElementById("salvar").onclick = () => {
+  const dados = {
+    titulo: document.getElementById("titulo").value,
+    descricao: document.getElementById("descricao").value,
+    valor: document.getElementById("valor").value,
+    imagem: document.getElementById("imagem").value,
+    vagas: parseInt(document.getElementById("vagas").value) || 0
+  };
+  refColetivo.update(dados)
+    .then(() => {
+      document.getElementById("status").innerText = "✅ Alterações salvas!";
+      setTimeout(()=>document.getElementById("status").innerText="",3000);
+    })
+    .catch(err => alert("Erro: "+err.message));
+};
+
+// === LISTA DE AGENDAMENTOS ===
+const refAg = db.ref("agendamentos");
+refAg.on("value", snap => {
   const lista = document.getElementById("lista");
   lista.innerHTML = "";
   const dados = snap.val();
-  if(!dados){ lista.innerHTML="<tr><td colspan=6>Nenhum agendamento ainda.</td></tr>"; return; }
-
+  if(!dados){
+    lista.innerHTML = "<tr><td colspan=6 style='text-align:center;color:#888;'>Nenhum agendamento.</td></tr>";
+    return;
+  }
   Object.entries(dados).forEach(([id,a])=>{
     const tr = document.createElement("tr");
     tr.innerHTML = `
@@ -76,12 +220,11 @@ db.ref("agendamentos").on("value", snap=>{
 
 function excluir(id){
   if(confirm("Excluir este agendamento?"))
-    db.ref("agendamentos/"+id).remove();
+    refAg.child(id).remove();
 }
-
 function liberar(id){
-  if(confirm("Liberar esta vaga para novo agendamento?"))
-    db.ref("agendamentos/"+id).remove();
+  if(confirm("Liberar esta vaga?"))
+    refAg.child(id).remove();
 }
 </script>
 </body>
