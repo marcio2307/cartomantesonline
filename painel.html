@@ -23,10 +23,12 @@ button:hover { background:#b30000; }
 }
 .tabs button.active { background:red; color:#fff; }
 .section { display:none; }
-table { width:100%; border-collapse:collapse; margin-top:10px; }
-th, td { border:1px solid #333; padding:8px; text-align:left; font-size:14px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+th, td { border:1px solid #333; padding:8px; text-align:left; }
 th { background:#111; color:#ffd700; }
 tr:nth-child(even){ background:#111; }
+button.excluir { background:#ff0000; padding:5px 10px; border:none; border-radius:4px; font-size:13px; }
+button.excluir:hover { background:#b30000; }
 footer { text-align:center; margin-top:30px; color:#888; }
 </style>
 </head>
@@ -60,9 +62,10 @@ footer { text-align:center; margin-top:30px; color:#888; }
           <th>Data/Hora</th>
           <th>Nome</th>
           <th>WhatsApp</th>
-          <th>Data</th>
-          <th>Hora</th>
+          <th>Dia Marcado</th>
+          <th>Horário</th>
           <th>Pacote</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -106,35 +109,38 @@ footer { text-align:center; margin-top:30px; color:#888; }
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "1234";
 
+// 🔗 TROQUE AQUI PELO SEU LINK DO APPS SCRIPT (AGENDAMENTOS)
+const scriptAgendamento = "https://script.google.com/macros/s/AKfycbwl4s5pIqfKLd8H33jHkpM3XL56UnQGB-p7amWrah6x2AAs3KyTxEl-CFeOu_vuXnPNNw/exec";
+// 🔗 LINK DO COLETIVO
+const scriptColetivo = "https://script.google.com/macros/s/AKfycbw47QavcdkCgLKFk223ZcwcuZIpPiZo-9otrGUhpR6rpaST-YjGoXhIDQ3ZVjy7trRSgw/exec";
+
 function login(){
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
+  const user = username.value;
+  const pass = password.value;
   if(user===ADMIN_USER && pass===ADMIN_PASS){
-    document.getElementById('loginForm').style.display='none';
-    document.getElementById('painelGeral').style.display='block';
+    loginForm.style.display='none';
+    painelGeral.style.display='block';
     carregarAgendamentos();
     carregarColetivo();
   } else alert("Usuário ou senha incorretos!");
 }
 
 function logout(){
-  document.getElementById('painelGeral').style.display='none';
-  document.getElementById('loginForm').style.display='block';
-  document.getElementById('username').value='';
-  document.getElementById('password').value='';
+  painelGeral.style.display='none';
+  loginForm.style.display='block';
+  username.value='';
+  password.value='';
 }
 
 function mostrar(secao){
   document.querySelectorAll('.section').forEach(s=>s.style.display='none');
   document.getElementById(secao).style.display='block';
   document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  if(secao==='agendamento') document.getElementById('btnAgendamento').classList.add('active');
-  if(secao==='coletivo') document.getElementById('btnColetivo').classList.add('active');
+  if(secao==='agendamento') btnAgendamento.classList.add('active');
+  if(secao==='coletivo') btnColetivo.classList.add('active');
 }
 
 // ================== AGENDAMENTOS ==================
-const scriptAgendamento = "https://script.google.com/macros/s/AKfycbwl4s5pIqfKLd8H33jHkpM3XL56UnQGB-p7amWrah6x2AAs3KyTxEl-CFeOu_vuXnPNNw/exec";
-
 function carregarAgendamentos(){
   fetch(scriptAgendamento)
     .then(res => res.json())
@@ -142,26 +148,54 @@ function carregarAgendamentos(){
       const tbody = document.querySelector("#tabelaAgendamento tbody");
       tbody.innerHTML = "";
       if (!data || data.length === 0){
-        document.getElementById("erroAgendamento").textContent = "Nenhum agendamento encontrado.";
+        erroAgendamento.textContent = "Nenhum agendamento encontrado.";
         return;
       }
-      data.forEach(item => {
+
+      data.forEach((item, i) => {
+        // 🔮 Corrigir hora numérica (planilha tipo 0.875 vira 21:00)
+        let horaFormatada = "Sem horário definido";
+        if (item.hora) {
+          let valor = item.hora.toString().trim();
+          let num = parseFloat(valor);
+          if (!isNaN(num) && num > 0 && num < 2) {
+            let totalMin = Math.round(num * 24 * 60);
+            let h = Math.floor(totalMin / 60);
+            let m = totalMin % 60;
+            horaFormatada = `Consulta agendada para ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          } else if (valor.includes(":")) {
+            horaFormatada = `Consulta agendada para ${valor}`;
+          }
+        }
+
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${new Date(item.timestamp).toLocaleString("pt-BR")}</td>
           <td>${item.nome}</td>
           <td>${item.whatsapp}</td>
           <td>${item.data}</td>
-          <td>${item.hora}</td>
-          <td>${item.pacote}</td>`;
+          <td>${horaFormatada}</td>
+          <td>${item.pacote}</td>
+          <td><button class='excluir' onclick='excluirAgendamento(${i+2})'>Excluir</button></td>`;
         tbody.appendChild(tr);
       });
     })
-    .catch(err => document.getElementById("erroAgendamento").textContent = "Erro ao carregar agendamentos: " + err.message);
+    .catch(err => erroAgendamento.textContent = "Erro ao carregar agendamentos: " + err.message);
+}
+
+// 🔴 Função de exclusão corrigida
+function excluirAgendamento(linha){
+  if(!confirm("Tem certeza que deseja excluir este agendamento?")) return;
+  fetch(`${scriptAgendamento}?action=delete&linha=${linha}`, { method: "GET" })
+    .then(res => res.text())
+    .then(() => {
+      alert("Agendamento excluído com sucesso!");
+      carregarAgendamentos();
+    })
+    .catch(err => alert("Erro ao excluir: " + err.message));
 }
 
 // ================== COLETIVO ==================
-const scriptColetivo = "https://script.google.com/macros/s/AKfycbw47QavcdkCgLKFk223ZcwcuZIpPiZo-9otrGUhpR6rpaST-YjGoXhIDQ3ZVjy7trRSgw/exec";
 const form = document.getElementById('formColetivo');
 const confirmacao = document.getElementById('confirmacao');
 
@@ -179,12 +213,12 @@ function carregarColetivo(){
     .then(res=>res.json())
     .then(data=>{
       if(!data || data.error) return;
-      document.getElementById("titulo").value = data.titulo || "";
-      document.getElementById("data").value = data.data || "";
-      document.getElementById("valor").value = data.valor || "";
-      document.getElementById("desc").value = data.desc || "";
-      document.getElementById("img").value = data.img || "";
-      document.getElementById("vagas").value = data.vagas || "";
+      titulo.value = data.titulo || "";
+      data.value = data.data || "";
+      valor.value = data.valor || "";
+      desc.value = data.desc || "";
+      img.value = data.img || "";
+      vagas.value = data.vagas || "";
     })
     .catch(()=>{});
 }
