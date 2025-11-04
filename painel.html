@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Administrativo</title>
+<title>Painel Administrativo — Cartomantes Online</title>
 <style>
 body { font-family: Arial, sans-serif; background:#000; color:#fff; padding:20px; }
 h1, h2 { text-align:center; color:#ffd700; text-shadow:0 0 10px #ff0; }
@@ -23,19 +23,18 @@ button:hover { background:#b30000; }
 }
 .tabs button.active { background:red; color:#fff; }
 .section { display:none; }
-.horario-item {
-  display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:5px; background:#222; padding:5px 10px; border-radius:6px;
-  flex-wrap:wrap;
-}
-.horario-item div { flex:1; color:#0cdfb9; margin-bottom:5px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th, td { border:1px solid #333; padding:8px; text-align:left; font-size:14px; }
+th { background:#111; color:#ffd700; }
+tr:nth-child(even){ background:#111; }
 footer { text-align:center; margin-top:30px; color:#888; }
 </style>
 </head>
 <body>
 
-<h1>Painel Administrativo</h1>
+<h1>Painel Administrativo — Cartomantes Online</h1>
 
+<!-- LOGIN -->
 <div id="loginForm">
   <label>Usuário:</label>
   <input type="text" id="username">
@@ -44,6 +43,7 @@ footer { text-align:center; margin-top:30px; color:#888; }
   <button onclick="login()">Entrar</button>
 </div>
 
+<!-- PAINEL GERAL -->
 <div id="painelGeral">
   <div class="tabs">
     <button id="btnAgendamento" class="active" onclick="mostrar('agendamento')">📅 Agendamentos</button>
@@ -51,71 +51,58 @@ footer { text-align:center; margin-top:30px; color:#888; }
     <button onclick="logout()">Sair</button>
   </div>
 
-  <!-- PAINEL DE AGENDAMENTOS -->
+  <!-- AGENDAMENTOS -->
   <div id="agendamento" class="section" style="display:block;">
-    <h2>Painel de Agendamentos</h2>
-    <label for="dataSelect">Selecione a Data:</label>
-    <input type="date" id="dataSelect">
-    <div id="horariosContainer"></div>
+    <h2>🗓️ Painel de Agendamentos</h2>
+    <table id="tabelaAgendamento">
+      <thead>
+        <tr>
+          <th>Data/Hora</th>
+          <th>Nome</th>
+          <th>WhatsApp</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Pacote</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="erroAgendamento" style="color:red; text-align:center;"></p>
   </div>
 
-  <!-- PAINEL DE COLETIVO -->
+  <!-- COLETIVO -->
   <div id="coletivo" class="section">
-    <h2>Painel — Coletivo</h2>
-    <input id="titulo" placeholder="Título do Coletivo">
-    <input id="data" placeholder="Data do Coletivo">
-    <input id="valor" placeholder="Valor (ex: R$ 47,00)">
-    <textarea id="desc" placeholder="Descrição"></textarea>
-    <input id="img" placeholder="URL da imagem">
-    <input id="vagas" type="number" placeholder="Número de vagas">
-    <button id="salvar">Salvar alterações</button>
+    <h2>🔥 Painel do Coletivo</h2>
+    <form id="formColetivo">
+      <label for="titulo">Título:</label>
+      <input id="titulo" name="titulo" required>
+
+      <label for="data">Data:</label>
+      <input id="data" name="data" required>
+
+      <label for="valor">Valor:</label>
+      <input id="valor" name="valor" required>
+
+      <label for="desc">Descrição:</label>
+      <textarea id="desc" name="desc" rows="4" required></textarea>
+
+      <label for="img">URL da imagem:</label>
+      <input id="img" name="img" required>
+
+      <label for="vagas">Número de vagas:</label>
+      <input id="vagas" name="vagas" type="number" min="1" required>
+
+      <button type="submit">💾 Salvar Coletivo</button>
+    </form>
+
+    <div id="confirmacao" style="display:none; color:#0cdfb9; text-align:center;">✅ Coletivo atualizado com sucesso!</div>
   </div>
 </div>
 
-<footer>© 2025 — Administração</footer>
-
-<!-- Firebase compat (para agendamentos) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<!-- Firebase módulo (para coletivo) -->
-<script type="module">
-  import { initializeApp as initColetivo } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-database.js";
-
-  // Firebase do coletivo
-  const firebaseConfigColetivo = {
-    apiKey: "AIzaSyAg7SXLTDxayTOCzs7-sW5s0_nx7nkDgVo",
-    authDomain: "coletivo2025-9de23.firebaseapp.com",
-    databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
-    projectId: "coletivo2025-9de23",
-    storageBucket: "coletivo2025-9de23.appspot.com",
-    messagingSenderId: "740866367489",
-    appId: "1:740866367489:web:963e3f5be80cb35a71e000"
-  };
-
-  // Cria app nomeado para evitar conflito
-  const appColetivo = initColetivo(firebaseConfigColetivo, "coletivoApp");
-  const db = getDatabase(appColetivo);
-  const infoNode = ref(db, "coletivo_info");
-
-  // Botão de salvar
-  document.getElementById("salvar").addEventListener("click", async () => {
-    const data = {
-      titulo: document.getElementById("titulo").value,
-      data: document.getElementById("data").value,
-      valor: document.getElementById("valor").value,
-      desc: document.getElementById("desc").value,
-      img: document.getElementById("img").value,
-      vagas: parseInt(document.getElementById("vagas").value)
-    };
-    await set(infoNode, data);
-    alert("🔥 Coletivo atualizado com sucesso!");
-  });
-</script>
+<footer>© 2025 — Cartomantes Online</footer>
 
 <script>
-// Login simples
+// ================== LOGIN ==================
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "1234";
 
@@ -125,6 +112,8 @@ function login(){
   if(user===ADMIN_USER && pass===ADMIN_PASS){
     document.getElementById('loginForm').style.display='none';
     document.getElementById('painelGeral').style.display='block';
+    carregarAgendamentos();
+    carregarColetivo();
   } else alert("Usuário ou senha incorretos!");
 }
 
@@ -135,7 +124,6 @@ function logout(){
   document.getElementById('password').value='';
 }
 
-// Alternância entre seções
 function mostrar(secao){
   document.querySelectorAll('.section').forEach(s=>s.style.display='none');
   document.getElementById(secao).style.display='block';
@@ -144,53 +132,61 @@ function mostrar(secao){
   if(secao==='coletivo') document.getElementById('btnColetivo').classList.add('active');
 }
 
-// ==== Firebase Agendamentos ====
-const firebaseConfigAgendamento = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  databaseURL: "https://calendario-f58bc-default-rtdb.firebaseio.com/",
-  projectId: "SEU_PROJETO",
-  storageBucket: "SEU_PROJETO.appspot.com",
-  messagingSenderId: "SENDER_ID",
-  appId: "APP_ID"
-};
-firebase.initializeApp(firebaseConfigAgendamento);
-const database = firebase.database();
+// ================== AGENDAMENTOS ==================
+const scriptAgendamento = "https://script.google.com/macros/s/AKfycbwl4s5pIqfKLd8H33jHkpM3XL56UnQGB-p7amWrah6x2AAs3KyTxEl-CFeOu_vuXnPNNw/exec";
 
-const dataSelect = document.getElementById('dataSelect');
-const horariosContainer = document.getElementById('horariosContainer');
-
-dataSelect.addEventListener('change', ()=>{
-  const selectedDate = dataSelect.value;
-  if(!selectedDate) return;
-  const ref = database.ref('agendamentos/'+selectedDate);
-  ref.on('value', snapshot=>{
-    const horarios = snapshot.val()||{};
-    renderHorarios(horarios, selectedDate);
-  });
-});
-
-function renderHorarios(horarios,data){
-  horariosContainer.innerHTML='';
-  const keys = Object.keys(horarios);
-  if(keys.length===0){ horariosContainer.innerHTML='<p>Nenhum horário agendado nesta data.</p>'; return; }
-  keys.forEach(hora=>{
-    const info = horarios[hora];
-    const div = document.createElement('div');
-    div.className='horario-item';
-    div.innerHTML=`
-      <div><strong>${hora}</strong> - ${info.nome} | ${info.email} | ${info.whatsapp} | ${info.pacote}</div>
-      <button onclick="liberarHorario('${data}','${hora}')">Liberar</button>
-    `;
-    horariosContainer.appendChild(div);
-  });
+function carregarAgendamentos(){
+  fetch(scriptAgendamento)
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.querySelector("#tabelaAgendamento tbody");
+      tbody.innerHTML = "";
+      if (!data || data.length === 0){
+        document.getElementById("erroAgendamento").textContent = "Nenhum agendamento encontrado.";
+        return;
+      }
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date(item.timestamp).toLocaleString("pt-BR")}</td>
+          <td>${item.nome}</td>
+          <td>${item.whatsapp}</td>
+          <td>${item.data}</td>
+          <td>${item.hora}</td>
+          <td>${item.pacote}</td>`;
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(err => document.getElementById("erroAgendamento").textContent = "Erro ao carregar agendamentos: " + err.message);
 }
 
-function liberarHorario(data,hora){
-  const ref = database.ref(`agendamentos/${data}/${hora}`);
-  ref.remove()
-    .then(()=>alert(`Horário ${hora} do dia ${data} liberado!`))
-    .catch(err=>alert("Erro ao liberar horário: "+err.message));
+// ================== COLETIVO ==================
+const scriptColetivo = "https://script.google.com/macros/s/AKfycbw47QavcdkCgLKFk223ZcwcuZIpPiZo-9otrGUhpR6rpaST-YjGoXhIDQ3ZVjy7trRSgw/exec";
+const form = document.getElementById('formColetivo');
+const confirmacao = document.getElementById('confirmacao');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  fetch(scriptColetivo, { method:'POST', body:formData })
+    .then(res => res.text())
+    .then(()=>{ confirmacao.style.display='block'; setTimeout(()=>confirmacao.style.display='none',4000); })
+    .catch(err=>alert("Erro ao salvar coletivo: " + err.message));
+});
+
+function carregarColetivo(){
+  fetch(scriptColetivo)
+    .then(res=>res.json())
+    .then(data=>{
+      if(!data || data.error) return;
+      document.getElementById("titulo").value = data.titulo || "";
+      document.getElementById("data").value = data.data || "";
+      document.getElementById("valor").value = data.valor || "";
+      document.getElementById("desc").value = data.desc || "";
+      document.getElementById("img").value = data.img || "";
+      document.getElementById("vagas").value = data.vagas || "";
+    })
+    .catch(()=>{});
 }
 </script>
 </body>
