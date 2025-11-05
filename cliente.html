@@ -1,4 +1,4 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -26,9 +26,8 @@ header{
   color:white;padding:8px 12px;font-weight:bold;
   display:flex;align-items:center;justify-content:space-between;
   border-bottom:2px solid #3a65c9;
+  font-size:15px;
 }
-header img{width:22px;height:22px;margin-right:6px;}
-header span{display:flex;align-items:center;gap:6px;font-size:15px;}
 #nudgeBtn{
   background:linear-gradient(180deg,#ffec90,#ffd000);
   border:none;border-radius:6px;padding:5px 10px;cursor:pointer;
@@ -74,8 +73,8 @@ button.send{
 
 <div class="chat" id="chatBox">
   <header>
-    <span><img src="https://cdn-icons-png.flaticon.com/512/236/236832.png">Cliente</span>
-    <button id="nudgeBtn">💥 Nudge</button>
+    <span>Cliente</span>
+    <button id="nudgeBtn">Nudge</button>
   </header>
 
   <div class="avatars">
@@ -175,7 +174,7 @@ db.ref("chat").on("child_removed",snap=>{
 // --- DIGITANDO ---
 db.ref("typing").on("value",snap=>{
   const val=snap.val();
-  typingDiv.textContent=(val&&val.user!=="cliente")?"✍️ atendente está digitando...":"";
+  typingDiv.textContent=(val&&val.user!=="cliente")?"Atendente está digitando...":"";
 });
 input.addEventListener("input",()=>{
   db.ref("typing").set({user:"cliente"});
