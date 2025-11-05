@@ -1,4 +1,4 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -15,9 +15,10 @@ body {
   margin: 0;
 }
 .chat-container {
-  width: 380px;
-  max-width: 95%;
-  height: 600px;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  max-height: 700px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -27,7 +28,7 @@ body {
 }
 .chat-header {
   color: white;
-  padding: 15px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,11 +61,11 @@ body {
 }
 .messages {
   flex: 1;
-  padding: 15px;
+  padding: 12px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   background-color: #eef3f7;
 }
 .message {
@@ -100,28 +101,10 @@ body {
   border-radius: 50%;
   object-fit: cover;
 }
-.lixeira {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: var(--theme-color, #8b008b);
-  color: #fff;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  font-size: 13px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.bubble:hover .lixeira {
-  display: flex;
-}
 .input-area {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   border-top: 1px solid #ddd;
   background-color: var(--theme-color, #8b008b);
   transition: background 0.3s ease;
@@ -138,15 +121,13 @@ body {
 }
 .input-area button {
   border: none;
-  padding: 10px 14px;
-  margin-left: 10px;
+  padding: 10px 12px;
+  margin-left: 8px;
   border-radius: 50%;
   cursor: pointer;
   background-color: #fff;
   color: var(--theme-color, #8b008b);
-  font-weight: bold;
   font-size: 18px;
-  transition: 0.2s;
 }
 #micBtn.recording {
   animation: pulse 1s infinite;
@@ -155,6 +136,12 @@ body {
   0% { background-color: var(--theme-color, #8b008b); transform: scale(1);}
   50% { background-color: #ff0000; transform: scale(1.2);}
   100% { background-color: var(--theme-color, #8b008b); transform: scale(1);}
+}
+@media (max-width: 600px) {
+  .chat-container {
+    height: 100vh;
+    border-radius: 0;
+  }
 }
 </style>
 </head>
@@ -203,6 +190,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database().ref("chatRealtimeTemp");
 
+// LIMPA CHAT AO ENTRAR
+db.remove();
+
 // ELEMENTOS
 const header = document.getElementById("chatHeader");
 const colorBtns = document.querySelectorAll(".color-btn");
@@ -228,14 +218,14 @@ fileInput.addEventListener("change", e => {
   reader.readAsDataURL(file);
 });
 
-// Exibe a foto do cliente no topo e nas mensagens dele
+// Exibe a foto do cliente no chat
 let fotoCliente = "https://cdn-icons-png.flaticon.com/512/6009/6009864.png";
 db.child("fotoPerfilCliente").on("value", snap => {
   const url = snap.val();
   if (url) fotoCliente = url;
 });
 
-// === COR ===
+// === COR DO TEMA ===
 const savedColor = localStorage.getItem("chatColorAtendente");
 if (savedColor) setTheme(savedColor);
 colorBtns.forEach(btn => {
@@ -304,12 +294,8 @@ db.on("child_added", snap => {
   const msg = snap.val();
   if (msg.type) addMessage(snap.key, msg);
 });
-db.on("child_removed", snap => {
-  const el = document.getElementById(snap.key);
-  if (el) el.remove();
-});
 
-// === MOSTRA MENSAGENS COM FOTO ===
+// === MOSTRA ===
 function addMessage(id, msg) {
   const div = document.createElement("div");
   div.classList.add("message", msg.sender === "atendente" ? "sent" : "received");
@@ -321,9 +307,9 @@ function addMessage(id, msg) {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble");
   if (msg.type === "text") {
-    bubble.innerHTML = `${msg.text}<div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+    bubble.textContent = msg.text;
   } else if (msg.type === "audio") {
-    bubble.innerHTML = `<audio controls style="width:200px;"><source src="${msg.data}" type="audio/webm"></audio><div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+    bubble.innerHTML = `<audio controls style="width:200px;"><source src="${msg.data}" type="audio/webm"></audio>`;
   }
 
   div.appendChild(img);
@@ -331,16 +317,6 @@ function addMessage(id, msg) {
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
 }
-
-// === EXCLUI ===
-function deleteMsg(id) {
-  firebase.database().ref("chatRealtimeTemp/" + id).remove();
-}
-
-// === LIMPA CHAT AO SAIR ===
-window.addEventListener("beforeunload", () => {
-  db.remove();
-});
 </script>
 </body>
 </html>
