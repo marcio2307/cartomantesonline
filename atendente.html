@@ -15,10 +15,9 @@ body {
   margin: 0;
 }
 .chat-container {
-  width: 100%;
-  max-width: 420px;
-  height: 100vh;
-  max-height: 700px;
+  width: 380px;
+  max-width: 95%;
+  height: 600px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -28,7 +27,7 @@ body {
 }
 .chat-header {
   color: white;
-  padding: 12px;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -61,11 +60,11 @@ body {
 }
 .messages {
   flex: 1;
-  padding: 12px;
+  padding: 15px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   background-color: #eef3f7;
 }
 .message {
@@ -89,7 +88,7 @@ body {
 .message.sent .bubble {
   border-bottom-right-radius: 5px;
   color: #fff;
-  background-color: var(--theme-color, #8b008b);
+  background-color: var(--theme-color, #6a5acd);
 }
 .message.received .bubble {
   background-color: #fff;
@@ -101,12 +100,33 @@ body {
   border-radius: 50%;
   object-fit: cover;
 }
+.lixeira {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--theme-color, #6a5acd);
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 13px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.bubble:hover .lixeira {
+  display: flex;
+  opacity: 1;
+}
 .input-area {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 10px;
   border-top: 1px solid #ddd;
-  background-color: var(--theme-color, #8b008b);
+  background-color: var(--theme-color, #6a5acd);
   transition: background 0.3s ease;
 }
 .input-area input {
@@ -121,27 +141,23 @@ body {
 }
 .input-area button {
   border: none;
-  padding: 10px 12px;
-  margin-left: 8px;
+  padding: 10px 14px;
+  margin-left: 10px;
   border-radius: 50%;
   cursor: pointer;
   background-color: #fff;
-  color: var(--theme-color, #8b008b);
+  color: var(--theme-color, #6a5acd);
+  font-weight: bold;
   font-size: 18px;
+  transition: 0.2s;
 }
 #micBtn.recording {
   animation: pulse 1s infinite;
 }
 @keyframes pulse {
-  0% { background-color: var(--theme-color, #8b008b); transform: scale(1);}
+  0% { background-color: var(--theme-color, #6a5acd); transform: scale(1);}
   50% { background-color: #ff0000; transform: scale(1.2);}
-  100% { background-color: var(--theme-color, #8b008b); transform: scale(1);}
-}
-@media (max-width: 600px) {
-  .chat-container {
-    height: 100vh;
-    border-radius: 0;
-  }
+  100% { background-color: var(--theme-color, #6a5acd); transform: scale(1);}
 }
 </style>
 </head>
@@ -153,7 +169,7 @@ body {
       <h3>Atendente</h3>
     </div>
     <div class="color-options">
-      <div class="color-btn" style="background:#8b008b;" data-color="#8b008b"></div>
+      <div class="color-btn" style="background:#6a5acd;" data-color="#6a5acd"></div>
       <div class="color-btn" style="background:#ff69b4;" data-color="#ff69b4"></div>
       <div class="color-btn" style="background:#00bfa5;" data-color="#00bfa5"></div>
       <div class="color-btn" style="background:#ffa500;" data-color="#ffa500"></div>
@@ -174,9 +190,6 @@ body {
 
 <input type="file" id="fileInput" accept="image/*" style="display:none"/>
 
-<audio id="sendSound" src="https://assets.mixkit.co/active_storage/sfx/2019/09/10/sfx-3-709.mp3"></audio>
-<audio id="receiveSound" src="https://assets.mixkit.co/active_storage/sfx/2019/09/10/sfx-3-710.mp3"></audio>
-
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -191,10 +204,9 @@ const firebaseConfig = {
   appId: "1:431833480939:web:0ecb3777dc1c624f7b43d3"
 };
 firebase.initializeApp(firebaseConfig);
+const db = firebase.database().ref("chatRealtimeTemp");
 
-const chatId = "chat_" + Math.random().toString(36).substring(2,10);
-const db = firebase.database().ref("chatsTemp/" + chatId);
-
+// === ELEMENTOS ===
 const header = document.getElementById("chatHeader");
 const colorBtns = document.querySelectorAll(".color-btn");
 const profilePic = document.getElementById("profilePic");
@@ -204,28 +216,28 @@ const input = document.getElementById("messageInput");
 const micBtn = document.getElementById("micBtn");
 const sendBtn = document.getElementById("sendBtn");
 const inputArea = document.getElementById("inputArea");
-const sendSound = document.getElementById("sendSound");
-const receiveSound = document.getElementById("receiveSound");
 
-let fotoCliente = "https://cdn-icons-png.flaticon.com/512/6009/6009864.png";
-db.child("fotoPerfilCliente").on("value", s => {
-  if (s.val()) fotoCliente = s.val();
-});
-
-// FOTO ATENDENTE
+// === FOTO DO PERFIL DO ATENDENTE ===
 profilePic.addEventListener("click", () => fileInput.click());
 fileInput.addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => {
-    profilePic.src = reader.result;
-    db.child("fotoPerfilAtendente").set(reader.result);
+    const base64 = reader.result;
+    profilePic.src = base64;
+    db.child("fotoPerfilAtendente").set(base64);
   };
   reader.readAsDataURL(file);
 });
 
-// COR DO TEMA
+// FOTO DO CLIENTE
+let fotoCliente = "https://cdn-icons-png.flaticon.com/512/6009/6009864.png";
+db.child("fotoPerfilCliente").on("value", snap => {
+  if (snap.val()) fotoCliente = snap.val();
+});
+
+// === COR ===
 const savedColor = localStorage.getItem("chatColorAtendente");
 if (savedColor) setTheme(savedColor);
 colorBtns.forEach(btn => {
@@ -242,7 +254,7 @@ function setTheme(color) {
   sendBtn.style.color = color;
 }
 
-// ENVIAR TEXTO
+// === ENVIAR MENSAGEM ===
 function sendMessage() {
   const text = input.value.trim();
   if (text) {
@@ -250,7 +262,6 @@ function sendMessage() {
     input.value = "";
     micBtn.style.display = "block";
     sendBtn.style.display = "none";
-    sendSound.play();
   }
 }
 sendBtn.addEventListener("click", sendMessage);
@@ -265,7 +276,7 @@ input.addEventListener("input", () => {
   micBtn.style.display = input.value.trim() ? "none" : "block";
 });
 
-// ÁUDIO
+// === ÁUDIO (SEM LIMITE DE TEMPO) ===
 let mediaRecorder, chunks = [];
 micBtn.addEventListener("click", async () => {
   if (!mediaRecorder || mediaRecorder.state === "inactive") {
@@ -280,7 +291,6 @@ micBtn.addEventListener("click", async () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         db.push({ sender: "atendente", type: "audio", data: reader.result });
-        sendSound.play();
       };
       reader.readAsDataURL(blob);
       micBtn.classList.remove("recording");
@@ -290,12 +300,17 @@ micBtn.addEventListener("click", async () => {
   }
 });
 
-// RECEBER
+// === RECEBE E EXIBE ===
 db.on("child_added", snap => {
   const msg = snap.val();
   if (msg.type) addMessage(snap.key, msg);
 });
+db.on("child_removed", snap => {
+  const el = document.getElementById(snap.key);
+  if (el) el.remove();
+});
 
+// === MOSTRA MENSAGENS COM FOTO ===
 function addMessage(id, msg) {
   const div = document.createElement("div");
   div.classList.add("message", msg.sender === "atendente" ? "sent" : "received");
@@ -306,15 +321,21 @@ function addMessage(id, msg) {
 
   const bubble = document.createElement("div");
   bubble.classList.add("bubble");
-  if (msg.type === "text") bubble.textContent = msg.text;
-  else if (msg.type === "audio") bubble.innerHTML = `<audio controls style="width:200px;"><source src="${msg.data}" type="audio/webm"></audio>`;
+  if (msg.type === "text") {
+    bubble.innerHTML = `${msg.text}<div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+  } else if (msg.type === "audio") {
+    bubble.innerHTML = `<audio controls style="width:200px;"><source src="${msg.data}" type="audio/webm"></audio><div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+  }
 
   div.appendChild(img);
   div.appendChild(bubble);
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
+}
 
-  if (msg.sender !== "atendente") receiveSound.play();
+// === EXCLUI ===
+function deleteMsg(id) {
+  firebase.database().ref("chatRealtimeTemp/" + id).remove();
 }
 </script>
 </body>
