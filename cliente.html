@@ -3,190 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atendente - Chat Estilo Orkut</title>
+<title>Cliente - MSN Messenger</title>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {box-sizing:border-box;margin:0;padding:0;}
 body {
-  font-family: 'Verdana', sans-serif;
-  background: #e8e0f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family:'Tahoma',sans-serif;
+  background:linear-gradient(180deg,#b2cfff,#e2ebff);
+  display:flex;justify-content:center;align-items:center;
+  height:100vh;
 }
-.chat-box {
-  width: 100%;
-  max-width: 420px;
-  height: 90vh;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(123, 104, 238, 0.3);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 2px solid #d1c4f0;
+.chat {
+  width:100%;max-width:420px;height:90vh;
+  background:#f2f6ff;border:2px solid #7ba8ff;border-radius:10px;
+  box-shadow:0 0 20px rgba(0,0,0,0.25);
+  display:flex;flex-direction:column;overflow:hidden;
 }
 header {
-  background: linear-gradient(90deg, #9d7df5, #c9a0ff);
-  color: white;
-  text-align: center;
-  padding: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  border-bottom: 2px solid #b99ff7;
+  background:linear-gradient(180deg,#6da6ff,#3e7bff);
+  color:white;text-shadow:1px 1px 2px #2a4ea8;
+  font-weight:bold;text-align:center;padding:10px;
+  border-bottom:1px solid #2a4ea8;
 }
 .messages {
-  flex: 1;
-  padding: 15px;
-  background: #f9f7ff;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  scroll-behavior: smooth;
+  flex:1;padding:15px;background:#e9f0ff;
+  overflow-y:auto;display:flex;flex-direction:column;gap:10px;
+  scroll-behavior:smooth;
 }
 .message {
-  position: relative;
-  padding: 10px 14px;
-  border-radius: 14px;
-  max-width: 75%;
-  font-size: 15px;
-  word-wrap: break-word;
-  line-height: 1.4;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-}
-.atendente {
-  background: #d4c4ff;
-  color: #2c005f;
-  align-self: flex-end;
-  border-bottom-right-radius: 2px;
+  max-width:75%;padding:10px 14px;border-radius:16px;
+  position:relative;font-size:14px;line-height:1.4;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
 }
 .cliente {
-  background: #fff;
-  border: 1px solid #d0bff3;
-  color: #3b2a73;
-  align-self: flex-start;
-  border-bottom-left-radius: 2px;
+  background:#b4d2ff;color:#002f77;align-self:flex-end;
+  border-bottom-right-radius:2px;
+}
+.atendente {
+  background:#fff;border:1px solid #b5c9ff;color:#1b2e66;
+  align-self:flex-start;border-bottom-left-radius:2px;
 }
 .delete-btn {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: #ff69b4;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 11px;
-  cursor: pointer;
-  display: none;
+  position:absolute;top:-6px;right:-6px;
+  background:#ff3b3b;color:#fff;border:none;
+  border-radius:50%;width:18px;height:18px;font-size:11px;
+  cursor:pointer;display:none;
 }
-.message:hover .delete-btn {
-  display: block;
-}
+.message:hover .delete-btn {display:block;}
 .input-area {
-  display: flex;
-  padding: 10px;
-  background: #f0eaff;
-  border-top: 2px solid #d0bff3;
+  display:flex;padding:10px;background:#dce6ff;
+  border-top:1px solid #aac2ff;
 }
 input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #c6b3f9;
-  border-radius: 20px;
-  background: #fff;
-  color: #3b2a73;
-  font-size: 15px;
-  outline: none;
+  flex:1;padding:10px;border-radius:20px;border:1px solid #7ba8ff;
+  background:#fff;font-size:14px;outline:none;
 }
 button {
-  background: #a37cf8;
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 20px;
-  padding: 10px 16px;
-  margin-left: 8px;
-  cursor: pointer;
-  transition: 0.2s;
+  margin-left:8px;border:none;
+  background:linear-gradient(180deg,#6da6ff,#3e7bff);
+  color:white;font-weight:bold;border-radius:20px;
+  padding:10px 16px;cursor:pointer;transition:0.2s;
 }
-button:hover { background: #b492fa; }
+button:hover {background:#4c8aff;}
+.typing {font-size:12px;color:#444;margin-left:10px;}
 </style>
 </head>
 <body>
 
-<div class="chat-box">
-  <header>🌸 Atendente - Cartomantes Online</header>
+<div class="chat">
+  <header>💬 Cliente - MSN Messenger</header>
   <div id="messages" class="messages"></div>
-
+  <div id="typing" class="typing"></div>
   <div class="input-area">
-    <input type="text" id="msgInput" placeholder="Escreva sua resposta...">
-    <button onclick="sendMessage()">ENVIAR</button>
+    <input id="msgInput" type="text" placeholder="Digite sua mensagem...">
+    <button onclick="sendMessage()">Enviar</button>
   </div>
 </div>
 
+<audio id="sendSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+<audio id="receiveSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
+
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyA7XSLTDxayTOczs7-sW5s0_nx7nkDgVo",
-  authDomain: "coletivo2025-9de23.firebaseapp.com",
-  databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com",
-  projectId: "coletivo2025-9de23",
-  storageBucket: "coletivo2025-9de23.appspot.com",
-  messagingSenderId: "740866367489",
-  appId: "1:740866367489:web:963e3f5be80cb35a71e000"
+const firebaseConfig={
+  apiKey:"AIzaSyA7XSLTDxayTOczs7-sW5s0_nx7nkDgVo",
+  authDomain:"coletivo2025-9de23.firebaseapp.com",
+  databaseURL:"https://coletivo2025-9de23-default-rtdb.firebaseio.com",
+  projectId:"coletivo2025-9de23",
+  storageBucket:"coletivo2025-9de23.appspot.com",
+  messagingSenderId:"740866367489",
+  appId:"1:740866367489:web:963e3f5be80cb35a71e000"
 };
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const messagesDiv = document.getElementById("messages");
-const input = document.getElementById("msgInput");
+const db=firebase.database();
+const messagesDiv=document.getElementById("messages");
+const input=document.getElementById("msgInput");
+const typingDiv=document.getElementById("typing");
+const sendSound=document.getElementById("sendSound");
+const receiveSound=document.getElementById("receiveSound");
 
-db.ref("chat").on("child_added", snap => {
-  const msg = snap.val();
-  const id = snap.key;
-  if(!msg || !msg.text || !msg.user) return;
-
-  const div = document.createElement("div");
-  div.classList.add("message", msg.user);
-  div.textContent = msg.text;
-
-  if (msg.user === "atendente") {
-    const del = document.createElement("button");
-    del.textContent = "×";
-    del.className = "delete-btn";
-    del.onclick = () => db.ref("chat/" + id).remove();
+// Recebe mensagens em tempo real
+db.ref("chat").on("child_added",snap=>{
+  const msg=snap.val(),id=snap.key;
+  if(!msg||!msg.text) return;
+  const div=document.createElement("div");
+  div.classList.add("message",msg.user);
+  div.textContent=msg.text;
+  if(msg.user==="cliente"){
+    const del=document.createElement("button");
+    del.textContent="×";
+    del.className="delete-btn";
+    del.onclick=()=>db.ref("chat/"+id).remove();
     div.appendChild(del);
+    sendSound.play();
+  } else {
+    receiveSound.play();
   }
-
   messagesDiv.appendChild(div);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  messagesDiv.scrollTop=messagesDiv.scrollHeight;
 });
 
-db.ref("chat").on("child_removed", snap => {
-  const removed = snap.val();
-  const all = messagesDiv.querySelectorAll(".message");
-  all.forEach(el => {
-    if (el.textContent.includes(removed.text)) el.remove();
+// Apagar mensagem
+db.ref("chat").on("child_removed",snap=>{
+  const removed=snap.val();
+  document.querySelectorAll(".message").forEach(el=>{
+    if(el.textContent.includes(removed.text)) el.remove();
   });
 });
 
+// Mostra "digitando..."
+db.ref("typing/atendente").on("value",snap=>{
+  typingDiv.textContent = snap.val() ? "✍️ Atendente está digitando..." : "";
+});
+
+// Enviar mensagem
 function sendMessage(){
-  const text = input.value.trim();
+  const text=input.value.trim();
   if(!text) return;
-  db.ref("chat").push({ user: "atendente", text });
-  input.value = "";
+  db.ref("chat").push({user:"cliente",text});
+  input.value="";
+  db.ref("typing/cliente").set(false);
 }
-input.addEventListener("keypress", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    sendMessage();
-  }
+
+// Detectar digitação
+input.addEventListener("input",()=>{
+  db.ref("typing/cliente").set(true);
+  setTimeout(()=>db.ref("typing/cliente").set(false),1000);
+});
+input.addEventListener("keypress",e=>{
+  if(e.key==="Enter"){e.preventDefault();sendMessage();}
 });
 </script>
 </body>
