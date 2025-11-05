@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MSN Messenger</title>
+<title>MSN - Cliente</title>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -23,47 +22,27 @@ body{
   border-radius:8px;box-shadow:0 0 25px rgba(0,0,0,0.3);
   display:flex;flex-direction:column;overflow:hidden;
 }
-
-/* ======== Cabeçalho estilo MSN ======== */
 header{
   background:linear-gradient(180deg,#9dc1ff,#598aff);
   color:white;padding:6px 10px;font-weight:bold;
   display:flex;align-items:center;justify-content:space-between;
   border-bottom:2px solid #4979d1;
-  text-shadow:1px 1px 2px #325cba;
 }
-header .title{
-  font-size:15px;
-}
-header img.icon{
-  width:22px;height:22px;margin-right:5px;vertical-align:middle;
-}
-header .menu-icons img{
-  width:22px;height:22px;margin-left:5px;opacity:0.8;cursor:pointer;
-}
-
-/* ======== Avatares ======== */
+header img{width:22px;height:22px;vertical-align:middle;margin-right:5px;}
+header span{font-size:15px;}
 .avatars{
-  background:#e5edff;
-  display:flex;justify-content:space-between;
-  align-items:center;padding:8px 12px;
-  border-bottom:1px solid #aac2ff;
+  background:#e5edff;display:flex;justify-content:space-between;
+  align-items:center;padding:8px 12px;border-bottom:1px solid #aac2ff;
 }
-.avatars img{
-  width:60px;height:60px;border-radius:10px;border:2px solid #598aff;
-}
-
-/* ======== Mensagens ======== */
+.avatars img{width:60px;height:60px;border-radius:10px;border:2px solid #598aff;}
 .messages{
-  flex:1;padding:15px;background:#eef3ff;
-  overflow-y:auto;display:flex;flex-direction:column;gap:10px;
-  scroll-behavior:smooth;
+  flex:1;padding:15px;background:#eef3ff;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;
 }
 .message{
   max-width:75%;padding:10px 14px;border-radius:16px;
   position:relative;font-size:14px;line-height:1.4;
-  box-shadow:0 1px 3px rgba(0,0,0,0.15);
-  word-wrap:break-word;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);word-wrap:break-word;
 }
 .cliente{
   background:#b4d2ff;color:#002f77;align-self:flex-end;
@@ -73,87 +52,43 @@ header .menu-icons img{
   background:#fff;border:1px solid #b5c9ff;color:#1b2e66;
   align-self:flex-start;border-bottom-left-radius:2px;
 }
-.delete-btn{
-  position:absolute;top:-6px;right:-6px;
-  background:#ff3b3b;color:#fff;border:none;
-  border-radius:50%;width:18px;height:18px;font-size:11px;
-  cursor:pointer;display:none;
-}
-.message:hover .delete-btn{display:block;}
-
-/* ======== Área inferior ======== */
+.delete-btn{display:none;}
 .tools{
-  background:#dfe8ff;padding:6px 10px;
-  display:flex;align-items:center;gap:8px;
+  background:#dfe8ff;padding:6px 10px;display:flex;align-items:center;gap:8px;
   border-top:1px solid #aac2ff;
 }
-.tools button{
-  background:none;border:none;cursor:pointer;
-  font-size:18px;
-}
-.tools button:hover{transform:scale(1.2);}
-
+.tools button{background:none;border:none;cursor:pointer;font-size:18px;}
 .input-area{
-  display:flex;padding:8px;background:#dce6ff;
-  border-top:1px solid #aac2ff;
+  display:flex;padding:8px;background:#dce6ff;border-top:1px solid #aac2ff;
 }
 input{
   flex:1;padding:10px;border-radius:20px;border:1px solid #7ba8ff;
   background:#fff;font-size:14px;outline:none;
 }
 button.send{
-  margin-left:8px;border:none;
-  background:linear-gradient(180deg,#6da6ff,#3e7bff);
-  color:white;font-weight:bold;border-radius:20px;
-  padding:10px 16px;cursor:pointer;transition:0.2s;
+  margin-left:8px;border:none;background:linear-gradient(180deg,#6da6ff,#3e7bff);
+  color:white;font-weight:bold;border-radius:20px;padding:10px 16px;cursor:pointer;
 }
-button.send:hover{background:#4c8aff;}
-
 .typing{font-size:12px;color:#444;margin-left:10px;}
-.user-select{
-  padding:6px;text-align:center;background:#e0ebff;border-bottom:1px solid #aac2ff;
-}
-.user-select select{
-  padding:5px 8px;border-radius:6px;border:1px solid #7ba8ff;background:white;
-}
 </style>
 </head>
 <body>
 
 <div class="chat">
   <header>
-    <div class="title">
-      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/732/732222.png"> MSN Messenger
-    </div>
-    <div class="menu-icons">
-      <img src="https://cdn-icons-png.flaticon.com/512/709/709496.png">
-      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png">
-      <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png">
-      <img src="https://cdn-icons-png.flaticon.com/512/5977/5977582.png">
-    </div>
+    <span><img src="https://cdn-icons-png.flaticon.com/512/732/732222.png"> MSN - Cliente</span>
   </header>
 
   <div class="avatars">
-    <img src="https://cdn-icons-png.flaticon.com/512/194/194938.png" alt="Atendente">
-    <span>💬 Atendente e Cliente</span>
-    <img src="https://cdn-icons-png.flaticon.com/512/236/236832.png" alt="Cliente">
-  </div>
-
-  <div class="user-select">
-    <label for="user">Entrar como:</label>
-    <select id="user">
-      <option value="cliente">Cliente</option>
-      <option value="atendente">Atendente</option>
-    </select>
+    <img src="https://cdn-icons-png.flaticon.com/512/236/236832.png">
+    <span>💬 Cliente conversando com Atendente</span>
+    <img src="https://cdn-icons-png.flaticon.com/512/194/194938.png">
   </div>
 
   <div id="messages" class="messages"></div>
   <div id="typing" class="typing"></div>
 
   <div class="tools">
-    <button onclick="formatText('bold')"><b>B</b></button>
-    <button onclick="formatText('italic')"><i>I</i></button>
-    <button onclick="formatText('underline')"><u>U</u></button>
     <button onclick="insertEmoji('😀')">😀</button>
     <button onclick="insertEmoji('😂')">😂</button>
     <button onclick="insertEmoji('😍')">😍</button>
@@ -166,7 +101,6 @@ button.send:hover{background:#4c8aff;}
   </div>
 </div>
 
-<!-- Sons clássicos -->
 <audio id="sendSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
 <audio id="receiveSound" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
 
@@ -182,71 +116,46 @@ const firebaseConfig={
 };
 firebase.initializeApp(firebaseConfig);
 const db=firebase.database();
-
 const messagesDiv=document.getElementById("messages");
 const input=document.getElementById("msgInput");
 const typingDiv=document.getElementById("typing");
-const userSelect=document.getElementById("user");
 const sendSound=document.getElementById("sendSound");
 const receiveSound=document.getElementById("receiveSound");
 
-let formatting={bold:false,italic:false,underline:false};
-
-function formatText(type){
-  formatting[type]=!formatting[type];
-  input.style.fontWeight=formatting.bold?'bold':'normal';
-  input.style.fontStyle=formatting.italic?'italic':'normal';
-  input.style.textDecoration=formatting.underline?'underline':'none';
-}
 function insertEmoji(e){input.value+=e;input.focus();}
 
-// Receber mensagens
+// Receber
 db.ref("chat").on("child_added",snap=>{
   const msg=snap.val(),id=snap.key;
   if(!msg||!msg.text)return;
   const div=document.createElement("div");
   div.classList.add("message",msg.user);
   div.innerHTML=msg.text;
-  const del=document.createElement("button");
-  del.textContent="×";del.className="delete-btn";
-  del.onclick=()=>db.ref("chat/"+id).remove();
-  div.appendChild(del);
   messagesDiv.appendChild(div);
   messagesDiv.scrollTop=messagesDiv.scrollHeight;
-  if(msg.user!==userSelect.value)receiveSound.play();
+  if(msg.user!=="cliente")receiveSound.play();
   else sendSound.play();
-});
-
-// Apagar mensagem
-db.ref("chat").on("child_removed",snap=>{
-  const removed=snap.val();
-  document.querySelectorAll(".message").forEach(el=>{
-    if(el.textContent.includes(removed.text))el.remove();
-  });
 });
 
 // Mostrar digitando
 db.ref("typing").on("value",snap=>{
   const val=snap.val();
-  if(val&&val.user!==userSelect.value)
-    typingDiv.textContent="✍️ "+val.user+" está digitando...";
+  if(val&&val.user!=="cliente")
+    typingDiv.textContent="✍️ atendente está digitando...";
   else typingDiv.textContent="";
 });
 
 // Enviar
 function sendMessage(){
-  let text=input.value.trim();
+  const text=input.value.trim();
   if(!text)return;
-  if(formatting.bold)text="<b>"+text+"</b>";
-  if(formatting.italic)text="<i>"+text+"</i>";
-  if(formatting.underline)text="<u>"+text+"</u>";
-  db.ref("chat").push({user:userSelect.value,text});
+  db.ref("chat").push({user:"cliente",text});
   input.value="";db.ref("typing").set(null);
 }
 
 // Digitação
 input.addEventListener("input",()=>{
-  db.ref("typing").set({user:userSelect.value});
+  db.ref("typing").set({user:"cliente"});
   setTimeout(()=>db.ref("typing").set(null),1000);
 });
 input.addEventListener("keypress",e=>{
