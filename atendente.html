@@ -2,37 +2,32 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Atendente Chat</title>
 <style>
-body {
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
   font-family: "Segoe UI", sans-serif;
   background-color: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-.chat-container {
-  width: 380px;
-  max-width: 95%;
-  height: 600px;
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 }
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
 .chat-header {
-  color: white;
-  padding: 15px;
+  color: #fff;
+  padding: 12px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  transition: background 0.3s ease;
+  background-color: var(--theme-color, #6a5acd);
 }
 .chat-header-left {
   display: flex;
@@ -43,8 +38,8 @@ body {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  cursor: pointer;
   border: 2px solid white;
+  cursor: pointer;
   object-fit: cover;
 }
 .color-options {
@@ -60,45 +55,45 @@ body {
 }
 .messages {
   flex: 1;
-  padding: 15px;
   overflow-y: auto;
+  padding: 10px;
+  background-color: #eef3f7;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #eef3f7;
 }
 .message {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 6px;
   max-width: 80%;
-}
-.message .bubble {
-  padding: 10px 14px;
-  border-radius: 15px;
-  position: relative;
-  font-size: 15px;
-  word-wrap: break-word;
-  transition: 0.2s;
 }
 .message.sent {
   align-self: flex-end;
   flex-direction: row-reverse;
 }
+.message img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.bubble {
+  position: relative;
+  padding: 10px 14px;
+  border-radius: 15px;
+  font-size: 15px;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
 .message.sent .bubble {
-  border-bottom-right-radius: 5px;
-  color: #fff;
   background-color: var(--theme-color, #6a5acd);
+  color: #fff;
+  border-bottom-right-radius: 5px;
 }
 .message.received .bubble {
   background-color: #fff;
   border-bottom-left-radius: 5px;
-}
-.message img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
 }
 .lixeira {
   position: absolute;
@@ -124,40 +119,32 @@ body {
 .input-area {
   display: flex;
   align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ddd;
   background-color: var(--theme-color, #6a5acd);
-  transition: background 0.3s ease;
+  padding: 10px;
 }
 .input-area input {
   flex: 1;
-  border: none;
   padding: 10px;
-  font-size: 15px;
+  border: none;
   border-radius: 20px;
-  background-color: #fff;
   outline: none;
-  color: #333;
+  font-size: 15px;
 }
 .input-area button {
   border: none;
-  padding: 10px 14px;
-  margin-left: 10px;
+  margin-left: 8px;
+  padding: 10px 12px;
   border-radius: 50%;
-  cursor: pointer;
   background-color: #fff;
   color: var(--theme-color, #6a5acd);
-  font-weight: bold;
   font-size: 18px;
-  transition: 0.2s;
+  cursor: pointer;
 }
-#micBtn.recording {
-  animation: pulse 1s infinite;
-}
+#micBtn.recording { animation: pulse 1s infinite; }
 @keyframes pulse {
-  0% { background-color: var(--theme-color, #6a5acd); transform: scale(1);}
-  50% { background-color: #ff0000; transform: scale(1.2);}
-  100% { background-color: var(--theme-color, #6a5acd); transform: scale(1);}
+  0% { transform: scale(1); background: var(--theme-color, #6a5acd); }
+  50% { transform: scale(1.2); background: red; }
+  100% { transform: scale(1); background: var(--theme-color, #6a5acd); }
 }
 </style>
 </head>
@@ -178,165 +165,49 @@ body {
       <div class="color-btn" style="background:#ff0000;" data-color="#ff0000"></div>
     </div>
   </div>
-
   <div class="messages" id="messages"></div>
-
-  <div class="input-area" id="inputArea">
-    <input type="text" id="messageInput" placeholder="Digite sua mensagem..." />
+  <div class="input-area">
+    <input type="text" id="messageInput" placeholder="Digite...">
     <button id="micBtn">🎤</button>
     <button id="sendBtn" style="display:none;">➤</button>
   </div>
 </div>
-
 <input type="file" id="fileInput" accept="image/*" style="display:none"/>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCJhW7_koTgk41BMRP_rS5C9QMG2hBk0LU",
-  authDomain: "coletivo2025-9de23.firebaseapp.com",
-  databaseURL: "https://coletivo2025-9de23-default-rtdb.firebaseio.com/",
-  projectId: "coletivo2025-9de23",
-  storageBucket: "coletivo2025-9de23.appspot.com",
-  messagingSenderId: "431833480939",
-  appId: "1:431833480939:web:0ecb3777dc1c624f7b43d3"
+const firebaseConfig={apiKey:"AIzaSyCJhW7_koTgk41BMRP_rS5C9QMG2hBk0LU",authDomain:"coletivo2025-9de23.firebaseapp.com",databaseURL:"https://coletivo2025-9de23-default-rtdb.firebaseio.com/",projectId:"coletivo2025-9de23",storageBucket:"coletivo2025-9de23.appspot.com",messagingSenderId:"431833480939",appId:"1:431833480939:web:0ecb3777dc1c624f7b43d3"};firebase.initializeApp(firebaseConfig);
+const db=firebase.database().ref("chatRealtimeTemp");
+const header=document.getElementById("chatHeader"),colorBtns=document.querySelectorAll(".color-btn"),profilePic=document.getElementById("profilePic"),fileInput=document.getElementById("fileInput"),messages=document.getElementById("messages"),input=document.getElementById("messageInput"),micBtn=document.getElementById("micBtn"),sendBtn=document.getElementById("sendBtn");
+
+profilePic.onclick=()=>fileInput.click();
+fileInput.onchange=e=>{
+ const file=e.target.files[0];if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{profilePic.src=reader.result;db.child("fotoPerfilAtendente").set(reader.result)};
+ reader.readAsDataURL(file);
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database().ref("chatRealtimeTemp");
-
-// === ELEMENTOS ===
-const header = document.getElementById("chatHeader");
-const colorBtns = document.querySelectorAll(".color-btn");
-const profilePic = document.getElementById("profilePic");
-const fileInput = document.getElementById("fileInput");
-const messages = document.getElementById("messages");
-const input = document.getElementById("messageInput");
-const micBtn = document.getElementById("micBtn");
-const sendBtn = document.getElementById("sendBtn");
-const inputArea = document.getElementById("inputArea");
-
-// === FOTO DO PERFIL DO ATENDENTE ===
-profilePic.addEventListener("click", () => fileInput.click());
-fileInput.addEventListener("change", e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    const base64 = reader.result;
-    profilePic.src = base64;
-    db.child("fotoPerfilAtendente").set(base64);
-  };
-  reader.readAsDataURL(file);
-});
-
-// FOTO DO CLIENTE
-let fotoCliente = "https://cdn-icons-png.flaticon.com/512/6009/6009864.png";
-db.child("fotoPerfilCliente").on("value", snap => {
-  if (snap.val()) fotoCliente = snap.val();
-});
-
-// === COR ===
-const savedColor = localStorage.getItem("chatColorAtendente");
-if (savedColor) setTheme(savedColor);
-colorBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const color = btn.dataset.color;
-    setTheme(color);
-    localStorage.setItem("chatColorAtendente", color);
-  });
-});
-function setTheme(color) {
-  document.documentElement.style.setProperty("--theme-color", color);
-  header.style.background = color;
-  inputArea.style.background = color;
-  sendBtn.style.color = color;
-}
-
-// === ENVIAR MENSAGEM ===
-function sendMessage() {
-  const text = input.value.trim();
-  if (text) {
-    db.push({ sender: "atendente", type: "text", text });
-    input.value = "";
-    micBtn.style.display = "block";
-    sendBtn.style.display = "none";
-  }
-}
-sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keypress", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-input.addEventListener("input", () => {
-  sendBtn.style.display = input.value.trim() ? "block" : "none";
-  micBtn.style.display = input.value.trim() ? "none" : "block";
-});
-
-// === ÁUDIO (SEM LIMITE DE TEMPO) ===
-let mediaRecorder, chunks = [];
-micBtn.addEventListener("click", async () => {
-  if (!mediaRecorder || mediaRecorder.state === "inactive") {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    micBtn.classList.add("recording");
-    chunks = [];
-    mediaRecorder.start();
-    mediaRecorder.ondataavailable = e => chunks.push(e.data);
-    mediaRecorder.onstop = () => {
-      const blob = new Blob(chunks, { type: "audio/webm" });
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        db.push({ sender: "atendente", type: "audio", data: reader.result });
-      };
-      reader.readAsDataURL(blob);
-      micBtn.classList.remove("recording");
-    };
-  } else {
-    mediaRecorder.stop();
-  }
-});
-
-// === RECEBE E EXIBE ===
-db.on("child_added", snap => {
-  const msg = snap.val();
-  if (msg.type) addMessage(snap.key, msg);
-});
-db.on("child_removed", snap => {
-  const el = document.getElementById(snap.key);
-  if (el) el.remove();
-});
-
-// === MOSTRA MENSAGENS COM FOTO ===
-function addMessage(id, msg) {
-  const div = document.createElement("div");
-  div.classList.add("message", msg.sender === "atendente" ? "sent" : "received");
-  div.id = id;
-
-  const img = document.createElement("img");
-  img.src = msg.sender === "atendente" ? profilePic.src : fotoCliente;
-
-  const bubble = document.createElement("div");
-  bubble.classList.add("bubble");
-  if (msg.type === "text") {
-    bubble.innerHTML = `${msg.text}<div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
-  } else if (msg.type === "audio") {
-    bubble.innerHTML = `<audio controls style="width:200px;"><source src="${msg.data}" type="audio/webm"></audio><div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
-  }
-
-  div.appendChild(img);
-  div.appendChild(bubble);
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-// === EXCLUI ===
-function deleteMsg(id) {
-  firebase.database().ref("chatRealtimeTemp/" + id).remove();
-}
+let fotoCliente="https://cdn-icons-png.flaticon.com/512/6009/6009864.png";
+db.child("fotoPerfilCliente").on("value",s=>{if(s.val())fotoCliente=s.val()});
+function setTheme(c){document.documentElement.style.setProperty("--theme-color",c);header.style.background=c;}
+const saved=localStorage.getItem("chatColorAtendente");if(saved)setTheme(saved);
+colorBtns.forEach(b=>b.onclick=()=>{setTheme(b.dataset.color);localStorage.setItem("chatColorAtendente",b.dataset.color)});
+function sendMessage(){const t=input.value.trim();if(t){db.push({sender:"atendente",type:"text",text:t});input.value="";micBtn.style.display="block";sendBtn.style.display="none";}}
+sendBtn.onclick=sendMessage;
+input.oninput=()=>{sendBtn.style.display=input.value.trim()?"block":"none";micBtn.style.display=input.value.trim()?"none":"block";};
+input.onkeypress=e=>{if(e.key==="Enter"){e.preventDefault();sendMessage();}};
+let mediaRecorder,chunks=[];
+micBtn.onclick=async()=>{if(!mediaRecorder||mediaRecorder.state==="inactive"){const stream=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(stream);micBtn.classList.add("recording");chunks=[];mediaRecorder.start();mediaRecorder.ondataavailable=e=>chunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(chunks,{type:"audio/webm"});const r=new FileReader();r.onloadend=()=>db.push({sender:"atendente",type:"audio",data:r.result});r.readAsDataURL(blob);micBtn.classList.remove("recording");};}else mediaRecorder.stop();};
+db.on("child_added",s=>{const m=s.val();if(m.type)addMessage(s.key,m);});
+db.on("child_removed",s=>{const el=document.getElementById(s.key);if(el)el.remove();});
+function addMessage(id,m){const d=document.createElement("div");d.classList.add("message",m.sender==="atendente"?"sent":"received");d.id=id;
+const img=document.createElement("img");img.src=m.sender==="atendente"?profilePic.src:fotoCliente;
+const b=document.createElement("div");b.classList.add("bubble");
+if(m.type==="text")b.innerHTML=`${m.text}<div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+else if(m.type==="audio")b.innerHTML=`<audio controls style="width:200px"><source src="${m.data}" type="audio/webm"></audio><div class='lixeira' onclick="deleteMsg('${id}')">🗑️</div>`;
+d.appendChild(img);d.appendChild(b);messages.appendChild(d);messages.scrollTop=messages.scrollHeight;}
+function deleteMsg(id){db.child(id).remove();}
 </script>
 </body>
 </html>
